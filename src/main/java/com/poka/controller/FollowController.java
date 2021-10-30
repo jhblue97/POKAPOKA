@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-import com.poka.domain.FollowDTO;
+import com.poka.domain.FollowVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -25,7 +25,7 @@ public class FollowController {
 
 	//팔로우 조회 화면
 	@GetMapping("/list1")
-	public ResponseEntity<FollowDTO> list1 (@PathVariable("userno") String userno) {
+	public ResponseEntity<FollowVO> list1 (@PathVariable("userno") String userno) {
 		
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	
@@ -40,7 +40,7 @@ public class FollowController {
 	
 	//팔로워 조회 화면
 	@GetMapping("/list2")
-	public ResponseEntity<FollowDTO> list2 (@PathVariable("userno") String userno) {
+	public ResponseEntity<FollowVO> list2 (@PathVariable("userno") String userno) {
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	

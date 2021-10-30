@@ -22,20 +22,23 @@ public class SoudanController {
 
 	@GetMapping("/list")
 	// 상담 목록
-	public void list(Criteria cri, Model model) {
+	public String list(Criteria cri, Model model) {
 
+		return null;
 	}
 
 	@GetMapping({ "/get", "/question" })
 	// 상담 상세
-	public void get() {
+	public String get() {
 
+		return null;
 	}
 
 	@GetMapping("/answer")
 	// 상담 질문 등록 화면
-	public void answer() {
+	public String answer() {
 
+		return null;
 	}
 
 	// 상담 질문 등록 처리

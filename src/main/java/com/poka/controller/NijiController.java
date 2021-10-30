@@ -25,23 +25,26 @@ public class NijiController {
 
 	     //게시물 목록 조회
 		@GetMapping("/list")
-		public void list(Criteria cri, Model model) {			
+		public String list(Criteria cri, Model model) {			
 			log.info(".....list().....");	
 			
+			return null;
 		}		
 		
 		 //게시물 검색 조회
 		@GetMapping("/search")
-		public void list(@RequestParam("search") String search,Criteria cri, Model model) {			
-			log.info(".....list().....");		
+		public String list(@RequestParam("search") String search,Criteria cri, Model model) {			
+			log.info(".....list().....");
+			return null;
 		}		
 		
 		//게시물 하나 조회
 		@GetMapping("/get")
-		public void get(@RequestParam("nno") Long nno, 
+		public String get(@RequestParam("nno") Long nno, 
 						@ModelAttribute("cri") Criteria cri,
 						Model model) {
-			log.info(".....get() or modify() .....");			
+			log.info(".....get() or modify() .....");	
+			return null;
 		}	
 		
 		//게시물 등록 화면
@@ -94,8 +97,9 @@ public class NijiController {
 		
 		 //결제 목록 조회
 				@GetMapping("/pay/list")
-			public void payList(Criteria cri, Model model) {			
-			log.info(".....list().....");		
+			public String payList(Criteria cri, Model model) {			
+			log.info(".....list().....");	
+			return null;
 		}	
 			
 				

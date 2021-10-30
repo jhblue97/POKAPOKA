@@ -21,7 +21,7 @@ public class UserController {
 
 	//로그인
 	@GetMapping("/login")
-	public void login(String error, String logout, Model model) {
+	public String login(String error, String logout, Model model) {
 		log.info("Login()");
 		log.info("error : " + error);
 		log.info("logout : " + logout);
@@ -32,24 +32,32 @@ public class UserController {
 		if(logout != null) {
 			model.addAttribute("logout", "로그아웃 되었습니다.");
 		}
+		
+		return null;
 	}
 	
 	//로그아웃
 	@GetMapping("/logout")
-	public void logout() {
+	public String logout() {
 		log.info("logout()");
+		
+		return null;
 	}
 	
 	//접근거부
 	@GetMapping("/accessError")
-	public void accessDenied(Authentication auth, Model model) {
+	public String accessDenied(Authentication auth, Model model) {
 		log.info("accessDenied()");
 		model.addAttribute("msg", "접근 거부 - 권한 부족");
+		return null;
 	}
 	
 	//회원 가입 화면
 	@GetMapping("/signIn")
-	public void signIn() {	}
+	public String signIn() {	
+		
+		return  null;
+	}
 	
 	//회원 가입
 	@PostMapping("/signIn")

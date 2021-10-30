@@ -28,12 +28,12 @@ public class ReportController {
 			
 		//신고 처리
 		@GetMapping({ "/process" })
-		public boolean get(@RequestParam("bno") Long bno, @RequestParam("bno") Long rno, 
+		public String get(@RequestParam("bno") Long bno, @RequestParam("bno") Long rno, 
 						@ModelAttribute("cri") Criteria cri,
 						Model model) {
 			log.info("process....()");
 		
-			return false;
+			return null;
 		}
 		
 	

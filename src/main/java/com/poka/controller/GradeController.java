@@ -40,8 +40,9 @@ public class GradeController {
 	
 	//등급 수정
 	@PostMapping("/update")
-	public void update(GradeVO vo,RedirectAttributes rttr) {
+	public String update(GradeVO vo,RedirectAttributes rttr) {
 		
+		return null;
 	}
 	
 	//등급 삭제

@@ -96,9 +96,10 @@ public class BoardController {
 	//boardList.jsp
 	//자유게시판 목록 화면
 	@GetMapping("/list")
-	public void list(Criteria cri, Model model) {
+	public String list(Criteria cri, Model model) {
 		log.info(".....list().....");
 		
+		return null;
 		
 		
 	}
