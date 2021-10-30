@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller //스프링이 빈으로 관리하도록 어노테이션 추가
 @Log4j
-@RequestMapping("/board/*") //브라우저에서 /board/~~ 로 들어오는 모든 요청을 처리하도록 어노테이션 추가
+@RequestMapping("/niji/*") //브라우저에서 /board/~~ 로 들어오는 모든 요청을 처리하도록 어노테이션 추가
 @AllArgsConstructor
 public class NijiController {
 

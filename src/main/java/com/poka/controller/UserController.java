@@ -1,5 +1,6 @@
 package com.poka.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,8 +53,10 @@ public class UserController {
 	
 	//회원 가입
 	@PostMapping("/signIn")
-	public void signIn(MemberVO vo) {
+	public String signIn(MemberVO vo) {
 		log.info("signIn()");
+		
+		return null;
 	}
 	
 	//userView.jsp
@@ -66,20 +69,23 @@ public class UserController {
 	
 	//아이디 체크
 	@GetMapping("/chk/id")
-	public void chkId() {
+	public ResponseEntity<String> chkId() {
 		
+		return null;
 	}
 	
 	//닉네임 체크
 	@GetMapping("/chk/nick")
-	public void chkNick() {
+	public ResponseEntity<String> chkNick() {
 		
+		return null;
 	}
 	
 	//이메일 체크
 	@PostMapping("/chk/email")
-	public void chkEmail() {
+	public ResponseEntity<String>  chkEmail() {
 		
+		return null;
 	}
 	
 	//userUpdate.jsp
@@ -91,26 +97,30 @@ public class UserController {
 	
 	//회원정보 수정
 	@PostMapping("/modify")
-	public void modify(MemberVO vo) {
+	public String modify(MemberVO vo) {
 		
+		return null;
 	}
 	
 	//비밀번호 변경
 	@PostMapping("/chg/pw")
-	public void chgPw() {
+	public ResponseEntity<String>  chgPw() {
 		
+		return null;
 	}
 	
 	//닉네임 변경
 	@PostMapping("/chg/nick")
-	public void chgNink() {
+	public ResponseEntity<String>  chgNink() {
 		
+		return null;
 	}
 	
 	//회원탈퇴
 	@PostMapping("/delete")
-	public void delete() {
+	public String delete() {
 		
+		return null;
 	}
 	
 }

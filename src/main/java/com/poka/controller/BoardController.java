@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.poka.domain.BoardAttachVO;
+
 import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
-import com.poka.domain.PageDTO;
 
 
 import lombok.AllArgsConstructor;
@@ -99,5 +98,8 @@ public class BoardController {
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
 		log.info(".....list().....");
+		
+		
+		
 	}
 }
