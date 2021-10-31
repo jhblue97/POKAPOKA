@@ -17,9 +17,8 @@ public class MemberVO {
 	private String  gender;
 	private Date    lastlogin;
 	private String  account;
-	private Date    regdate;
+	private Date    regDate;
 	private Date    updateDate;
 	private boolean enabled;
-	private boolean isLogin;
 	private List<AuthVO> authList;
 }

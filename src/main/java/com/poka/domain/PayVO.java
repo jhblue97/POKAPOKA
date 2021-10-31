@@ -16,7 +16,7 @@ public class PayVO {
 	private int pay_status;
 	private int price;
 	private List<TagVO> tagVO;
-	private Date   pay_Date;
+	private Date   payDate;
 	private Date   updateDate;
 	
 }

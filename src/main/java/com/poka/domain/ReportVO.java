@@ -8,8 +8,8 @@ public class ReportVO {
 	private String active_userid;
 	private String passive_userid;
 	private String bno;
-	private Date report_date;
-	private String report_category;
-	private int report_status;
+	private Date regDate;
+	private String category;
+	private int status;
 	
 }

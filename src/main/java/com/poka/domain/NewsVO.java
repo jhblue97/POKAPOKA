@@ -10,8 +10,8 @@ public class NewsVO {
 	private String   news_no;
 	private String news_title;
 	private String news_content;
-	private Date   news_regDate;
-	private Date   news_updateDate;
+	private Date   regDate;
+	private Date   updateDate;
 }
 
 

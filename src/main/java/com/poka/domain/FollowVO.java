@@ -8,6 +8,5 @@ public class FollowVO {
 	private String  follow_userid;
 	private String  follower_userid;
 	private String  profile;
-	private boolean isLogin;
-	private Date    regdate;
+	private Date    regDate;
 }

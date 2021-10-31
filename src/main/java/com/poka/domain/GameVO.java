@@ -10,7 +10,7 @@ public class GameVO {
 	private String game_img;
 	private String gameNm;
 	private String game_price;
-	private double avg_score;
+	private float avg_score;
 	private String game_des;
 	private String game_vid;
     private String game_company;
