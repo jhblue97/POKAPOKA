@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
-import com.poka.domain.UserVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -42,8 +41,8 @@ public class BoardController {
 		log.info(".....register().....");
 		
 		//첨부파일이 있는 경우 데이터베이스에 추가
-		if(board.getAttachList() != null) {
-			board.getAttachList().forEach(attach -> log.info(attach));
+		if(board.getAttach() != null) {
+			log.info(board.getAttach());
 		}
 		
 		rttr.addFlashAttribute("result", board.getBno());

@@ -13,7 +13,7 @@ public class UserVO {
 	private String  email;
 	private Date    birth;
 	private String  gradecode;
-	private String  img;
+	private UserAttachVO  user_img;
 	private String  gender;
 	private Date    lastlogin;
 	private String  account;

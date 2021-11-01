@@ -3,37 +3,37 @@ package com.poka.service;
 import java.util.List;
 
 import com.poka.domain.FollowVO;
+import com.poka.mapper.FollowMapper;
 
 public class FollowServiceImpl implements FollowService {
 
+	private FollowMapper followMapper;
+	
 	@Override
-	public boolean add(String userid) {
-		// TODO Auto-generated method stub
-		return false;
+	public void add(FollowVO follow) {
+		followMapper.insert(follow);
+		
 	}
 
 	@Override
 	public boolean delete(String fno) {
-		// TODO Auto-generated method stub
-		return false;
+		return followMapper.delete(fno) == 1 ? true : false;
 	}
 
 	@Override
 	public List<FollowVO> followList() {
-		// TODO Auto-generated method stub
-		return null;
+		return followMapper.getfollowList();
 	}
 
 	@Override
 	public List<FollowVO> followerList() {
-		// TODO Auto-generated method stub
-		return null;
+		return followMapper.getfollowerList();
 	}
 
 	@Override
-	public boolean followchk(FollowVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean followchk(FollowVO follow) {
+		
+		return followMapper.followchk(follow) == 1 ? true : false;
 	}
 
 }

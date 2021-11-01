@@ -20,10 +20,10 @@ public interface BoardMapper {
 	public int update(BoardVO board);
 	
 	//게시물 하나 삭제
-	public int delete(Long bno);
+	public int delete(String bno);
 	
 	//게시물 하나 조회
-	public BoardVO read(Long bno);
+	public BoardVO read(String bno);
 	
 	//게시물 등록 with select Key
 	public Integer insertSelectKey(BoardVO board);

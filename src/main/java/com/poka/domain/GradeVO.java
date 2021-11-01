@@ -1,12 +1,12 @@
 package com.poka.domain;
 
-public class GradeVO {
+import lombok.Data;
 
+@Data
+public class GradeVO {
 	private String grade_code;
 	private String grade_name;
-	private String grade_img;
+	private GradeAttachVO grade_img;
 	private long grade_lv;
-	
-	
 	
 }

@@ -1,5 +1,14 @@
 package com.poka.mapper;
 
-public interface FollowMapper {
+import java.util.List;
 
+import com.poka.domain.FollowVO;
+
+public interface FollowMapper {
+	public int insert(FollowVO follow);		//팔로우 추가
+	public int delete(String fno);		//팔로우 삭제
+	public List<FollowVO> getfollowList();		//팔로우 목록 조회
+	public List<FollowVO> getfollowerList();	//팔로워 목록 조회
+	public int followchk(FollowVO follow);	//팔로우 체크
+	
 }
