@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.poka.domain.BoardAttachVO;
 
+import lombok.Data;
+@Data
 public class NijiVO {
 
-	private BoardAttachVO boardAttachVO;
+	private NijiAttachVO nijiAttachVO;
 	private String   nno; //거래글 넘버
 	private String title; 
 	private String content;

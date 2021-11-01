@@ -3,9 +3,11 @@ package com.poka.domain;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Data;
+@Data
 public class PayVO {
 
-	private BoardAttachVO boardAttachVO;
+	private PayAttachVO payAttachVO;
 	private String   pno; //결제 넘버
 	private String   nno; //거래글 넘버
 	private String title; 

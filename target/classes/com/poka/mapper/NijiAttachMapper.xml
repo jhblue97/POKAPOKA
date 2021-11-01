@@ -3,29 +3,29 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.poka.mapper.PayAttachMapper">
+<mapper namespace="com.poka.mapper.NijiAttachMapper">
 
 
-	<select id="getOldFiles" resultType="com.poka.domain.PayAttachVO">
+	<select id="getOldFiles" resultType="com.poka.domain.NijiAttachVO">
         SELECT * 
-        FROM   p_Payattach 
+        FROM   p_Nijiattach 
         WHERE  uploadpath = TO_CHAR(SYSDATE - 1, 'yyyy\mm\dd') 
     </select>
     
 	<delete id="deleteAll">
-		DELETE p_Payattach WHERE pno = #{pno}
+		DELETE p_Nijiattach WHERE pno = #{pno}
 	</delete>
 	
 	<delete id="delete">
-		DELETE p_Payattach WHERE uuid = #{uuid}
+		DELETE p_Nijiattach WHERE uuid = #{uuid}
 	</delete>
 
-	<select id="findByBno" resultType="com.poka.domain.PayAttachVO">
-        SELECT * FROM p_Payattach WHERE pno = #{pno}
+	<select id="findByBno" resultType="com.poka.domain.NijiAttachVO">
+        SELECT * FROM p_Nijiattach WHERE nno = #{nno}
     </select>
 
 	<insert id="insert">
-		INSERT INTO p_Payattach 
+		INSERT INTO p_Nijiattach 
 		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno} )
     </insert>
     
