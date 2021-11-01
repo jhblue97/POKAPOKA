@@ -18,27 +18,23 @@ public class SoudanServiceImpl implements SoudanService {
 
 	@Override
 	public Object getList(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
+		return sMapper.getListWithPaging(cri);
 	}
 
 	@Override
 	public Object get(String qno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sMapper.read(qno);
 	}
 
 	@Override
 	public int register(SoudanVO qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sMapper.insert(qna);
 
 	}
 
 	@Override
 	public int modify(SoudanVO qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sMapper.update(qna);
 
 	}
 

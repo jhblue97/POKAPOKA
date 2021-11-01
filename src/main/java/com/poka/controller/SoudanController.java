@@ -53,7 +53,7 @@ public class SoudanController {
 		log.info("Regist answer");
 
 		if (qService.register(qna) == 1) {
-			rttr.addFlashAttribute("result", qna.getQno());
+			rttr.addFlashAttribute("result", "success");
 		}
 
 		return "redirect:/soudan/list";
@@ -67,7 +67,9 @@ public class SoudanController {
 	public String question(SoudanVO qna, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("Regist Question");
 
-		qService.modify(qna);
+		if (qService.modify(qna) == 1) {
+			rttr.addFlashAttribute("result", "success");
+		}
 
 		return "redirect:/soudan/get";
 	}
