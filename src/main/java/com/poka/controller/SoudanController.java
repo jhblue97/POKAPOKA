@@ -23,6 +23,7 @@ public class SoudanController {
 	@GetMapping("/list")
 	// 상담 목록
 	public String list(Criteria cri, Model model) {
+		log.info("상담 목록 조회"); // 동작 확인용
 
 		return null;
 	}
@@ -52,6 +53,6 @@ public class SoudanController {
 	// 상담 답변 등록 - 업데이트
 	public String question(SoudanVO qna, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 
-		return "redirec:/soudan/get";
+		return "redirect:/soudan/get";
 	}
 }

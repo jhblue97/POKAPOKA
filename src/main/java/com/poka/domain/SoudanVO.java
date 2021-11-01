@@ -2,8 +2,13 @@ package com.poka.domain;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class SoudanVO {
-	
+
 	private String qno;
 	private String questioner;
 	private String answerer;
@@ -12,6 +17,5 @@ public class SoudanVO {
 	private Date q_regDate;
 	private Date a_regDate;
 	private int status;
-	
-	
+
 }

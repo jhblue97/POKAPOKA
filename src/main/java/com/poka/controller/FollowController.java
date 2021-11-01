@@ -1,7 +1,5 @@
 package com.poka.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,8 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.poka.domain.FollowVO;
 
@@ -26,19 +25,17 @@ public class FollowController {
 
 	//팔로우 조회 화면
 	@GetMapping("/list1/{userid}")					
-	@PreAuthorize("principal.username == #myself")		//본인 확인
-	public ResponseEntity<FollowVO> list1(String myself,
-										  @PathVariable("userid") String userid,
-										  RedirectAttributes rttr) {
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<FollowVO> list1(@PathVariable("userid") String userid) {
 		
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	
 	}
 	
 	//팔로우 삭제 ajax
-	@PostMapping("/delete")
+	@PostMapping("/delete/{userid}/{fno}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> delete(@PathVariable("userid") String userid) {
+	public ResponseEntity<String> delete(@PathVariable("userid") String userid, @PathVariable("fno") String fno) {
 		
 		return null;
 	}
@@ -51,18 +48,18 @@ public class FollowController {
 	}
 	
 	//팔로우 추가
-	@PostMapping("/add")
+	@PostMapping("/add/{a_userid}/{p_userid}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> add() {
+	public ResponseEntity<String> add(@PathVariable("a_userid") String a_userid, @PathVariable("p_userid") String p_userid) {
 		
 		
 		return null;
 	}
 	
 	//팔로우 체크 ajax
-	@GetMapping("/chk")
+	@RequestMapping(method = RequestMethod.GET, value = "/chk/{p_userid}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> chk() {
+	public ResponseEntity<String> chk(@RequestBody FollowVO vo, @PathVariable("p_userid") String p_userid) {
 
 		return null;
 	}

@@ -32,7 +32,6 @@ public class ReportController {
 						@ModelAttribute("cri") Criteria cri,
 						Model model) {
 			log.info("process....()");
-		
 			return null;
 		}
 		

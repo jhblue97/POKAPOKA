@@ -1,20 +1,20 @@
 package com.poka.controller;
 
-import java.util.List;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
-
+import com.poka.domain.UserVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -46,7 +46,6 @@ public class BoardController {
 			board.getAttachList().forEach(attach -> log.info(attach));
 		}
 		
-		//boardService.register(board);
 		rttr.addFlashAttribute("result", board.getBno());
 		return "redirect:/board/list";
 	}
@@ -55,16 +54,11 @@ public class BoardController {
 	@PostMapping("/delete")
 	@PreAuthorize("principal.username == #writer")	//작성자 확인
 	public String delete(String writer,
-						 @RequestParam("bno") Long bno,
+						 @RequestParam("bno") String bno,
 						 @ModelAttribute("cri") Criteria cri,
 						 RedirectAttributes rttr) {
 		log.info(".....delete().....");
-		//List<BoardAttachVO> attachList = boardService.getAttachList(bno);
 		
-//		if(boardService.remove(bno)) {	//삭제에 성공한 경우
-//			deleteFiles(attachList);	//첨부파일 삭제
-//			rttr.addFlashAttribute("result", "success");
-//		}
 		return "redirect:/board/list" + cri.getListLink();
 	}
 	
@@ -76,8 +70,6 @@ public class BoardController {
 						 RedirectAttributes rttr) {
 		log.info(".....modify()....." + cri);
 		log.info(board);
-		
-	
 
 		return "redirect:/board/list" + cri.getListLink();
 	}
@@ -85,7 +77,7 @@ public class BoardController {
 	//boardView.jsp
 	//게시물 하나 조회, 게시물 수정 화면 이동
 	@GetMapping({ "/get", "/modify" })
-	public String get(@RequestParam("bno") Long bno, 
+	public String get(@RequestParam("bno") String bno, 
 					@ModelAttribute("cri") Criteria cri,
 					Model model) {
 		log.info(".....get() or modify() .....");
@@ -100,7 +92,13 @@ public class BoardController {
 		log.info(".....list().....");
 		
 		return null;
-		
-		
 	}
+	
+	//신고하기
+	@GetMapping("/report")
+	public ResponseEntity<String> reportAdd(@RequestBody BoardVO vo, @RequestParam("userid") String userid) {
+		
+		return null;
+	}
+	
 }

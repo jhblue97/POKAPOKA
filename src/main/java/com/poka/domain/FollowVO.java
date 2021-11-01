@@ -7,6 +7,6 @@ public class FollowVO {
 	private String fno;
 	private String  follow_userid;
 	private String  follower_userid;
-	private String  profile;
+	private String  img;
 	private Date    regDate;
 }

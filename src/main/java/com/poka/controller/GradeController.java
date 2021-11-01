@@ -1,6 +1,8 @@
 package com.poka.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,33 +23,38 @@ public class GradeController {
 	//gradeAdd.jsp
 	//등급 등록 화면
 	@GetMapping("/add")
+	@PreAuthorize("principal.username == #admin")		//관리자 확인
 	public String add() {
 		return null;
 	}
 	
 	//등급 등록
 	@PostMapping("/add")
-	public String add(GradeVO vo) {
+	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	public String add(String admin, GradeVO vo, RedirectAttributes rttr) {
 		return null;
 	}
 	
 	//gradeUpdate.jsp
 	//등급 수정 화면
 	@GetMapping("/update")
-	public String update() {
+	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	public String update(String admin, @RequestParam("gradeNo") String gradeNo) {
 		return null;
 	}
 	
 	//등급 수정
 	@PostMapping("/update")
-	public String update(GradeVO vo,RedirectAttributes rttr) {
+	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	public String update(String admin, GradeVO vo, RedirectAttributes rttr) {
 		
 		return null;
 	}
 	
 	//등급 삭제
 	@PostMapping("/delete")
-	public String delete(@RequestParam("gradeNo") String gradeNo,RedirectAttributes rttr) {
+	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	public String delete(String admin, @RequestParam("gradeNo") String gradeNo, RedirectAttributes rttr) {
 
 		return null;
 	}
@@ -55,7 +62,8 @@ public class GradeController {
 	//gradeList.jsp
 	//등급 기준 조회 화면
 	@GetMapping("/list")
-	public String list() {
+	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	public String list(String admin, Model model) {
 		return null;
 	}
 }
