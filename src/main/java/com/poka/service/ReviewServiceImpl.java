@@ -39,7 +39,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return rMapper.insert(vo);
 	}
 
-	@Transactional
 	@Override
 	public int modify(ReviewVO vo) {
 		// 리뷰 수정
