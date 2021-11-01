@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class NewsVO {
 	private String news_no;
 	private String news_title;
