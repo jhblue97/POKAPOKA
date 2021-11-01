@@ -5,9 +5,9 @@ import com.poka.domain.SoudanVO;
 
 public interface SoudanMapper {
 
-	public Object getListWithPaging(Criteria cri);
+	public SoudanVO getListWithPaging(Criteria cri);
 
-	public Object read(String qno);
+	public SoudanVO read(String qno);
 
 	public int insert(SoudanVO qna);
 

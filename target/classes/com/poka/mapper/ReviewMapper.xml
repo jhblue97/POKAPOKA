@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.poka.mapper.ReviewMapper">
+	<!-- 리뷰 리스트 -->
+	<select id="getList" resultType="com.poka.domain.ReviewVO"></select>
+	<!-- 단일 리뷰 -->
+	<select id="read" resultType="com.poka.domain.ReviewVO"></select>
+	<!-- 리뷰 작성 -->
+	<insert id="insert"></insert>
+	<!-- 리뷰 수정 -->
+	<update id="update"></update>
+	<!-- 리뷰 삭제 -->
+	<delete id="delete"></delete>
+</mapper>
