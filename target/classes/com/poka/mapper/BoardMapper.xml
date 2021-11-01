@@ -5,9 +5,58 @@
 
 <mapper namespace="com.poka.mapper.BoardMapper">
 
+	<select id="getTotalCount" resultType="int">
+        SELECT 	COUNT(*) FROM p_board
+        WHERE  	bno > 0
+    </select>
+
+	<select id="getListWithPaging" 
+	        resultType="com.poka.domain.BoardVO">
+	<![CDATA[
+        SELECT * 
+        FROM   ( SELECT /*+INDEX_DESC(p_board pk_board) */
+        				rownum rn, bno, title, content, writer,
+        				regDate, updateDate
+        		 FROM   p_board 
+        		 		rownum <= #{pageNum} * #{amount} ) 
+        WHERE  rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+    </select>
+    
+	<select id="getList" 
+	        resultType="com.poka.domain.BoardVO">
+	<![CDATA[
+        SELECT * FROM p_board WHERE bno > 0 ORDER BY bno DESC
+    ]]>
+    </select>
+    
+	<update id="update">
+		UPDATE p_board
+		SET    title = #{title},   content = #{content},
+		       writer = #{writer}, updateDate = SYSDATE
+		WHERE  bno = #{bno}
+    </update>
+    
+	<delete id="delete">
+		DELETE p_board WHERE bno = #{bno}
+	</delete>
+
+	<select id="read" resultType="com.poka.domain.BoardVO">
+        SELECT * FROM p_board WHERE bno = #{bno}
+    </select>
+
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="Long">
+			SELECT seq_board.NEXTVAL FROM dual
+		</selectKey>
+	
+		INSERT INTO p_board(bno, title, content, writer)
+		VALUES(#{bno}, #{title}, #{content}, #{writer} )
+    </insert>
+    
 	<insert id="insert">
-		INSERT INTO p_payattach 
-		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno} )
+		INSERT INTO p_board(bno, title, content, writer)
+		VALUES(seq_board.NEXTVAL, #{title}, #{content}, #{writer} )
     </insert>
     
 </mapper>

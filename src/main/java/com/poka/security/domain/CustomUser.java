@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import com.poka.domain.MemberVO;
+import com.poka.domain.UserVO;
 
 import lombok.Getter;
 
 @Getter
 public class CustomUser extends User {
 	private static final long serialVersionUID = 1L;
-	private MemberVO member;
+	private UserVO user;
 	
 	public CustomUser(String username, 
 					  String password, 
@@ -22,14 +22,14 @@ public class CustomUser extends User {
 		
 	}
 
-	public CustomUser(MemberVO member) {
-		super(member.getUserid() , 
-			  member.getUserpw(), 
-			  member.getAuthList()
+	public CustomUser(UserVO user) {
+		super(user.getUserid() , 
+			  user.getUserpw(), 
+			  user.getAuthList()
 			  		.stream()
 			  		.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
 			  		.collect(Collectors.toList()));
-		this.member = member;	
+		this.user = user;	
 	}
 }
 
