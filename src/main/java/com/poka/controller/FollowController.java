@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.FollowVO;
 
@@ -24,8 +25,11 @@ public class FollowController {
 	
 
 	//팔로우 조회 화면
-	@GetMapping("/list1")
-	public ResponseEntity<FollowVO> list1 (@PathVariable("userno") String userno) {
+	@GetMapping("/list1/{userid}")					
+	@PreAuthorize("principal.username == #myself")		//본인 확인
+	public ResponseEntity<FollowVO> list1(String myself,
+										  @PathVariable("userid") String userid,
+										  RedirectAttributes rttr) {
 		
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	
@@ -33,19 +37,22 @@ public class FollowController {
 	
 	//팔로우 삭제 ajax
 	@PostMapping("/delete")
-	public ResponseEntity<String> delete() {
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<String> delete(@PathVariable("userid") String userid) {
 		
 		return null;
 	}
 	
 	//팔로워 조회 화면
-	@GetMapping("/list2")
-	public ResponseEntity<FollowVO> list2 (@PathVariable("userno") String userno) {
+	@GetMapping("/list2/{userid}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<FollowVO> list2(@PathVariable("userid") String userid) {
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	
 	//팔로우 추가
 	@PostMapping("/add")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> add() {
 		
 		
@@ -54,6 +61,7 @@ public class FollowController {
 	
 	//팔로우 체크 ajax
 	@GetMapping("/chk")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> chk() {
 
 		return null;

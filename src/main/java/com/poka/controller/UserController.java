@@ -91,7 +91,7 @@ public class UserController {
 	
 	//이메일 체크
 	@PostMapping("/chk/email")
-	public ResponseEntity<String>  chkEmail() {
+	public ResponseEntity<String> chkEmail() {
 		
 		return null;
 	}
@@ -112,14 +112,14 @@ public class UserController {
 	
 	//비밀번호 변경
 	@PostMapping("/chg/pw")
-	public ResponseEntity<String>  chgPw() {
+	public ResponseEntity<String> chgPw() {
 		
 		return null;
 	}
 	
 	//닉네임 변경
 	@PostMapping("/chg/nick")
-	public ResponseEntity<String>  chgNink() {
+	public ResponseEntity<String> chgNink() {
 		
 		return null;
 	}
