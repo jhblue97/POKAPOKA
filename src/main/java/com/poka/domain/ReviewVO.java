@@ -2,11 +2,9 @@ package com.poka.domain;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class ReviewVO {
 
 	private String rno; // 리뷰ID. Re+시퀀스

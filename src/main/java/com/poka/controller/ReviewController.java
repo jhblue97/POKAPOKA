@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.poka.domain.Criteria;
 import com.poka.domain.ReviewPageDTO;
 import com.poka.domain.ReviewVO;
+import com.poka.service.ReviewService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -25,19 +27,25 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class ReviewController {
 	// 리뷰 서비스 클래스 가져오기
+	private ReviewService rService;
 
 	// 리뷰 목록
 	@GetMapping(value = "/pages/{gno}/{page}")
-	public ResponseEntity<ReviewPageDTO> list(@PathVariable("page") int page, @PathVariable("gno") Long gno) {
+	public ResponseEntity<ReviewPageDTO> list(@PathVariable("page") int page, @PathVariable("gno") String gno) {
 		log.info("Load Reaview List"); // 동작 테스트용 로그
 
-		return new ResponseEntity<>(null, HttpStatus.OK); // 리뷰 목록 반환
+		Criteria cri = new Criteria(page, 5);
+
+		return new ResponseEntity<>(rService.getListPage(gno, cri), HttpStatus.OK); // 리뷰 목록 반환
 	}
 
 	// 단일 리뷰 상세
 	@GetMapping("/get")
 	public ResponseEntity<ReviewVO> get(@PathVariable("rno") String rno) {
-		return new ResponseEntity<>(null, HttpStatus.OK);
+		log.info("get Review");
+
+		// 단일 리뷰 반환
+		return new ResponseEntity<>(rService.get(rno), HttpStatus.OK);
 
 	}
 
@@ -47,7 +55,9 @@ public class ReviewController {
 	public ResponseEntity<String> add(@RequestBody ReviewVO vo) {
 		log.info("Create ReviewVO : " + vo);
 
-		return null;
+		// 리뷰 등록 성공 시 200, 실패 시 500 반환 될 것.
+		return rService.register(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	// 리뷰 수정
@@ -56,16 +66,20 @@ public class ReviewController {
 	@PreAuthorize("principal.userId == #vo.writer") // 작성자 일치 확인
 	public ResponseEntity<String> update(@RequestBody ReviewVO vo, @PathVariable("rno") String rno) {
 		log.info("update Review"); // 동작 확인용
+		vo.setRno(rno); // 혹시 몰라서 vo의 rno를 한번 더 정정해줌.
 
-		return null;
+		// 리뷰 수정 성공 시 200, 실패 시 500 반환
+		return rService.modify(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	// 리뷰 삭제
 	@DeleteMapping(value = "/{rno}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("principal.userId == #vo.writer") // 작성자 일치 확인
 	public ResponseEntity<String> delete(@RequestBody ReviewVO vo, @PathVariable("rno") String rno) {
-		log.info("executing update"); //동작 확인용
+		log.info("executing update"); // 동작 확인용
 
-		return null;
+		return rService.remove(rno) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
