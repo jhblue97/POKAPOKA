@@ -81,8 +81,8 @@ public class UserController {
 		log.info("signIn()");
 		
 		//첨부파일이 있는 경우 데이터베이스에 추가
-		if(user.getUser_img() != null) {
-			log.info(user.getUser_img());
+		if(user.getUserimg() != null) {
+			log.info(user.getUserimg());
 		}
 
 		return "redirect:/";

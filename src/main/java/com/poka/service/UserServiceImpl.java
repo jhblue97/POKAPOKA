@@ -28,12 +28,12 @@ public class UserServiceImpl implements UserService {
 		userMapper.signIn(user);
 		
 		//첨부파일이 없는 경우						 
-		if(user.getUser_img() == null) {
+		if(user.getUserimg() == null) {
 			return;
 		}
 		
 		//첨부파일이 있는 경우 - 첨부파일 테이블에 추가
-		attachMapper.insert(user.getUser_img());
+		attachMapper.insert(user.getUserimg());
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
 		boolean modifyResult = userMapper.update(user) == 1; //게시물 수정
 		
 		if(modifyResult			//게시물 수정에 성공하고, 첨부파일 목록이 있으면 등록 
-		   && user.getUser_img() != null) {	
-			attachMapper.insert(user.getUser_img());
+		   && user.getUserimg() != null) {	
+			attachMapper.insert(user.getUserimg());
 		}
 		return modifyResult;
 

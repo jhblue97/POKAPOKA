@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.poka.mapper.UserMapper">
-	<resultMap type="org.zerock.domain.UserVO" id="UserMap">
+<!-- 	<resultMap type="com.poka.domain.UserVO" id="UserMap">
 		<id property="userid" column="userid"/>
 		<result property="userid" column="userid"/>
 		<result property="userpw" column="userpw"/>
@@ -12,10 +12,9 @@
 		<result property="email" column="email"/>
 		<result property="birth" column="birth"/>
 		<result property="gradecode" column="gradecode"/>
-		<result property="user_img" column="user_img"/>
+		<result property="userimg" column="userimg"/>
 		<result property="gender" column="gender"/>
 		<result property="lastlogin" column="lastlogin"/>
-		<result property="nickname" column="nickname"/>
 		<result property="account" column="account"/>
 		<result property="regDate" column="regDate"/>
 		<result property="updateDate" column="updateDate"/>
@@ -26,16 +25,16 @@
 	<resultMap type="com.poka.domain.AuthVO" id="authMap">
 		<result property="userid" column="userid"/>
 		<result property="auth" column="auth"/>
-	</resultMap>
+	</resultMap> -->
 	
 	<!-- ORACLE -->
-	<select id="read" resultMap="userMap">
-        SELECT 				m.userid, userpw, username, enabled, regdate, updateDate, auth
+<!-- 	<select id="read" resultMap="userMap">
+        SELECT 				m.userid, userpw, nickname, email, birth, gradecode, user_img, gender, lastlogin, account, enabled, regdate, updateDate, auth
         FROM 				p_member m
         LEFT OUTER JOIN 	p_auth a
         ON					m.userid = a.userid
         WHERE				m.userid = #{userid}
-    </select>
+    </select> -->
     
     <select id="logIn" resultType="int"></select>
     
