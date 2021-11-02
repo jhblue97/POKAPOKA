@@ -6,10 +6,23 @@
 <mapper namespace="com.poka.mapper.GradeMapper">
 
 	<insert id="insert">
-		INSERT INTO p_payattach 
-		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno} )
+		
     </insert>
     
+    <update id="update">
+    
+    </update>
+    
+    <delete id="delete">
+    
+    </delete>
+    
+    <select id="read" resultType="com.poka.domain.GradeVO">
+    </select>
+    
+    <select id="getList" 
+	        resultType="com.poka.domain.GradeVO">
+	</select>
 </mapper>
 
 

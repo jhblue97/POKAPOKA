@@ -4,11 +4,58 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.poka.mapper.UserMapper">
-
-	<insert id="insert">
-		INSERT INTO p_payattach 
-		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno} )
-    </insert>
+	<resultMap type="org.zerock.domain.UserVO" id="UserMap">
+		<id property="userid" column="userid"/>
+		<result property="userid" column="userid"/>
+		<result property="userpw" column="userpw"/>
+		<result property="nickname" column="nickname"/>
+		<result property="email" column="email"/>
+		<result property="birth" column="birth"/>
+		<result property="gradecode" column="gradecode"/>
+		<result property="user_img" column="user_img"/>
+		<result property="gender" column="gender"/>
+		<result property="lastlogin" column="lastlogin"/>
+		<result property="nickname" column="nickname"/>
+		<result property="account" column="account"/>
+		<result property="regDate" column="regDate"/>
+		<result property="updateDate" column="updateDate"/>
+		<result property="enabled" column="enabled"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="com.poka.domain.AuthVO" id="authMap">
+		<result property="userid" column="userid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<!-- ORACLE -->
+	<select id="read" resultMap="userMap">
+        SELECT 				m.userid, userpw, username, enabled, regdate, updateDate, auth
+        FROM 				p_member m
+        LEFT OUTER JOIN 	p_auth a
+        ON					m.userid = a.userid
+        WHERE				m.userid = #{userid}
+    </select>
+    
+    <select id="logIn" resultType="int"></select>
+    
+    <insert id="signIn"></insert>
+    
+    <update id="update"></update>
+    
+    <delete id="withdraw"></delete>
+    
+    <select id="get" resultType="com.poka.domain.UserVO"></select>
+    
+    <select id="idchk" resultType="boolean"></select>
+    
+    <select id="nickchk" resultType="boolean"></select>
+    
+    <select id="emailchk" resultType="boolean"></select>
+    
+    <select id="pwchg" resultType="boolean"></select>
+    
+    <select id="nickchg" resultType="boolean"></select>
     
 </mapper>
 

@@ -6,9 +6,22 @@
 <mapper namespace="com.poka.mapper.FollowMapper">
 
 	<insert id="insert">
-		INSERT INTO p_payattach 
-		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno} )
+		
     </insert>
+    
+    <delete id="delete"></delete>
+    
+    <select id="getfollowList" 
+	        resultType="com.poka.domain.FollowVO">
+	</select>
+	
+	<select id="getfollowerList" 
+	        resultType="com.poka.domain.FollowVO">
+	</select>
+	
+	<select id="followchk" 
+	        resultType="com.poka.domain.FollowVO">
+	</select>
     
 </mapper>
 
