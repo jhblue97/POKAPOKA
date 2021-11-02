@@ -15,6 +15,4 @@ public class SoudanVO {
 	private String a_content;
 	private Date q_regDate;
 	private Date a_regDate;
-	private int status;
-
 }

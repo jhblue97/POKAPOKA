@@ -12,5 +12,4 @@ public class NewsVO {
 	private String news_title;
 	private String content;
 	private Date regDate;
-	private Date updateDate;
 }
