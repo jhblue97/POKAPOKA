@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.poka.domain.FollowVO;
 import com.poka.mapper.FollowMapper;
-import com.poka.mapper.GameMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;

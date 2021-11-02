@@ -33,9 +33,9 @@ public class FollowController {
 	}
 	
 	//팔로우 삭제 ajax
-	@PostMapping("/delete/{userid}/{fno}")
+	@PostMapping("/delete")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> delete(@PathVariable("userid") String userid, @PathVariable("fno") String fno) {
+	public ResponseEntity<String> delete() {
 		
 		return null;
 	}
@@ -48,18 +48,18 @@ public class FollowController {
 	}
 	
 	//팔로우 추가
-	@PostMapping("/add/{a_userid}/{p_userid}")
+	@PostMapping("/add")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> add(@PathVariable("a_userid") String a_userid, @PathVariable("p_userid") String p_userid) {
+	public ResponseEntity<String> add() {
 		
 		
 		return null;
 	}
 	
 	//팔로우 체크 ajax
-	@RequestMapping(method = RequestMethod.GET, value = "/chk/{p_userid}")
+	@RequestMapping(method = RequestMethod.GET, value = "/chk")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> chk(@RequestBody FollowVO vo, @PathVariable("p_userid") String p_userid) {
+	public ResponseEntity<String> chk(@RequestBody FollowVO vo) {
 
 		return null;
 	}
