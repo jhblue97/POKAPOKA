@@ -12,10 +12,10 @@ public class NijiVO {
 	private String   nno; //거래글 넘버
 	private String title; 
 	private String content;
-	private String writer;
 	private String category;
 	private String img; //판매이미지
 	private int price;
+	private String writer;
 	private List<TagVO> tagVO;
 	private Date   regDate;
 	private Date   updateDate;
