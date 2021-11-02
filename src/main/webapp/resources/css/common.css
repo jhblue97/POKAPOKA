@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+
+@FONT-FACE {
+    font-family : '851';
+    src:url("/resources/ft/851Gkktt_005.ttf");
+}
+
+li .nav-link { font-family : 851 !important;
+	   color: white !important;
+	   font-size: 30px;
+	}
