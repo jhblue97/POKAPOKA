@@ -22,9 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.poka.domain.Criteria;
-import com.poka.domain.NijiAttachVO;
 import com.poka.domain.NijiVO;
-import com.poka.domain.PayAttachVO;
 import com.poka.service.NijiService;
 
 import lombok.AllArgsConstructor;
@@ -97,73 +95,41 @@ public class NijiController {
 		
 		
 		//첨부파일 삭제
-		public void deleteFile(NijiAttachVO attach) {
+		public void deleteFile(String filename) {
 			log.info(".....deleteFiles().....");
-			if(attach == null) {	//첨부파일이 없는 경우 중단
-				return;
-			}
+		
 			
 			try {
-				Path file = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\" +
-													   attach.getUuid() + "_" +
-													   attach.getFileName());
+				Path file = Paths.get("c:\\upload\\" +filename);
 				Files.deleteIfExists(file);	//파일이 존재하면 삭제
 				
 				if(Files.probeContentType(file).startsWith("image")) {	//이미지 파일의 경우 섬네일 삭제
-					Path thumbnail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\s_" +
-													   			attach.getUuid() + "_" +
-													   			attach.getFileName());
-					Files.delete(thumbnail);
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			}
-			
-			
-			//첨부파일 삭제
-			public void deleteFile(PayAttachVO attach) {
-				log.info(".....deleteFiles().....");
-				if(attach == null) {	//첨부파일이 없는 경우 중단
-					return;
-				}
-				
-				try {
-					Path file = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\" +
-														   attach.getUuid() + "_" +
-														   attach.getFileName());
-					Files.deleteIfExists(file);	//파일이 존재하면 삭제
-					
-					if(Files.probeContentType(file).startsWith("image")) {	//이미지 파일의 경우 섬네일 삭제
-						Path thumbnail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\s_" +
-														   			attach.getUuid() + "_" +
-														   			attach.getFileName());
-						Files.delete(thumbnail);
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-				
-				
-				
-		//첨부파일 목록 JSON 반환
-		@GetMapping(value="/displayFile",
-				    produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-		@ResponseBody
-		public ResponseEntity<NijiAttachVO> getNijiAttach(String nno){
-			log.info(".....getAttachList().....");
-			return new ResponseEntity<>(nijiService.getAttach(nno), HttpStatus.OK);
-		}
-		
-		//첨부파일 목록 JSON 반환
-				@GetMapping(value="/pay/displayFile",
-						    produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-				@ResponseBody
-				public ResponseEntity<NijiAttachVO> getPayAttach(String pno){
-					log.info(".....getAttachList().....");
-					return new ResponseEntity<>(nijiService.getAttach(pno), HttpStatus.OK);
-				}
+
+			/*
+			 * //첨부파일 목록 JSON 반환
+			 * 
+			 * @GetMapping(value="/displayFile",
+			 * produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+			 * 
+			 * @ResponseBody public ResponseEntity<NijiAttachVO> getNijiAttach(String nno){
+			 * log.info(".....getAttachList()....."); return new
+			 * ResponseEntity<>(nijiService.getAttach(nno), HttpStatus.OK); }
+			 * 
+			 * //첨부파일 목록 JSON 반환
+			 * 
+			 * @GetMapping(value="/pay/displayFile",
+			 * produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+			 * 
+			 * @ResponseBody public ResponseEntity<NijiAttachVO> getPayAttach(String pno){
+			 * log.info(".....getAttachList()....."); return new
+			 * ResponseEntity<>(nijiService.getAttach(pno), HttpStatus.OK); }
+			 */
 				
 				
 		//게시물 수정
