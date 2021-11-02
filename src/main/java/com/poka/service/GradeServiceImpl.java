@@ -2,13 +2,22 @@ package com.poka.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.poka.domain.GradeAttachVO;
 import com.poka.domain.GradeVO;
 import com.poka.mapper.GradeAttachMapper;
 import com.poka.mapper.GradeMapper;
+import com.poka.mapper.UserAttachMapper;
+import com.poka.mapper.UserMapper;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Service
+@AllArgsConstructor
+@Log4j
 public class GradeServiceImpl implements GradeService {
 
 	private GradeMapper gradeMapper;
