@@ -41,8 +41,8 @@ public class NijiController {
 		@GetMapping("/list")
 		public String list(Criteria cri, Model model) {			
 			log.info(".....list().....");	
-			
-			return null;
+			System.out.println("gggg");
+			  return "niji/nijiList";
 		}		
 		
 		 //게시물 검색 조회
