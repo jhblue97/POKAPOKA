@@ -6,11 +6,11 @@
 <mapper namespace="com.poka.mapper.GameMapper">
 	<!-- 게임 목록 가져오기 -->
 	<select id="getList" resultType="com.poka.domain.GameVO">
-
+		SELECT * FROM P_GAME
 	</select>
 
 	<!-- 단일 게임 가져오기 -->
 	<select id="read" resultType="com.poka.domain.GameVO">
-
+		SELECT * FROM P_GAME WHERE gno = #{gno}
 	</select>
 </mapper>
