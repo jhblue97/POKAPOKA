@@ -1,5 +1,12 @@
 package com.poka.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,7 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.poka.domain.BoardAttachVO;
+import com.poka.domain.UserAttachVO;
 import com.poka.domain.UserVO;
 import com.poka.service.UserService;
 
@@ -22,6 +33,8 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class UserController {
 
+	private UserService userService;
+	
 	//로그인
 	@GetMapping("/login")
 	public String login(String error, String logout, Model model) {
@@ -64,10 +77,62 @@ public class UserController {
 	
 	//회원 가입
 	@PostMapping("/signIn")
-	public String signIn(UserVO vo) {
+	public String signIn(UserVO user) {
 		log.info("signIn()");
 		
-		return null;
+		//첨부파일이 있는 경우 데이터베이스에 추가
+		if(user.getUser_img() != null) {
+			log.info(user.getUser_img());
+		}
+
+		return "redirect:/";
+	}
+	
+	//첨부파일 삭제
+	public void deleteFile(UserAttachVO attach) {
+		log.info("deleteFile()......");
+		if(attach == null) {	//첨부파일이 없는 경우 중단
+			return;
+		}
+		
+		try {
+			Path file = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\" + 
+												   attach.getUuid() + "_" + 
+												   attach.getFileName());
+			Files.deleteIfExists(file); //파일이 존재하면 삭제
+			
+			if(Files.probeContentType(file).startsWith("image")) {	//이미지 파일의 경우 섬네일 삭제
+				Path thumbnail = Paths.get("c:\\upload\\"  + attach.getUploadPath() + "\\s_" +
+														     attach.getUuid() + "_" +
+														     attach.getFileName());
+                Files.delete(thumbnail);														     	
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//회원탈퇴
+	@PostMapping("/delete")
+	public String delete(@RequestParam("userid") String userid, RedirectAttributes rttr) {
+		log.info(".....delete().....");
+		UserAttachVO attach = userService.getAttach(userid);
+		
+		if(userService.withdraw(userid)) { //삭제에 성공한 경우
+			deleteFile(attach);	//첨부파일 삭제
+			rttr.addFlashAttribute("result", "success");
+		}
+		
+		return "redirect:/";
+	}
+	
+	//첨부파일 JSON 반환
+	@GetMapping(value="/getAttach",
+			    produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<UserAttachVO> getAttach(String userid){
+		log.info(".....getAttach().....");
+		return new ResponseEntity<>(userService.getAttach(userid), HttpStatus.OK);
 	}
 	
 	//userView.jsp
@@ -123,13 +188,6 @@ public class UserController {
 	//닉네임 변경
 	@PostMapping("/chg/nick")
 	public ResponseEntity<String> chgNink(@RequestBody UserVO vo) {
-		
-		return null;
-	}
-	
-	//회원탈퇴
-	@PostMapping("/delete")
-	public String delete(@RequestParam("userid") String userid) {
 		
 		return null;
 	}

@@ -167,6 +167,7 @@ CREATE TABLE P_NIJI
 	category varchar2(30) NOT NULL,
 	price number NOT NULL,
 	updateDate date,
+	regDate date DEFAULT SYSDATE,
 	PRIMARY KEY (nno)
 );
 
@@ -203,6 +204,7 @@ CREATE TABLE P_PAY
 	price number NOT NULL,
 	payDate date DEFAULT SYSDATE,
 	updateDate date,
+	regDate date DEFAULT SYSDATE,
 	PRIMARY KEY (pno)
 );
 
@@ -318,13 +320,13 @@ ALTER TABLE P_BOARD
 
 
 ALTER TABLE P_FOLLOW
-	ADD FOREIGN KEY (follower_userid)
+	ADD FOREIGN KEY (follow_userid)
 	REFERENCES P_MEMBER (userid)
 ;
 
 
 ALTER TABLE P_FOLLOW
-	ADD FOREIGN KEY (follow_userid)
+	ADD FOREIGN KEY (follower_userid)
 	REFERENCES P_MEMBER (userid)
 ;
 
@@ -354,13 +356,13 @@ ALTER TABLE P_PAY
 
 
 ALTER TABLE P_REPORT
-	ADD FOREIGN KEY (active_userid)
+	ADD FOREIGN KEY (passive_userid)
 	REFERENCES P_MEMBER (userid)
 ;
 
 
 ALTER TABLE P_REPORT
-	ADD FOREIGN KEY (passive_userid)
+	ADD FOREIGN KEY (active_userid)
 	REFERENCES P_MEMBER (userid)
 ;
 
@@ -372,13 +374,13 @@ ALTER TABLE P_REVIEW
 
 
 ALTER TABLE P_SOUDAN
-	ADD FOREIGN KEY (qusetioner)
+	ADD FOREIGN KEY (answerer)
 	REFERENCES P_MEMBER (userid)
 ;
 
 
 ALTER TABLE P_SOUDAN
-	ADD FOREIGN KEY (answerer)
+	ADD FOREIGN KEY (qusetioner)
 	REFERENCES P_MEMBER (userid)
 ;
 
