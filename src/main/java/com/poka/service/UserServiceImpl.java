@@ -1,12 +1,20 @@
 package com.poka.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.poka.domain.UserAttachVO;
 import com.poka.domain.UserVO;
+import com.poka.mapper.GameMapper;
 import com.poka.mapper.UserAttachMapper;
 import com.poka.mapper.UserMapper;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Service
+@AllArgsConstructor
+@Log4j
 public class UserServiceImpl implements UserService {
 
 	private UserMapper userMapper;

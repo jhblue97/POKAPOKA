@@ -2,6 +2,7 @@ package com.poka.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.poka.domain.BoardAttachVO;
@@ -9,7 +10,14 @@ import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
 import com.poka.mapper.BoardAttachMapper;
 import com.poka.mapper.BoardMapper;
+import com.poka.mapper.GameMapper;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Service
+@AllArgsConstructor
+@Log4j
 public class BoardServiceImpl implements BoardService {
 
 	private BoardMapper boardMapper;
