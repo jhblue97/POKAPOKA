@@ -1,10 +1,8 @@
 package com.poka.service;
 
-import com.poka.domain.UserAttachVO;
 import com.poka.domain.UserVO;
 
 public interface UserService {
-	public UserAttachVO getAttach(String userid);	//첨부파일
 	public int logIn(String userid, String userpw);	//로그인
 	public void signIn(UserVO vo);	//회원가입
 	public boolean modify(UserVO vo);	//회원정보 수정

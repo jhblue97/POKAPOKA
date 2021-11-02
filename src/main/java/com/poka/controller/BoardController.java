@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.poka.domain.PageDTO;
 
 import com.poka.domain.BoardAttachVO;
 import com.poka.domain.BoardVO;
@@ -53,36 +54,39 @@ public class BoardController {
 		log.info(".....add().....");
 		
 		//첨부파일이 있는 경우 데이터베이스에 추가
-		if(board.getAttach() != null) {
-			log.info(board.getAttach());
+		if(board.getAttachList() != null) {
+			board.getAttachList().forEach(attach -> log.info(attach));
 		}
 		
+		boardService.add(board);
 		rttr.addFlashAttribute("result", board.getBno());
 		return "redirect:/board/list";
 	}
 	
 	//첨부파일 삭제
-	public void deleteFile(BoardAttachVO attach) {
-		log.info("deleteFile()......");
-		if(attach == null) {	//첨부파일이 없는 경우 중단
+	public void deleteFiles(List<BoardAttachVO> attachList) {
+		log.info(".....deleteFiles().....");
+		if(attachList == null || attachList.size() == 0) {	//첨부파일이 없는 경우 중단
 			return;
 		}
 		
-		try {
-			Path file = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\" + 
-												   attach.getUuid() + "_" + 
-												   attach.getFileName());
-			Files.deleteIfExists(file); //파일이 존재하면 삭제
-			
-			if(Files.probeContentType(file).startsWith("image")) {	//이미지 파일의 경우 섬네일 삭제
-				Path thumbnail = Paths.get("c:\\upload\\"  + attach.getUploadPath() + "\\s_" +
-														     attach.getUuid() + "_" +
-														     attach.getFileName());
-                Files.delete(thumbnail);														     	
+		attachList.forEach(attach -> {
+			try {
+				Path file = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\" +
+													   attach.getUuid() + "_" +
+													   attach.getFileName());
+				Files.deleteIfExists(file);	//파일이 존재하면 삭제
+				
+				if(Files.probeContentType(file).startsWith("image")) {	//이미지 파일의 경우 섬네일 삭제
+					Path thumbnail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\s_" +
+													   			attach.getUuid() + "_" +
+													   			attach.getFileName());
+					Files.delete(thumbnail);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		});
 	}
 	
 	//게시글 삭제
@@ -93,23 +97,23 @@ public class BoardController {
 						 @ModelAttribute("cri") Criteria cri,
 						 RedirectAttributes rttr) {
 		log.info(".....delete().....");
-		BoardAttachVO attach = boardService.getAttach(bno);
+		List<BoardAttachVO> attachList = boardService.getAttachList(bno);
 		
 		if(boardService.delete(bno)) { //삭제에 성공한 경우
-			deleteFile(attach);	//첨부파일 삭제
+			deleteFiles(attachList);	//첨부파일 삭제
 			rttr.addFlashAttribute("result", "success");
 		}
 		
 		return "redirect:/board/list" + cri.getListLink();
 	}
 	
-	//첨부파일 JSON 반환
-	@GetMapping(value="/getAttach",
+	//첨부파일 목록 JSON 반환
+	@GetMapping(value="/getAttachList",
 			    produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<BoardAttachVO> getAttach(String bno){
-		log.info(".....getAttach().....");
-		return new ResponseEntity<>(boardService.getAttach(bno), HttpStatus.OK);
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(String bno){
+		log.info(".....getAttachList().....");
+		return new ResponseEntity<>(boardService.getAttachList(bno), HttpStatus.OK);
 	}
 	
 	//게시물 수정
@@ -140,7 +144,8 @@ public class BoardController {
 	@GetMapping("/list")
 	public String list(Criteria cri, Model model) {
 		log.info(".....list().....");
-		
+		model.addAttribute("list", boardService.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
 		return null;
 	}
 	

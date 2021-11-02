@@ -16,6 +16,10 @@
         WHERE  uploadpath = TO_CHAR(SYSDATE - 1, 'yyyy\mm\dd') 
     </select>
     
+    <delete id="deleteAll">
+		DELETE p_boardattach WHERE bno = #{bno}
+	</delete>
+    
     <delete id="delete">
 		DELETE p_boardattach WHERE uuid = #{uuid}
 	</delete>

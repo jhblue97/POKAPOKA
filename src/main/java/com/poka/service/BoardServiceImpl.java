@@ -10,7 +10,6 @@ import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
 import com.poka.mapper.BoardAttachMapper;
 import com.poka.mapper.BoardMapper;
-import com.poka.mapper.GameMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,7 +23,7 @@ public class BoardServiceImpl implements BoardService {
 	private BoardAttachMapper attachMapper;		
 	
 	@Override
-	public BoardAttachVO getAttach(String bno) {
+	public List<BoardAttachVO> getAttachList(String bno) {
 		return attachMapper.findByBno(bno);
 	}
 
@@ -36,13 +35,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public boolean modify(BoardVO board) {
-		attachMapper.delete(board.getBno());	//기존 첨부파일 삭제
+		attachMapper.deleteAll(board.getBno());	//기존 첨부파일 삭제
 		
 		boolean modifyResult = boardMapper.update(board) == 1; //게시물 수정
 		
 		if(modifyResult			//게시물 수정에 성공하고, 첨부파일 목록이 있으면 등록 
-		   && board.getAttach() != null) {	
-			attachMapper.insert(board.getAttach());
+				  && board.getAttachList() != null && board.getAttachList().size() > 0) {
+			board.getAttachList().forEach(attach -> {
+				attach.setBno(board.getBno());
+				attachMapper.insert(attach);
+			});
 		}
 		return modifyResult;
 	}
@@ -65,13 +67,15 @@ public class BoardServiceImpl implements BoardService {
 		boardMapper.insertSelectKey(board);
 		
 		//첨부파일이 없는 경우						 
-		if(board.getAttach() == null) {
+		if(board.getAttachList() == null || board.getAttachList().size() < 1) {
 			return;
 		}
 		
 		//첨부파일이 있는 경우 - 첨부파일 테이블에 추가
-		attachMapper.insert(board.getAttach());
-		
+		board.getAttachList().forEach(attach -> {
+			attach.setBno(board.getBno());
+			attachMapper.insert(attach);
+		});
 	}
 
 	@Override

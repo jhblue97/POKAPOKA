@@ -5,12 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poka.domain.GradeAttachVO;
 import com.poka.domain.GradeVO;
-import com.poka.mapper.GradeAttachMapper;
 import com.poka.mapper.GradeMapper;
-import com.poka.mapper.UserAttachMapper;
-import com.poka.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -21,53 +17,28 @@ import lombok.extern.log4j.Log4j;
 public class GradeServiceImpl implements GradeService {
 
 	private GradeMapper gradeMapper;
-	private GradeAttachMapper attachMapper;
-	
-	@Override
-	public GradeAttachVO addAttach(String grade_code) {
-		return attachMapper.findByBno(grade_code);
-	}
 
 	@Override
 	@Transactional
 	public void add(GradeVO grade) {
 		gradeMapper.insert(grade);
 		
-		//첨부파일이 없는 경우						 
-		if(grade.getGrade_img() == null) {
-			return;
-		}
-		
-		//첨부파일이 있는 경우 - 첨부파일 테이블에 추가
-		attachMapper.insert(grade.getGrade_img());
-		
 	}
 
 	@Override
-	@Transactional
 	public boolean modify(GradeVO grade) {
-		attachMapper.delete(grade.getGrade_code());	//기존 첨부파일 삭제
-		
 		boolean modifyResult = gradeMapper.update(grade) == 1; //게시물 수정
-		
-		if(modifyResult			//게시물 수정에 성공하고, 첨부파일 목록이 있으면 등록 
-		   && grade.getGrade_img() != null) {	
-			attachMapper.insert(grade.getGrade_img());
-		}
 		return modifyResult;
-
 	}
 
 	@Override
-	@Transactional
-	public boolean delete(String grade_code) {
-		attachMapper.delete(grade_code);		//첨부파일 삭제
-		return gradeMapper.delete(grade_code) == 1 ? true : false;
+	public boolean delete(String gradecode) {
+		return gradeMapper.delete(gradecode) == 1 ? true : false;
 	}
 
 	@Override
-	public GradeVO get(String grade_code) {
-		return gradeMapper.read(grade_code);
+	public GradeVO get(String gradecode) {
+		return gradeMapper.read(gradecode);
 	}
 
 	@Override

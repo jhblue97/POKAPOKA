@@ -7,7 +7,7 @@ import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
 
 public interface BoardService {
-	public BoardAttachVO getAttach(String bno);	//첨부파일 목록 반환
+	public List<BoardAttachVO> getAttachList(String bno);	//첨부파일 목록 반환
 	public int getTotal(Criteria cri);			//전체 게시물 수 반환
 	public boolean modify(BoardVO board);		//게시물 하나 수정
 	public boolean delete(String bno);			//게시물 하나 삭제
