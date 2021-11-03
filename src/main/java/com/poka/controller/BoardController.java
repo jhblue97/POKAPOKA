@@ -141,18 +141,19 @@ public class BoardController {
 	
 	//boardList.jsp
 	//자유게시판 목록 화면
-	@GetMapping("/list")
-	public String list(Criteria cri, Model model) {
-		log.info(".....list().....");
-		model.addAttribute("list", boardService.getList(cri));
-		model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
-		return "/boardList";
-	}
+//	@GetMapping("/list")
+//	public String list(Criteria cri, Model model) {
+//		log.info(".....list().....");
+//		model.addAttribute("list", boardService.getList(cri));
+//		model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
+//		return "/boardList";
+//	}
 	
 	//게시판목록 확인용
-	@GetMapping("/boardList")
-	public void boardList() {
+	@GetMapping("/list")
+	public String boardList() {
 		log.info(".....boardList().....");
+		return "/board/boardList";
 	}
 	
 	//신고하기
