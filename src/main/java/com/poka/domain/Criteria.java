@@ -2,7 +2,6 @@ package com.poka.domain;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

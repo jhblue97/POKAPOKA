@@ -6,7 +6,7 @@
 <mapper namespace="com.poka.mapper.NewsMapper">
 	<!-- 뉴스 목록 가져오기 -->
 	<select id="getList" resultType="com.poka.domain.NewsVO">
-		SELECT * FROM P_NEWS
+		SELECT * FROM P_NEWS ORDER BY regDate DESC
 	</select>
 	<!-- 개별 뉴스 가져오기 -->
 	<select id="read" resultType="com.poka.domain.NewsVO">

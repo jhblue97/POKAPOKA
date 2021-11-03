@@ -11,17 +11,41 @@
 <style>
 </style>
 <meta charset="UTF-8">
-<title></title>
+<title>${news.title }</title>
 </head>
-<hr style="border: solid 3px #DFA01E; margin-top: 0px;">
 <body>
+	<div id="wrapper">
+		<div id="page-wrapper">
+			<div id="news_header" class="row">
+				<div id="news_title" class="col-lg-12">
+					<h1 class="page-header">
+						<strong>${news.title }</strong>
+					</h1>
+				</div>
+				<div id="news_regdate" class="col-lg-12">
+					<h5>작성일 : ${news.regDate }</h5>
+				</div>
+			</div>
+			<hr>
+			<div id="news_body" class="row">
+				<div class="col-lg-12">
+					<div id="news_content" class="panel panel-default">
+						<div class="panel-body" style="">${news.content }</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-	${news.newsNo}
-	${news.title }
-	<br> ${news.content }
-	<br> ${news.regDate }
-	<br>
+	<!-- 내부 동작 스크립트 -->
+	<script>
+		$(function() {
+			//타이틀 클릭 시 동작.
+			//을 펑션으로 할 필요가 있을까?
+		});//END Script
+	</script>
 </body>
-<hr style="border: solid 3px #DFA01E; margin-bottom: 0px;">
 </html>
 <%@ include file="../include/footer.jsp"%>

@@ -3,7 +3,6 @@ package com.poka.domain;
 import java.util.Date;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -22,6 +21,6 @@ public class GameVO {
 	private String game_url;
 	private Date regDate;
 	private Date updateDate;
-	private List<TagVO> tagVoList;
+	private List<GametagVO> tagVoList;
 
 }

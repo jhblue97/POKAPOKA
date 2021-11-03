@@ -6,17 +6,19 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ include file="../include/header.jsp"%>
 <html>
+<style>
+</style>
 <head>
 <meta charset="UTF-8">
 <title>ゲームニュース</title>
 </head>
 <body>
-	<div id="wrapper" style="margin: 2rem">
+	<div id="wrapper">
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header" style="margin-bottom: 2rem">
-						<strong>最新ニュース</strong>
+					<h1 class="page-header">
+						最新ニュース
 					</h1>
 				</div>
 			</div>
@@ -36,7 +38,8 @@
 									<c:forEach items="${list }" var="news">
 										<tr>
 											<td id="newsNo">${news.newsNo}</td>
-											<td id="title">${news.title}</td>
+											<td id="title"><a href="get/${news.newsNo }"
+												style="color: black">${news.title}</a></td>
 											<td id="regDate">${news.regDate}</td>
 										</tr>
 									</c:forEach>
@@ -50,15 +53,13 @@
 		</div>
 		<!-- /#page-wrapper -->
 	</div>
-	<!-- /#wrapper -->
+	<!-- /#wrapper --
 
 	<!-- 내부 동작 스크립트 -->
 	<script>
 		$(function() {
 			//타이틀 클릭 시 동작.
-			$('#title').on('click',fun ction(){
-				console.log("clicked");
-			});
+			//을 펑션으로 할 필요가 있을까?
 		});//END Script
 	</script>
 </body>
