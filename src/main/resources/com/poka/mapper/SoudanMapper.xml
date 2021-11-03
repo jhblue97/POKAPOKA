@@ -5,8 +5,13 @@
 
 <mapper namespace="com.poka.mapper.SoudanMapper">
 	<select id="getListWithPaging"
-		resultType="com.poka.domain.SoudanVO"></select>
-	<select id="read" resultType="com.poka.domain.SoudanVO"></select>
+		resultType="com.poka.domain.SoudanVO">
+		SELECT * FROM P_SOUDAN ORDER BY Q_REGDATE DESC
+	</select>
+	<select id="read" resultType="com.poka.domain.SoudanVO">
+		SELECT * FROM P_SOUDAN WHERE QNO = #{qno}
+	</select>
 	<insert id="insert"></insert>
+
 	<update id="update"></update>
 </mapper>

@@ -26,18 +26,22 @@ public class SoudanController {
 
 	@GetMapping("/list")
 	// 상담 목록
-	public void list(Criteria cri, Model model) {
+	public String list(Criteria cri, Model model) {
 		log.info("상담 목록 조회"); // 동작 확인용
 
 		model.addAttribute("list", qService.getList(cri));
+
+		return "/soudan/soudanList";
 	}
 
 	@GetMapping("/get/{qno}")
 	// 상담 상세
-	public void get(@PathVariable("qno") String qno, @ModelAttribute("cri") Criteria cri, Model model) {
+	public String get(@PathVariable("qno") String qno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("상담 단일 조회");
 
 		model.addAttribute("qna", qService.get(qno));
+
+		return "/soudan/soudanView";
 	}
 
 	@GetMapping("/answer")

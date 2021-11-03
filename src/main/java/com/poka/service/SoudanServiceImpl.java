@@ -1,5 +1,7 @@
 package com.poka.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.poka.domain.Criteria;
@@ -17,12 +19,12 @@ public class SoudanServiceImpl implements SoudanService {
 	private SoudanMapper sMapper;
 
 	@Override
-	public Object getList(Criteria cri) {
-		return sMapper.getListWithPaging(cri);
+	public List<SoudanVO> getList(Criteria cri) {
+		return sMapper.getListWithPaging();
 	}
 
 	@Override
-	public Object get(String qno) {
+	public SoudanVO get(String qno) {
 		return sMapper.read(qno);
 	}
 

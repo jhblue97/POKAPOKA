@@ -10,6 +10,6 @@
 	</select>
 	<!-- 개별 뉴스 가져오기 -->
 	<select id="read" resultType="com.poka.domain.NewsVO">
-		SELECT * FROM P_NEWS WHERE newsNo = #{news_no}
+		SELECT * FROM P_NEWS WHERE newsNo = #{newsNo}
 	</select>
 </mapper>
