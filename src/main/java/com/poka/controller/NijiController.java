@@ -41,9 +41,16 @@ public class NijiController {
 		@GetMapping("/list")
 		public String list(Criteria cri, Model model) {			
 			
-			cri.setAmount(5);
-			cri.setKeyword("");
-			cri.setPageNum(1);
+			/*
+			 * cri.setAmount(5); cri.setKeyword(""); cri.setPageNum(1);
+			 */
+			  
+			if(cri.getKeyword()==null) {
+				cri.setKeyword("");
+			}
+			System.out.println(cri.getAmount());
+			System.out.println(cri.getKeyword());
+			System.out.println(cri.getPageNum());
 			
 			log.info(".....list().....");	
 			System.out.println("gggg");
@@ -57,7 +64,7 @@ public class NijiController {
 			  
 			  System.out.println("niji : -> " + niji); });
 			 
-			
+			  model.addAttribute("list", list);
 			
 			  return "niji/nijiList";
 		}		
