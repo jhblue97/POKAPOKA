@@ -13,6 +13,15 @@
     
     <!-- 쿼리 보관 -->
 	<sql id="criteria">		
+	
+			<choose>
+    			<when test="type == 'B'.toString()">
+    				n.category  = 'B' AND
+    			</when>
+    			<when test="type == 'S'.toString()">
+    				n.category  = 'S' AND
+    			</when>
+    		    </choose>
     				t.tagname like '%' || #{keyword} || '%'
 					or n.title like '%' || #{keyword} || '%'
 					or n.content like '%' || #{keyword} || '%'
@@ -57,7 +66,7 @@
    <select id="getList" 
 	        resultType="com.poka.domain.NijiVO">
 	<![CDATA[
-		SELECT N.NNO,N.TITLE,N.CONTENT,n.category,n.img,n.price,n.writer,n.regdate,n.updatedate
+		SELECT DISTINCT N.NNO,N.TITLE,N.CONTENT,n.category,n.img,n.price,n.writer,n.regdate,n.updatedate
 		FROM P_NIJI N
 		LEFT OUTER JOIN P_NIJI_TAG T
 		ON N.NNO = T.NNO

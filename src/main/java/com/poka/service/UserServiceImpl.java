@@ -44,17 +44,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean idchk(UserVO user) {
+	public int idchk(UserVO user) {
 		return userMapper.idchk(user);
 	}
 
 	@Override
-	public boolean nickchk(UserVO user) {
+	public int nickchk(UserVO user) {
 		return userMapper.nickchk(user);
 	}
 
 	@Override
-	public boolean emailchk(UserVO user) {
+	public int emailchk(UserVO user) {
 		return userMapper.emailchk(user);
 	}
 
