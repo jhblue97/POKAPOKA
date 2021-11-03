@@ -157,15 +157,24 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1 class="display-5">
-			자유 게시판</h1></div></div>
+			二次掲示板</h1></div></div>
 			
 			
 <div class = "row">
 
+
+<form id="searchForm" action="/niji/list">
+
+
+          			<select name="type" class="custom-select" selected>
+                        	<option value="A" ${pageMaker.cri.type == 'A' ? 'selected' : '' }>전체</option>
+                        	<option value="B" ${pageMaker.cri.type == 'B' ? 'selected' : '' }>구매글</option>
+                        	<option value="S" ${pageMaker.cri.type == 'S' ? 'selected' : '' }>판매글</option>											
+                     </select>
+
 		<div class="search-box">
 			<div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-				<input type="text" placeholder="Search" id="search" autocomplete="off">
-		
+			<input type="text" placeholder="Search" id="search" name = "keyword" autocomplete="off" value="${pageMaker.cri.keyword }" >	
 			<svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
 			 xml:space="preserve">
           <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
@@ -173,6 +182,17 @@
         </svg>
 			<div class="go-icon"><i class="fa fa-arrow-right"></i></div>
 		</div>
+</form>
+
+    <!-- 현재 페이지 번호 및 출력 게시물 수 전송 폼 -->
+    <form id="actionForm" action="/niji/list">
+          <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+          <input type="hidden" name="amount"  value="${pageMaker.cri.amount }">
+          <!-- 검색 타입과 키워드 파라미터 추가 -->
+          <input type="hidden" name="type" value="${pageMaker.cri.type }" >
+          <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }" >
+    </form>
+
 
 </div>	
 
@@ -183,6 +203,8 @@
   
 
 </div> <!-- list end  -->
+
+
 
 <script>
 	

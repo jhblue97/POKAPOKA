@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.poka.domain.Criteria;
+import com.poka.domain.NijiTagVO;
 import com.poka.domain.NijiVO;
 import com.poka.mapper.NijiMapper;
 import com.poka.mapper.PayMapper;
@@ -74,10 +75,15 @@ public class NijiServiceImpl implements NijiService{
 		// TODO Auto-generated method stub
 		
 		
-		nijiMapper.getListWithPaging(cri).forEach(nijivo -> 
-		nijivo.setTagVO(nijiMapper.getTag(nijivo.getNno())));
+		return nijiMapper.getListWithPaging(cri);
+	}
 
-		return null;
+	@Override
+	public List<NijiTagVO> getTag(String nno) {
+		
+		
+		
+		return nijiMapper.getTag(nno);
 	}	
 
 
