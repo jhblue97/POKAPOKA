@@ -40,8 +40,25 @@ public class NijiController {
 	     //게시물 목록 조회
 		@GetMapping("/list")
 		public String list(Criteria cri, Model model) {			
+			
+			cri.setAmount(5);
+			cri.setKeyword("");
+			cri.setPageNum(1);
+			
 			log.info(".....list().....");	
 			System.out.println("gggg");
+			System.out.println(cri);
+			
+			  List<NijiVO> list = nijiService.getList(cri);
+			  
+			  list.forEach(niji -> {
+			  
+			  niji.setTagVO(nijiService.getTag(niji.getNno()));
+			  
+			  System.out.println("niji : -> " + niji); });
+			 
+			
+			
 			  return "niji/nijiList";
 		}		
 		

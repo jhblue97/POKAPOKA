@@ -10,6 +10,17 @@
 
     </select>
     
+    
+    <!-- 쿼리 보관 -->
+	<sql id="criteria">		
+    				t.tagname like '%' || #{keyword} || '%'
+					or n.title like '%' || #{keyword} || '%'
+					or n.content like '%' || #{keyword} || '%'
+					or n.writer like '%' || #{keyword} || '%'
+	</sql>
+	
+	
+    
     <select id="getListWithPaging" resultType = "com.poka.domain.NijiVO" >
  <![CDATA[
 	 SELECT * 
@@ -18,13 +29,13 @@
 		FROM P_NIJI N
 		LEFT OUTER JOIN P_NIJI_TAG T
 		ON N.NNO = T.NNO
-		WHERE t.tagname like '%' || #{search} || '%'
-		or n.title like '%' || #{search} || '%'
-		or n.content like '%' || #{search} || '%'
-		or n.writer like '%' || #{search} || '%'
- 		AND    rno > 0
-        AND    rownum <= #{cri.pageNum} * #{cri.amount} ) 
-        WHERE  rn > (#{cri.pageNum} - 1) * #{cri.amount}
+		WHERE 
+ 	 ]]>  
+        <!-- 보관해 둔 쿼리 사용 -->
+    	<include refid="criteria"></include>
+     <![CDATA[
+        AND    rownum <= #{pageNum} * #{amount} ) 
+        WHERE  rn > (#{pageNum} - 1) * #{amount}
  ]]>
     </select>
     
@@ -50,10 +61,10 @@
 		FROM P_NIJI N
 		LEFT OUTER JOIN P_NIJI_TAG T
 		ON N.NNO = T.NNO
-		WHERE t.tagname like '%' || #{search} || '%'
-		or n.title like '%' || #{search} || '%'
-		or n.content like '%' || #{search} || '%'
-		or n.writer like '%' || #{search} || '%'
+		WHERE t.tagname like '%' || #{keyword} || '%'
+		or n.title like '%' || #{keyword} || '%'
+		or n.content like '%' || #{keyword} || '%'
+		or n.writer like '%' || #{keyword} || '%'
     ]]>
     </select>
 
