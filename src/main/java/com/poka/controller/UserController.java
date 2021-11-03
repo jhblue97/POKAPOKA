@@ -1,5 +1,9 @@
 package com.poka.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.UserVO;
@@ -75,18 +80,34 @@ public class UserController {
 	
 	//회원 가입 화면
 	@GetMapping("/signIn")
-	public String signIn() {	
-		
-		return  null;
-	}
+	public void signIn() {}
 	
 	//회원 가입
 	@PostMapping("/signIn")
-	public String signIn(UserVO user) {
+	public String signIn(UserVO vo) {
 		log.info("signIn()");
+//		log.info("Upload File Name : " + uploadFile.getOriginalFilename());
+//		log.info("Upload File Size : " + uploadFile.getSize());
+		
+		//userService.signIn(vo);
 		
 		return "redirect:/";
 	}
+	
+	//업로드 파일 - 이미지 여부 확인
+	public boolean checkImgType(File file) {
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			
+			//이미지 파일이면 true 반환
+			return contentType.startsWith("image");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 	
 	//회원탈퇴
 	@PostMapping("/delete")
@@ -106,9 +127,14 @@ public class UserController {
 	
 	//아이디 체크
 	@GetMapping("/chk/id")
-	public ResponseEntity<String> chkId(@RequestBody UserVO vo) {
+	public String chkId(@RequestBody UserVO vo) throws Exception{
 		
-		return null;
+		int result = userService.idchk(vo);
+		if(result != 0) {
+			return "fail";
+		} else {
+			return "success";
+		}
 	}
 	
 	//닉네임 체크

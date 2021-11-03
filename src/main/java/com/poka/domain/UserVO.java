@@ -7,18 +7,19 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-	private String  userid;
-	private String  userpw;
+	private String  user_id;
+	private String  user_pw;
 	private String  nickname;
 	private String  email;
-	private Date    birth;
+	private String    birth;
 	private String  gradecode;
-	private String  userimg;
+	private String  img;
 	private String  gender;
 	private Date    lastlogin;
 	private String  account;
 	private Date    regDate;
 	private Date    updateDate;
 	private boolean enabled;
+	private int grade_exp;
 	private List<AuthVO> authList;
 }

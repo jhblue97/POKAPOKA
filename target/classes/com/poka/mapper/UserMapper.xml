@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.poka.mapper.UserMapper">
-<!-- 	<resultMap type="com.poka.domain.UserVO" id="UserMap">
+	<resultMap type="com.poka.domain.UserVO" id="UserMap">
 		<id property="userid" column="userid"/>
 		<result property="userid" column="userid"/>
 		<result property="userpw" column="userpw"/>
@@ -25,20 +25,22 @@
 	<resultMap type="com.poka.domain.AuthVO" id="authMap">
 		<result property="userid" column="userid"/>
 		<result property="auth" column="auth"/>
-	</resultMap> -->
+ 	</resultMap>
 	
 	<!-- ORACLE -->
-<!-- 	<select id="read" resultMap="userMap">
-        SELECT 				m.userid, userpw, nickname, email, birth, gradecode, user_img, gender, lastlogin, account, enabled, regdate, updateDate, auth
+	<select id="read" resultMap="userMap">
+        SELECT 				m.user_id, user_pw, nickname, email, birth, gradecode, img, gender, lastlogin, account, enabled, regDate, updateDate, auth, grade_exp
         FROM 				p_member m
         LEFT OUTER JOIN 	p_auth a
-        ON					m.userid = a.userid
-        WHERE				m.userid = #{userid}
-    </select> -->
+        ON					m.user_id = a.user_id
+        WHERE				m.user_id = #{user_id}
+     </select>
     
     <select id="logIn" resultType="int"></select>
     
-    <insert id="signIn"></insert>
+    <insert id="signIn">
+    	insert into p_member values(#{user_id}, #{user_pw}, #{nickname}, #{email}, #{birth}, 'A1' , #{img}, #{gender}, sysdata, '0', sysdata, sysdata, 'm', 0)
+    </insert>
     
     <update id="update"></update>
     
@@ -46,7 +48,9 @@
     
     <select id="get" resultType="com.poka.domain.UserVO"></select>
     
-    <select id="idchk" resultType="boolean"></select>
+    <select id="idchk" resultType="int">
+    	select count(*) from p_member where userid = #{userid}
+    </select>
     
     <select id="nickchk" resultType="boolean"></select>
     
