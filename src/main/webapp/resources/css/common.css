@@ -1,14 +1,13 @@
 @charset "UTF-8";
 
-
-
-
-li .nav-link { font-family : goo !important;
+/* header navbar */
+li .nav-link { font-family : goo;
 	   color: white !important;
-	   font-size: 30px;
-	}
+	   font-size: 20px; }
 	
-	@FONT-FACE {
-    font-family : 'goo';
-    src:url("../ft/851Gkktt_005.ttf");
-}
+@FONT-FACE {
+   font-family : 'goo';
+   src:url("../ft/851Gkktt_005.ttf"); }
+
+#logo { width:300px;}
+

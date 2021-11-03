@@ -1,39 +1,75 @@
-    </div>
-    <!-- /#page-wrapper -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script src="/resources/js/script.js"></script>    
+<link rel="stylesheet" 
+	  href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	  href="/resources/css/common.css">
+<!-- icon -->	  
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>	  
+<!-- Footer -->
+<footer class="text-center text-white"  style="background-color: #113351">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Github -->
+      <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/jhblue97/POKAPOKA" role="button">
+    <i class="fab fa-github"></i> Project GitHub</a>
+    </section>
+    <!-- Section: Social media -->
 
-</div>
-<!-- /#wrapper -->
+    <!-- Section: Links -->
+    <section class="">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-md">
+          <h5 class="text-uppercase">JuHyeon Kim</h5>
 
-<!-- jQuery -->
-<!-- <script src="/resources/vendor/jquery/jquery.min.js"></script> -->
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="mailto:jhblue05@gmail.com" class="text-white">jhblue05@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--Grid column-->
+        <div class="col-md">
+          <h5 class="text-uppercase">SeungHyo Baek</h5>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/resources/vendor/metisMenu/metisMenu.min.js"></script>
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="mailto:paeksh94@gmail.com" class="text-white">paeksh94@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
 
-<!-- DataTables JavaScript -->
-<script src="/resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="/resources/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-<script src="/resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
+        <!--Grid column-->
+        <div class="col-md">
+          <h5 class="text-uppercase">JungWon Yun</h5>
 
-<!-- Custom Theme JavaScript -->
-<script src="/resources/dist/js/sb-admin-2.js"></script>
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="mailto:rzelon24@naver.com" class="text-white">rzelon24@naver.com</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </section>
+    <!-- Section: Links -->
+  </div>
+  <!-- Grid container -->
 
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script>
-$(document).ready(function() {
-    $('#dataTables-example').DataTable({
-        responsive: true
-    });
-    
-    $('.sidebar-nav').attr('class', 'sidebar-nav navbar-collapse collapse')
-    				 .attr('aria-expanded', 'false')
-    				 .attr('style', 'height:1px');
-});
-</script>
-
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2021 POKAPOKA PROJECT
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 </body>
-
 </html>

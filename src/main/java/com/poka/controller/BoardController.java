@@ -146,7 +146,13 @@ public class BoardController {
 		log.info(".....list().....");
 		model.addAttribute("list", boardService.getList(cri));
 		model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
-		return null;
+		return "/boardList";
+	}
+	
+	//게시판목록 확인용
+	@GetMapping("/boardList")
+	public void boardList() {
+		log.info(".....boardList().....");
 	}
 	
 	//신고하기
