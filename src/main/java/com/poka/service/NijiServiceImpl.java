@@ -74,7 +74,6 @@ public class NijiServiceImpl implements NijiService{
 	public List<NijiVO> getList(Criteria cri) {
 		// TODO Auto-generated method stub
 		
-		
 		return nijiMapper.getListWithPaging(cri);
 	}
 
