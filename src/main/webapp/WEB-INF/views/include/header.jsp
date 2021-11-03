@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,32 +22,34 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item mx-3">
 				<a class="nav-link"
-					href="/news/newsList">ゲームニュース</a>
+					href="/news/list">ゲームニュース</a>
 			</li>
 			<li class="nav-item dropdown mx-3">
-				<a class="dropdown nav-link" data-bs-toggle="dropdown">掲示板</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#"></a>
-					<a class="dropdown-item" href="#"></a>
-				</div>
+				<a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown">掲示板</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="/board/list">자유게시판</a></li>
+					<li><a class="dropdown-item" href="/niji/list">2차 창작 거래</a></li>
+				</ul>
 				
 			</li>
 			<li class="nav-item dropdown mx-3">
-				<a class="dropdown nav-link" data-bs-toggle="dropdown">カスタマーセンター</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#"></a>
-					<a class="dropdown-item" href="#"></a>
-				</div>
+				<a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown">カスタマーセンター</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="/customer/faq">FAQ</a></li>
+					<li><a class="dropdown-item" href="/soudan/list">1:1 상담</a></li>
+				</ul>
 			</li>
 			<li class="nav-item dropdown mx-3">
-				<a class="dropdown nav-link" data-bs-toggle="dropdown">管理</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#"></a>
-					<a class="dropdown-item" href="#"></a>
-				</div>
+				<a class="nav-link dropdown-toggle"  data-bs-toggle="dropdown">管理</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="/grade/list">등급 관리</a></li>
+					<li><a class="dropdown-item" href="/report/list">신고 처리</a></li>
+				</ul>
 			</li>
 		</ul>
-		 <button type="button" class="btn btn-outline-primary mx-2">LOGIN</button>
-		 <button type="button" class="btn btn-outline-warning mx-2">SIGNIN</button>
+		 <button type="button" class="btn btn-outline-primary mx-2" onclick="location.href='/user/login'">LOGIN</button>
+		 <button type="button" class="btn btn-outline-warning mx-2" onclick="location.href='/user/signIn'">SIGNIN</button>
 	</nav>
-    
+<script>
+
+</script>    

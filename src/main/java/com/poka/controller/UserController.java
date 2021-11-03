@@ -50,6 +50,21 @@ public class UserController {
 		return null;
 	}
 	
+	@GetMapping("/all")
+	public void all() {
+		log.info("/all 접근 제한 x");
+	}
+
+	@GetMapping("/member")
+	public void member() {
+		log.info("/member 접근 제한 O - 로그인한 사용자");
+	}
+
+	@GetMapping("/admin")
+	public void admin() {
+		log.info("/admin 접근 제한 O - 로그인한 관리자");
+	}
+	
 	//접근거부
 	@GetMapping("/accessError")
 	public String accessDenied(Authentication auth, Model model) {

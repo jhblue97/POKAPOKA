@@ -36,7 +36,7 @@
 
         <!--Grid column-->
         <div class="col-md">
-          <h5 class="text-uppercase">SeungHyo Baek</h5>
+          <h5 class="text-uppercase">SeungHyo Paek</h5>
 
           <ul class="list-unstyled mb-0">
             <li>
