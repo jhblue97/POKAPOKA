@@ -5,7 +5,7 @@
 <%@ include file="../include/header.jsp" %>
 <html>
 <head>
-	<title>nijiList.jsp</title>
+	<title>二次掲示板</title>
 	<style>
 	
 	
@@ -175,7 +175,35 @@
 		</div>
 
 </div>	
+
+
 		
+<div class="row">
+
+  
+
+</div> <!-- list end  -->
+
+<script>
+	
+	
+		$(function() {
+			$('[data-toggle="popover"]').popover()
+		})
+		
+		
+		$(document).ready(function(){
+    $("#search").focus(function() {
+      $(".search-box").addClass("border-searching");
+      $(".search-icon").addClass("si-rotate");
+    });
+    $("#search").blur(function() {
+      $(".search-box").removeClass("border-searching");
+      $(".search-icon").removeClass("si-rotate");
+    });
+
+});
+	</script>
 
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.poka.domain;
 
 import java.util.Date;
+import java.util.List;
 
+import lombok.Data;
+@Data
 public class ReportVO {
 
 	private String report_no;

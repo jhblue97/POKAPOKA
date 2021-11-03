@@ -72,7 +72,12 @@ public class NijiServiceImpl implements NijiService{
 	@Override
 	public List<NijiVO> getList(Criteria cri) {
 		// TODO Auto-generated method stub
-		return nijiMapper.getListWithPaging(cri);
+		
+		
+		nijiMapper.getListWithPaging(cri).forEach(nijivo -> 
+		nijivo.setTagVO(nijiMapper.getTag(nijivo.getNno())));
+
+		return null;
 	}	
 
 

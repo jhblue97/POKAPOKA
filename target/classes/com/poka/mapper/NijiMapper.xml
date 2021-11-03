@@ -11,7 +11,21 @@
     </select>
     
     <select id="getListWithPaging" resultType = "com.poka.domain.NijiVO" >
-
+ <![CDATA[
+	 SELECT * 
+        FROM   (  SELECT rownum rn, 
+	    N.NNO,N.TITLE,N.CONTENT,n.category,n.img,n.price,n.writer,n.regdate,n.updatedate
+		FROM P_NIJI N
+		LEFT OUTER JOIN P_NIJI_TAG T
+		ON N.NNO = T.NNO
+		WHERE t.tagname like '%' || #{search} || '%'
+		or n.title like '%' || #{search} || '%'
+		or n.content like '%' || #{search} || '%'
+		or n.writer like '%' || #{search} || '%'
+ 		AND    rno > 0
+        AND    rownum <= #{cri.pageNum} * #{cri.amount} ) 
+        WHERE  rn > (#{cri.pageNum} - 1) * #{cri.amount}
+ ]]>
     </select>
     
     <update id="update">
@@ -27,7 +41,30 @@
 
 	<insert id="insert">
     </insert>
+    
+    
+   <select id="getList" 
+	        resultType="com.poka.domain.NijiVO">
+	<![CDATA[
+		SELECT N.NNO,N.TITLE,N.CONTENT,n.category,n.img,n.price,n.writer,n.regdate,n.updatedate
+		FROM P_NIJI N
+		LEFT OUTER JOIN P_NIJI_TAG T
+		ON N.NNO = T.NNO
+		WHERE t.tagname like '%' || #{search} || '%'
+		or n.title like '%' || #{search} || '%'
+		or n.content like '%' || #{search} || '%'
+		or n.writer like '%' || #{search} || '%'
+    ]]>
+    </select>
 
+    
+       <select id="getTag" 
+	        resultType="com.poka.domain.NijiTagVO">
+		SELECT * 
+		FROM P_NIJI_TAG
+		WHERE nno = #{nno}
+    </select>
+    
     
 </mapper>
 

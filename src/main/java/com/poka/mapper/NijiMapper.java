@@ -3,6 +3,7 @@ package com.poka.mapper;
 import java.util.List;
 
 import com.poka.domain.Criteria;
+import com.poka.domain.NijiTagVO;
 import com.poka.domain.NijiVO;
 
 public interface NijiMapper {
@@ -27,5 +28,8 @@ public interface NijiMapper {
 
 	//게시물 등록
 	public void insert(NijiVO niji);
+	
+	public List<NijiTagVO> getTag(String nno);
+	
 	
 }

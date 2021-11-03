@@ -16,7 +16,7 @@ public class NijiVO {
 	private String img; //판매이미지
 	private int price;
 	private String writer;
-	private List<TagVO> tagVO;
+	private List<NijiTagVO> tagVO;
 	private Date   regDate;
 	private Date   updateDate;
 	
