@@ -26,14 +26,14 @@ public class NewsController {
 	public String list(Criteria cri, Model model) {
 		log.info("뉴스 목록 조회"); // 동작 확인용
 		model.addAttribute("list", nService.getList());
-		return null;
+		return "/news/newsList";
 	}
 
 	// 뉴스 상세 조회
 	@GetMapping("/get/{news_no}")
 	public String get(@PathVariable("news_no") String news_no, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("뉴스 상세 조회"); // 동작 확인용
-		model.addAttribute("news", nService.get());
-		return null;
+		model.addAttribute("news", nService.get(news_no));
+		return "/news/newsView";
 	}
 }

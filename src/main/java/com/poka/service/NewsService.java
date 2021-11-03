@@ -8,6 +8,6 @@ public interface NewsService {
 
 	public List<NewsVO> getList();
 
-	public NewsVO get();
+	public NewsVO get(String newsNo);
 
 }

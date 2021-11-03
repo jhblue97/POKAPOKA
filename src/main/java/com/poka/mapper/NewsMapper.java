@@ -8,6 +8,6 @@ public interface NewsMapper {
 
 	public List<NewsVO> getList();
 	
-	public NewsVO read();
+	public NewsVO read(String newsNo);
 	
 }

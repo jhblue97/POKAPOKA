@@ -27,7 +27,7 @@ public class GameController {
 		log.info("메인 - 게임 목록 출력"); // 실행 확인용 로그
 		model.addAttribute("list", gService.getList(cri));
 		// 무한 스크롤 페이징?
-		return "/game/main.jsp";
+		return "/game/main";
 	}
 
 	@GetMapping("/get/{gno}")
@@ -37,7 +37,7 @@ public class GameController {
 		log.info("게임 상세 페이지 출력"); // 실행 확인용 로그
 		model.addAttribute("game", gService.get(gno));
 
-		return "/game/gameView.jsp";
+		return "/game/gameView";
 	}
 
 }

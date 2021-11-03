@@ -22,8 +22,9 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsVO get() {
-		return nMapper.read();
+	public NewsVO get(String newsNo) {
+		log.info("get news");
+		return nMapper.read(newsNo);
 	}
 
 }

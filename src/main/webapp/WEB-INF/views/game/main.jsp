@@ -7,7 +7,7 @@
 <title>みんなのレビューコミュニティ！ぽかぽかゲーム！</title>
 </head>
 <body>
-
+	
 </body>
 </html>
 <%@ include file="../include/footer.jsp" %>
