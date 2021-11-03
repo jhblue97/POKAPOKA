@@ -17,38 +17,32 @@ import lombok.extern.log4j.Log4j;
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, 
-										HttpServletResponse response,
-										Authentication auth) 
-											throws IOException, ServletException {
+	public void onAuthenticationSuccess(HttpServletRequest request,
+			HttpServletResponse response,
+			Authentication auth)
+					throws IOException, ServletException {
+		
 		log.warn("로그인 성공");
 		
 		List<String> roleNms = new ArrayList<>();
 		auth.getAuthorities().forEach(authority -> {
 			roleNms.add(authority.getAuthority());
-		});
+		});	
+		
 		log.warn(roleNms);
 		
-		if(roleNms.contains("ROLE_ADMIN")) {	//ROLE_ADMIN이면 /sample/admin으로 리다이렉트
-			response.sendRedirect("/sample/admin");	
+		//ROLE_ADMIN이면 /sample/admin으로 리다이렉트
+		if(roleNms.contains("ROLE_ADMIN")) {
+			response.sendRedirect("/sample/admin");
 			return;
-		}  
-		
-		if(roleNms.contains("ROLE_MEMBER")){	//ROLE_MEMBER이면 /sample/member로 리다이렉트
-			response.sendRedirect("/sample/member");	
+		}
+		//ROLE_MEMBER이면 /sample/member로 리다이렉트
+		if(roleNms.contains("ROLE_MEMBER")) {
+			response.sendRedirect("/sample/member");
 			return;
-		} 
-		
-		response.sendRedirect("/");	//그 외는 /로 리다이렉트
+		}
+		//그 외는 /로 리다이렉트
+		response.sendRedirect("/");
 	}
 
 }
-
-
-
-
-
-
-
-
-

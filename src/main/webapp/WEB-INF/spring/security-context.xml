@@ -9,29 +9,27 @@
 
 	<bean id="customAccessDenied"
 		  class="com.poka.security.CustomAccessDeniedHandler"/>
-<!--<bean id="customLoginSuccess" -->
-<!-- 	  class="org.zerock.security.CustomLoginSuccessHandler"/> -->
 	<bean id="bCryptPasswordEncoder"
 		  class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="customUserDetailsService"
 		  class="com.poka.security.CustomUserDetailsService"/>
 		  
 	<security:http>
-		<security:intercept-url pattern="/sample/all"    access="permitAll"/>
-		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/sample/admin"  access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/user/all"    access="permitAll"/>
+		<security:intercept-url pattern="/user/member" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/user/admin"  access="hasRole('ROLE_ADMIN')"/>
 		
    		<!-- 로그인 처리 -->
 <!--    <security:form-login login-page="/customLogin"
    							 authentication-success-handler-ref="customLoginSuccess"/> -->
-   		<security:form-login login-page="/customLogin"/>
+   		<security:form-login login-page="/login"/>
    		
    		<!-- REMEMBER-ME -->
    		<security:remember-me data-source-ref="dataSource"
    							  token-validity-seconds="604800"/>
    			
    		<!-- 로그아웃 처리 -->
-   		<security:logout logout-url="/customLogout" 
+   		<security:logout logout-url="/logout" 
    						 invalidate-session="true"
    						 delete-cookies="remember-me,JSESSION_ID"/>
 		
@@ -39,7 +37,7 @@
 		<security:access-denied-handler error-page="/accessError"/>
 		
 		<!-- 접근 권한 구현 클래스 참조 -->
-		<security:access-denied-handler ref="customAccessDenied"/>
+		<security:access-denied-handler ref="accessDenied"/>
 	</security:http>
 	
 	<security:authentication-manager>

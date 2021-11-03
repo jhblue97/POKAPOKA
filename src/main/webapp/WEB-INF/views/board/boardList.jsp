@@ -20,7 +20,7 @@
 			    <a class="dropdown-item" href="#">50개 씩</a>
 			  </div>
 			</div>
-			<span class="col-2 text-right"><button type="button" class="btn btn-primary">write</button></span>
+			<span class="col-2 text-right"><button type="button" class="btn btn-primary">글쓰기</button></span>
 		</div>
 		<div class="row mb-3">
 			<table class="table table-hover">
