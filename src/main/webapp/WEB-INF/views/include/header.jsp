@@ -50,6 +50,7 @@
 		 <button type="button" class="btn btn-outline-primary mx-2" onclick="location.href='/user/login'">LOGIN</button>
 		 <button type="button" class="btn btn-outline-warning mx-2" onclick="location.href='/user/signIn'">SIGNIN</button>
 	</nav>
+	<hr style="border: solid 3px #DFA01E; margin: 0px;">
 <script>
 
 </script>    

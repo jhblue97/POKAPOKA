@@ -7,6 +7,7 @@
 <!-- icon -->	  
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>	  
 <!-- Footer -->
+<hr style="border: solid 3px #DFA01E; margin: 0px;">
 <footer class="text-center text-white"  style="background-color: #113351">
   <!-- Grid container -->
   <div class="container p-4">
