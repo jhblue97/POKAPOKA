@@ -22,7 +22,7 @@
 					</h1>
 				</div>
 				<div id="news_regdate" class="col-lg-12">
-					<h5>작성일 : ${news.regDate }</h5>
+					<h5><fmt:formatDate value="${news.regDate}" pattern="yyyy/MM/dd hh:mm"/></h5>
 				</div>
 			</div>
 			<hr>

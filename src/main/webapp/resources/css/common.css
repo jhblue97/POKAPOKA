@@ -53,6 +53,27 @@ body {
 	margin-top: 0;
 }
 
+/* bg color */
+.poka-main {
+	background-color: #113351;
+}
+
+.poka-light {
+	background-color: #D8E9E7;
+}
+
+.poka-green {
+	background-color: #37867F;
+}
+
+.poka-warning {
+	background-color: #DFA01E;
+}
+
+.poka-danger {
+	background-color: #DF314F;
+}
+
 /* hr design */
 hr {
 	border: solid 3px #DFA01E !important;

@@ -45,14 +45,14 @@ public class SoudanController {
 	}
 
 	@GetMapping("/answer")
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	// 상담 질문 등록 화면
 	public void answer() {
 	}
 
 	// 상담 질문 등록 처리
 	@PostMapping("/answer")
-	@PreAuthorize("isAuthenticated()")
+	//@PreAuthorize("isAuthenticated()")
 	public String answer(SoudanVO qna, RedirectAttributes rttr) {
 		log.info("Regist answer");
 
@@ -64,7 +64,7 @@ public class SoudanController {
 	}
 
 	@PostMapping("/question")
-	@PreAuthorize("ROLE_ADMIN")
+	//@PreAuthorize("ROLE_ADMIN")
 	// 상담 답변 등록 - 응용된 업데이트
 	// public String question(@PathVariable("qno") String qno, SoudanVO qna,
 	// @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr)

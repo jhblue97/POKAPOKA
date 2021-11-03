@@ -40,7 +40,7 @@
 											<td id="newsNo">${news.newsNo}</td>
 											<td id="title"><a href="get/${news.newsNo }"
 												style="color: black">${news.title}</a></td>
-											<td id="regDate">${news.regDate}</td>
+											<td id="regDate"><fmt:formatDate value="${news.regDate}" pattern="yyyy/MM/dd hh:mm"/></td>
 										</tr>
 									</c:forEach>
 								</tbody>
