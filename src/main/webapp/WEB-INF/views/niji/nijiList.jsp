@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../include/header.jsp" %>
+
 <html>
 <head>
 	<title>二次掲示板</title>
@@ -35,15 +36,15 @@
   margin-top: 30px;
   margin-left: 30px;
 }
-.search-icon, .go-icon {
+ .search-icon, .go-icon {
   position: absolute;
   top: 0;
   height: 60px;
   width: 86px;
   line-height: 61px;
   text-align: center;
-}
-.search-icon {
+} 
+ .search-icon {
   left: 0;
   pointer-events: none;
   font-size: 1.22em;
@@ -60,14 +61,14 @@
   -webkit-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
   -moz-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
   -o-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-}
+} 
 .si-rotate {
   transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   -o-transform: rotate(0deg);
 }
-.go-icon {
+/* .go-icon {
   right: 0;
   pointer-events: none;
   font-size: 1.38em;
@@ -82,7 +83,7 @@
   -webkit-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
   -moz-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
   -o-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
-}
+} */
 .go-in {
   opacity: 1;
   pointer-events: all;
@@ -164,8 +165,6 @@
 
 
 <form id="searchForm" action="/niji/list">
-
-
           			<select name="type" class="custom-select" selected>
                         	<option value="A" ${pageMaker.cri.type == 'A' ? 'selected' : '' }>전체</option>
                         	<option value="B" ${pageMaker.cri.type == 'B' ? 'selected' : '' }>구매글</option>
@@ -180,10 +179,10 @@
           <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
           <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
         </svg>
-			<div class="go-icon"><i class="fa fa-arrow-right"></i></div>
+			<!-- <div class="go-icon"> -->
+			
 		</div>
 </form>
-
     <!-- 현재 페이지 번호 및 출력 게시물 수 전송 폼 -->
     <form id="actionForm" action="/niji/list">
           <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
@@ -200,7 +199,6 @@
 		
 <div class="row">
 
-  
 
 </div> <!-- list end  -->
 
