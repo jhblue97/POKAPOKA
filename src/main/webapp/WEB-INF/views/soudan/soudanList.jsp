@@ -24,11 +24,23 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div class="d-flex justify-content-end">
-							<label>回答なし<input type="checkbox" name="isReplied" value="1"></label>
+						<div class="d-flex flex-row justify-content-start">
+							<div>
+								<div class="row p-2">
+									<button class="btn btn-primary">질문 등록</button>
+								</div>
+								<div class="row p-2">
+									<button class="btn btn-warning">답변 등록</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="d-flex flex-row justify-content-end">
+							<label>回答なし<input type="checkbox" name="isReplied"
+								value="1"></label>
 						</div>
 						<table width="100%" class="table table-bordered table-hover">
-							<thead class="poka-warning">
+							<thead class="poka-main">
 								<tr>
 									<th class="col-xl-1 text-center">No.</th>
 									<th class="col-xl-5 text-center">質問内容</th>

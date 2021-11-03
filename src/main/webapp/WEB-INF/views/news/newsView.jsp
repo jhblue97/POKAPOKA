@@ -28,7 +28,7 @@
 			<hr>
 			<div id="news_body" class="row">
 				<div class="col-lg-12">
-					<div id="news_content" class="panel panel-default">
+					<div id="news_content" class="panel panel-default poka-light">
 						<div class="panel-body" style="">${news.content }</div>
 					</div>
 				</div>

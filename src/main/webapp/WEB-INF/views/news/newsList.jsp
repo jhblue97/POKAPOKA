@@ -27,7 +27,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<table width="100%" class="table table-bordered table-hover">
-								<thead class="thead-dark">
+								<thead class="poka-main">
 									<tr>
 										<th class="col-xl-2">No.</th>
 										<th class="col-xl-7">タイトル</th>

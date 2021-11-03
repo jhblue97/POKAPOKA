@@ -24,8 +24,11 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
+						<div class="d-flex justify-content-end">
+							<label>&nbsp</label>
+						</div>
 						<table width="100%" class="table table-bordered table-hover">
-							<thead class="thead-dark">
+							<thead class="poka-warning">
 								<tr>
 									<th class="col-xl-1 text-center">No.</th>
 									<th class="col-xl-11 text-center">質問内容</th>

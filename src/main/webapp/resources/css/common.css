@@ -56,6 +56,7 @@ body {
 /* bg color */
 .poka-main {
 	background-color: #113351;
+	color: #DFA01E;
 }
 
 .poka-light {
@@ -68,6 +69,7 @@ body {
 
 .poka-warning {
 	background-color: #DFA01E;
+	color: #113351;
 }
 
 .poka-danger {
@@ -96,10 +98,6 @@ hr {
 
 #news_title {
 	margin-bottom: 0rem !important;
-}
-
-#news_content {
-	background-color: #D8E9E7 !important;
 }
 
 #news_content .panel-body {
