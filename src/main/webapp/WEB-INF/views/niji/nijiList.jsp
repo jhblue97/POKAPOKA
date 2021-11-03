@@ -153,6 +153,13 @@
 </head>
 <body>
 
+
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-5">
+			자유 게시판</h1></div></div>
+			
+			
 <div class = "row">
 
 		<div class="search-box">
