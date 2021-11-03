@@ -8,8 +8,8 @@ import lombok.Data;
 
 @Data
 public class NewsVO {
-	private String news_no;
-	private String news_title;
+	private String newsNo;
+	private String title;
 	private String content;
 	private Date regDate;
 }

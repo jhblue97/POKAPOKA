@@ -30,10 +30,10 @@ public class NewsController {
 	}
 
 	// 뉴스 상세 조회
-	@GetMapping("/get/{news_no}")
-	public String get(@PathVariable("news_no") String news_no, @ModelAttribute("cri") Criteria cri, Model model) {
+	@GetMapping("/get/{newsNo}")
+	public String get(@PathVariable("newsNo") String newsNo, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("뉴스 상세 조회"); // 동작 확인용
-		model.addAttribute("news", nService.get(news_no));
+		model.addAttribute("news", nService.get(newsNo));
 		return "/news/newsView";
 	}
 }

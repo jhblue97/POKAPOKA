@@ -24,7 +24,6 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							${list }
 							<table width="100%" class="table table-bordered table-hover">
 								<thead class="thead-dark">
 									<tr>
@@ -36,9 +35,9 @@
 								<tbody>
 									<c:forEach items="${list }" var="news">
 										<tr>
-											<td>${news.news_no}</td>
-											<td>${news.news_title}</td>
-											<td>${news_regDate}</td>
+											<td id="newsNo">${news.newsNo}</td>
+											<td id="title">${news.title}</td>
+											<td id="regDate">${news.regDate}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -47,38 +46,20 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<!-- /#page-wrapper -->
 	</div>
 	<!-- /#wrapper -->
 
-
-	<!-- jQuery -->
-	<script src="../vendor/jquery/jquery.min.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
-	<!-- Metis Menu Plugin JavaScript -->
-	<script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
-	<!-- DataTables JavaScript -->
-	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-	<script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-	<!-- Custom Theme JavaScript -->
-	<script src="../dist/js/sb-admin-2.js"></script>
-
-	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	<!-- 내부 동작 스크립트 -->
 	<script>
-		$(document).ready(function() {
-			$('#dataTables-example').DataTable({
-				responsive : true
+		$(function() {
+			//타이틀 클릭 시 동작.
+			$('#title').on('click',fun ction(){
+				console.log("clicked");
 			});
-		});
+		});//END Script
 	</script>
 </body>
 </html>

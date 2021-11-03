@@ -16,7 +16,8 @@
 <hr style="border: solid 3px #DFA01E; margin-top: 0px;">
 <body>
 
-	${news.news_title }
+	${news.newsNo}
+	${news.title }
 	<br> ${news.content }
 	<br> ${news.regDate }
 	<br>
