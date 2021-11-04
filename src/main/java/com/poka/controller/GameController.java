@@ -15,13 +15,13 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/game/*")
+@RequestMapping({ "/", "/game/*" })
 @AllArgsConstructor
 public class GameController {
 	// 게임 서비스 클래스 가져오기
 	private GameService gService;
 
-	@GetMapping("/list")
+	@GetMapping({ "", "/list" })
 	// 게임 목록 - 메인화면
 	public String list(Criteria cri, Model model) {
 		log.info("메인 - 게임 목록 출력"); // 실행 확인용 로그

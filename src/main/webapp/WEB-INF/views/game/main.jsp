@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="game-wrapper">
-		<div class="liv-streaming-subtitle d-flex justify-content-start">
+		<div class="live-streaming-subtitle d-flex justify-content-start">
 			<p>人気の生放送</p>
 		</div>
 		<div class="d-flex justify-content-center">
@@ -27,26 +27,44 @@
 			</div>
 		</div>
 		<div class="search-keyword">
-			<span class="badge poka-main text-white"> test text <span
-				class="xbtn badge badge-pill badge-danger">x</span>
-			</span> <span class="badge poka-main text-white"> 키워드 <span
-				class="xbtn badge badge-pill badge-danger">x</span>
-			</span> <span class="badge poka-main text-white"> キーワード <span
-				class="xbtn badge badge-pill badge-danger">x</span>
-			</span>
+			<c:if test="0 == 1">
+				<span class="badge poka-main text-white"> test text <span
+					class="xbtn badge badge-pill badge-danger">x</span>
+				</span>
+				<span class="badge poka-main text-white"> 키워드 <span
+					class="xbtn badge badge-pill badge-danger">x</span>
+				</span>
+				<span class="badge poka-main text-white"> キーワード <span
+					class="xbtn badge badge-pill badge-danger">x</span>
+				</span>
+			</c:if>
 		</div>
 		<div class="d-flex game-list justify-content-between">
-			<c:forEach var="i" begin="0" end="7">
-				<div class="card game-item" style="width: 8rem;">
-					<img class="card-img-top" src="/resources/images/profile.png"
-						alt="Card image cap">
+			<c:forEach items="${list }" var="game">
+				<div class="card game-item" style="width: 8rem;" id="${game.gno }">
+					<img class="card-img-top" src="/resources/images/${game.game_img }">
 					<div class="card-body">
-						<p class="card-text">content</p>
+						<p id="gameNm" class="card-text">${game.gameNm }</p>
+						<p id="game_price" class="card-text">${game.game_price }</p>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
+	<!-- 페이지 전송 시 사용할 전송 폼 -->
+	<form action="#"></form>
+
+	<!-- 내부 동작 스크립트 -->
+	<script>
+		$(function() {
+			/* game-item 클릭 시 동작 */
+			$('.game-item').on('click', function() {
+				//$('form').append("<input type='hidden' name='gno' value='"+ $(this).attr('id') +"'>");
+				$('form').attr('action', "/game/get/" + $(this).attr('id'));
+				$('form').submit();
+			});
+		});//END Script
+	</script>
 </body>
 </html>
 <%@ include file="../include/footer.jsp"%>

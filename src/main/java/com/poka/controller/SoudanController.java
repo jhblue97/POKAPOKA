@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class SoudanController {
 	private SoudanService qService;
-
+	
 	@GetMapping("/list")
 	// 상담 목록
 	public String list(Criteria cri, Model model) {

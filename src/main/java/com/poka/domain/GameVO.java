@@ -22,5 +22,4 @@ public class GameVO {
 	private Date regDate;
 	private Date updateDate;
 	private List<GametagVO> tagVoList;
-
 }

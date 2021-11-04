@@ -8,13 +8,13 @@
 	margin-bottom: 5%;
 }
 
-.search-keyword, .liv-streaming-subtitle, .search-box, .game-list {
+.search-keyword, .live-streaming-subtitle, .search-box, .game-list {
 	margin-left: 5%;
 	margin-right: 5%;
 	background-color: #D8E9E7
 }
 
-.liv-streaming-subtitle {
+.live-streaming-subtitle {
 	margin-top: 1rem;
 }
 
@@ -61,4 +61,8 @@
 
 .game-item {
 	border: 2px solid #113351 !important;
+}
+.game-item:hover {
+	border: 2px solid #DFA01E !important;
+	cursor: pointer;
 }
