@@ -11,7 +11,7 @@
 .search-keyword, .live-streaming-subtitle, .search-box, .game-list {
 	margin-left: 5%;
 	margin-right: 5%;
-	background-color: #D8E9E7
+	/* background-color: #D8E9E7 */
 }
 
 .live-streaming-subtitle {
@@ -22,7 +22,9 @@
 	width: 90%;
 	height: 20rem;
 	background-color: #113351;
-	margin: 0.5rem;
+	margin-bottom: 0.5rem;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 	border: 2px solid;
 	border-color: #DFA01E;
 }
@@ -62,7 +64,102 @@
 .game-item {
 	border: 2px solid #113351 !important;
 }
+
 .game-item:hover {
 	border: 2px solid #DFA01E !important;
 	cursor: pointer;
+}
+
+/* review-page */
+.game-trailer {
+	width: 100%;
+	/* height: 480px; */
+	border: 5px solid #113351 !important;
+	background-color: #113351;
+}
+
+iframe {
+	width: 888px;
+	height: 480px;
+}
+
+.game-info {
+	background-color: #D8E9E7;
+	border-top: 4px solid #DFA01E !important;
+	border-bottom: 2px solid #DFA01E !important;
+}
+
+.game-des {
+	border-top: 2px solid #DFA01E !important;
+	border-bottom: 2px solid #DFA01E !important;
+}
+
+.game-review {
+	background-color: #D8E9E7;
+	border-top: 2px solid #DFA01E !important;
+	border-bottom: 4px solid #DFA01E !important;
+}
+
+.game-info .game-title, .game-des-subtitle, .game-review-subtitle {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 0 5% 0;
+}
+
+.game-regdate, .game-company, .game-tag, .game-score {
+	margin: 0 5%;
+}
+
+.game-des-content, .game-review-content {
+	margin: 0.5rem 5%;
+}
+
+/* score*/
+.score-text {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.rating {
+	margin-left: 0;
+	display: flex;
+	flex-direction: row;
+	font-size: 24px;
+	padding: 0 .2em;
+	text-align: center;
+	width: 5em;
+	border: none;
+}
+
+.rating>[id^="star"] {
+	display: none
+}
+
+.rating>label:before {
+	font-size: 1em;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: "\f005"
+}
+
+.rating>.half:before {
+	content: "\f089";
+}
+
+.rating>label {
+	color: #DFA01E;
+}
+
+.rating>radio {
+	display: none;
+}
+
+.go-to-store{
+	width: 20rem;
+}
+
+.btn-review{
+	width: 38px;
+	height: 38px;
+	display: inline-block
 }
