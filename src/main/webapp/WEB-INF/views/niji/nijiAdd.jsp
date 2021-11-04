@@ -382,7 +382,7 @@
 		
 		
 	//////////////////파일업로드 ajax 시작 ///////////////////	
-		$.ajax({
+		/*$.ajax({
 			type	: 'post',
 			url 	: '/uploadAjaxAction',
 			data	: formData,
@@ -400,13 +400,10 @@
 				
 		//		$('.uploadDiv').html(uploadTag.html());
 			}
-		});
+		});*/
 	//////////////////파일업로드 ajax 끝 ///////////////////	
 		
-		
-		
-		
-		
+	
 		 	        var settings = {
 		 	          "url": "https://api.imgbb.com/1/upload?key=dd33b5196e0d8185ce64c99507776fa2",
 		 	          "method": "POST",
