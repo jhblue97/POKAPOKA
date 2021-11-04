@@ -76,7 +76,6 @@
 		<!-- /#page-wrapper -->
 	</div>
 	<!-- /#wrapper -->
-
 	<!-- 내부 동작 스크립트 -->
 	<script>
 		$(function() {

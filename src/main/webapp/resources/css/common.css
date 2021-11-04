@@ -76,6 +76,35 @@ body {
 	background-color: #DF314F;
 }
 
+/* btn color */
+.btn-poka-main {
+    color: #fff;
+    background-color: #113351;
+    border-color: #113351;
+}
+
+.btn-poka-warning{
+	background-color: #DFA01E;
+	border-color: #DFA01E;
+	color: #113351;
+}
+.btn-poka-green{
+	background-color: #37867F;
+	border-color: #37867F;
+	color: #fff;
+}
+.btn-poka-light{
+	background-color: #D8E9E7;
+	border-color: #D8E9E7;
+	color: #fff;
+}
+.btn-poka-danger{
+	background-color: #DF314F;
+	border-color: #DF314F;
+	color: #fff;
+}
+
+
 /* hr design */
 hr {
 	border: solid 3px #DFA01E !important;
