@@ -48,7 +48,7 @@
 					</div>
 					<div class="add-review d-flex flex-row">
 						<p>리뷰 추가</p>
-						<button class="btn btn-poka-main btn-review"></button>
+						<span class="btn btn-poka-main btn-review">+</span>
 					</div>
 					<div class="go-to-store">
 						<button onclick="location.href='https://store.steampowered.com/app/${game.gameId}'" class="btn btn-block btn-poka-green">상점 페이지로</button>
