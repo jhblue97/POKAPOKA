@@ -80,7 +80,7 @@ public class UserController {
 	@PostMapping("/signIn")
 	public String signIn(UserVO vo) {
 		log.info("signIn()");
-		
+System.out.println("user -->"+vo.getEmail());
 		userService.signIn(vo);
 		return "redirect:/";
 	}

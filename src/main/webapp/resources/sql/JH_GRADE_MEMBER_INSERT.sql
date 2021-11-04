@@ -5,5 +5,5 @@ Insert into DEV.P_GRADE (GRADE_CODE,GRADE_NAME,GRADE_IMG,GRADE_LV) values ('A4',
 Insert into DEV.P_GRADE (GRADE_CODE,GRADE_NAME,GRADE_IMG,GRADE_LV) values ('A5','마스터','005_g_Master.png',9999999);
 
 
-
-Insert into DEV.P_MEMBER (USER_ID,USER_PW,NICKNAME,EMAIL,BIRTH,GRADECODE,IMG,GENDER,LASTLOGIN,ACCOUNT,REGDATE,UPDATEDATE,ENABLED,GRADE_EXP) values ('user','1111','테스트유저','jjjj@mmm.com',to_date('21/11/03','RR/MM/DD'),'A2','default.png','F',to_date('21/11/03','RR/MM/DD'),null,to_date('21/11/03','RR/MM/DD'),null,null,160);
+--test user data
+Insert into DEV.P_MEMBER (USER_ID,USER_PW,NICKNAME,EMAIL,BIRTH,GRADECODE,IMG,GENDER,LASTLOGIN,ACCOUNT,REGDATE,UPDATEDATE,ENABLED,GRADE_EXP) values ('user','1111','테스트유저','jjjj@mmm.com','19971124','A2','default.png','F',to_date('21/11/03','RR/MM/DD'),null,to_date('21/11/03','RR/MM/DD'),null,null,160);

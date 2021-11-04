@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.Criteria;
 import com.poka.domain.NijiVO;
+import com.poka.proc.KaKaoVisionTag;
 import com.poka.service.NijiService;
 
 import lombok.AllArgsConstructor;
@@ -65,7 +68,7 @@ public class NijiController {
 			  System.out.println("niji : -> " + niji); });
 			 
 			  model.addAttribute("list", list);
-			
+			  model.addAttribute("keyword",cri.getKeyword());
 			  return "niji/nijiList";
 		}		
 		
@@ -87,9 +90,13 @@ public class NijiController {
 		
 		//게시물 등록 화면
 		@GetMapping("/add")
-		@PreAuthorize("isAuthenticated()")
+		//@PreAuthorize("isAuthenticated()")
 		public String add() {
-			return null;
+			
+			System.out.println("add등록");
+			
+			
+		return "niji/nijiAdd";
 		}
 		
 		
@@ -99,11 +106,21 @@ public class NijiController {
 		@PreAuthorize("isAuthenticated()")
 		public String add(NijiVO niji, RedirectAttributes rttr) {
 		
-			return null;
+			return "redirect:/niji/nijiList";
 		}
 		
 		
 		
+		//카카오비전 API
+		@GetMapping("/json/addBoardVisionTag")
+		public ResponseEntity<String> addBoardVisionTag(@RequestParam("link") String link,HttpSession session) throws Exception {
+			log.info(".....get() or modify() .....");	
+			
+			KaKaoVisionTag kakao = new KaKaoVisionTag();
+			
+			String resultTag = kakao.addBoardVisionTag(link);
+		return new ResponseEntity<>(resultTag, HttpStatus.OK);
+		}	
 		
 		
 		

@@ -180,14 +180,16 @@
 		</form>
 		
 			
-		<span class="col-2 text-right"><button type="button"
+		<span class="col-2 text-right"><button type="button" id = "regBtn"
 				class="btn btn-poka-main">登録</button>			
 		</span>
-
-		
 	</div>
 
-	
+<c:if test="${!empty keyword}">
+<div class = "row mb-3" style = "background-color : #D8E9E7;">
+“${keyword}” の　検索結果
+</div>
+</c:if>
 	
 
     <!-- 현재 페이지 번호 및 출력 게시물 수 전송 폼 -->
@@ -270,7 +272,10 @@
 		        }
 		    });
 		 
-		 
+		 $('#regBtn').on('click', function(){
+				self.location="/niji/add";
+			});//END 등록 버튼 클릭 이벤트 처리
+			
 	</script>
 
 </body>
