@@ -32,7 +32,7 @@
         SELECT 				m.user_id, user_pw, nickname, email, birth, gradecode, img, gender, lastlogin, account, enabled, regDate, updateDate, auth, grade_exp
         FROM 				p_member m
         LEFT OUTER JOIN 	p_auth a
-        ON					m.user_id = a.user_id
+        ON					m.user_id = a.userid
         WHERE				m.user_id = #{user_id}
      </select>
     
