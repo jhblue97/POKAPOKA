@@ -201,6 +201,72 @@ public class UploadController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}//END uploadAjaxAction()
 	
+	
+	@PostMapping("/uploadAjaxAction2")
+	@PreAuthorize("isAuthenticated()")	//로그인 확인
+	public ResponseEntity<AttachFileDTO> uploadAjaxAction2(MultipartFile[] uploadFile) {  
+		log.info("uploadAjaxAction");
+
+		// 연/월/일 폴더 생성
+		File uploadPath = new File("c:\\upload", getFolder());
+		log.info("uploadPath : " + uploadPath);
+		
+		//해당 폴더가 존재하지 않는 경우에만 생성
+		if( !uploadPath.exists() ) {
+			uploadPath.mkdirs();
+		}
+		AttachFileDTO attachDTO = new AttachFileDTO();	
+		
+		for(MultipartFile multi : uploadFile) {
+			log.info("-------------------------------");
+			log.info("file name : " + multi.getOriginalFilename());
+			log.info("file size : " + multi.getSize());
+			
+			String uplodFileNm = multi.getOriginalFilename();
+		
+			attachDTO.setFileName(uplodFileNm);						
+			
+			//IE의 경우 파일명만 가져오기
+			uplodFileNm = uplodFileNm.substring(uplodFileNm.lastIndexOf("\\") + 1);
+			
+			//UUID 이용 파일명 중복 방지 처리
+			UUID uuid = UUID.randomUUID();
+			uplodFileNm = uuid.toString() + "_" + uplodFileNm;
+			
+			attachDTO.setUuid(uuid.toString());						
+			attachDTO.setUploadPath(getFolder());					
+			
+			File saveFile = new File(uploadPath, uplodFileNm);
+			
+			try { 
+				multi.transferTo(saveFile);	//파일 업로드
+				
+				//이미지 파일이면 썸네일 생성
+				if(checkImgType(saveFile)) {
+					attachDTO.setImage(true);							
+					
+					FileOutputStream thumbnail = new FileOutputStream(
+						new File(uploadPath, "s_" + uplodFileNm)	
+					);
+					
+					//가로 100 * 세로 100 썸네일 생성
+					Thumbnailator.createThumbnail(
+						multi.getInputStream(), thumbnail, 100, 100
+					);
+					thumbnail.close();
+				}//END  썸네일 생성
+				
+				
+			}catch(Exception e) {
+				log.error(e.getMessage());
+			}
+		}//END for
+		return new ResponseEntity<>(attachDTO, HttpStatus.OK);
+	}//END uploadAjaxAction2()
+	
+	
+	
+	
 	@GetMapping("/uploadAjax")
 	public void uploadAjax() {
 		log.info("uploadAjax()");
