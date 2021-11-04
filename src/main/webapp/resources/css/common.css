@@ -98,7 +98,7 @@ body {
 	box-shadow: 0 0 0 .2rem #113351
 }
 
-.btn-poka-green {
+.btn-poka-green, .btn-poka-green2 {
 	background-color: #37867F;
 	border-color: #37867F;
 	color: #fff;
@@ -107,6 +107,11 @@ body {
 
 .btn-poka-green:hover, .btn-poka-green:focus {
 	box-shadow: 0 0 0 .2rem #D8E9E7
+}
+
+.btn-poka-green2:hover, .btn-poka-green2:focus {
+	box-shadow: 0 0 0 .2rem #DFA01E;
+	color: #DFA01E;
 }
 
 .btn-poka-light {
