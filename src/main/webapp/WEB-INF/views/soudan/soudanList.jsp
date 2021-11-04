@@ -24,15 +24,15 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div class="d-flex flex-row justify-content-start">
-							<div>
+						<div class="col-lg-12 d-flex flex-row justify-content-end">
+							<div style="margin:0.5rem">
 								<button onclick="location.href='#'" class="btn btn-poka-main">質問登録</button>
 								<button onclick="location.href='#'" class="btn btn-poka-warning">回答登録</button>
 							</div>
-						</div>
-						<div class="d-flex flex-row justify-content-end">
-							<label>回答なし<input type="checkbox" name="isReplied"
-								value="1"></label>
+							<div style="margin:0.5rem">
+								<label>回答なし<input type="checkbox" name="isReplied"
+									value="1"></label>
+							</div>
 						</div>
 						<table width="100%" class="table table-bordered table-hover">
 							<thead class="poka-main">

@@ -24,22 +24,14 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div class="d-flex justify-content-end">
+						<div class="d-flex justify-content-end" style="margin: 0.5rem">
 							<label>&nbsp</label>
 						</div>
 						<table width="100%" class="table table-bordered table-hover">
-							<thead class="poka-warning">
-								<tr>
-									<th class="col-xl-1 text-center">No.</th>
-									<th class="col-xl-11 text-center">質問内容</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td id="qno"></td>
-									<td id="content"></td>
-								</tr>
-							</tbody>
+							<div class="poka-warning">
+								<div class="col-xl-1 text-center">No.</div>
+								<div class="col-xl-11 text-center">質問内容</div>
+							</div>
 						</table>
 						<!-- /.table-responsive -->
 					</div>
