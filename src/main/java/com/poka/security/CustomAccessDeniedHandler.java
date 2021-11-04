@@ -22,6 +22,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
 		log.error("CustomAccessDeniedHandler");
 		log.error("redirect......");
+		//URL로 접근 제한 시 보이는 화면 처리
 		response.sendRedirect("/accessError");
 	}
 

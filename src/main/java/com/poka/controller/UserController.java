@@ -27,7 +27,7 @@ public class UserController {
 	
 	//로그인
 	@GetMapping("/login")
-	public String login(String error, String logout, Model model) {
+	public void login(String error, String logout, Model model) {
 		log.info("Login()");
 		log.info("error : " + error);
 		log.info("logout : " + logout);
@@ -38,28 +38,27 @@ public class UserController {
 		if(logout != null) {
 			model.addAttribute("logout", "로그아웃 되었습니다.");
 		}
-		
-		return null;
 	}
 	
 	//로그아웃
 	@GetMapping("/logout")
-	public String logout() {
+	public void logout() {
 		log.info("logout()");
-		
-		return null;
 	}
 	
+	//로그인을 하지 않은 사용자도 접근 가능한 URL
 	@GetMapping("/all")
 	public void all() {
 		log.info("/all 접근 제한 x");
 	}
 
+	//로그인 한 사용자들만 접근할 수 있는 URL
 	@GetMapping("/member")
 	public void member() {
 		log.info("/member 접근 제한 O - 로그인한 사용자");
 	}
 
+	//로그인 한 사용자들 중에서 관리자 권한을 가진 사용자만이 접근할 수 있는 URL
 	@GetMapping("/admin")
 	public void admin() {
 		log.info("/admin 접근 제한 O - 로그인한 관리자");

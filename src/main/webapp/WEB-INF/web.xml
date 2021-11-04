@@ -43,7 +43,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 		
-				<!-- file upload -->
+		<!-- file upload -->
 		<multipart-config>
 			<location>c:\\upload\\temp</location>
 			<max-file-size>20971520</max-file-size>
@@ -51,6 +51,17 @@
 			<file-size-threshold>20971520</file-size-threshold>
 		</multipart-config>
 		
+		<!-- security filter -->
+		<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>
+			org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>

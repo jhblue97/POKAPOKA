@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
@@ -46,10 +45,21 @@
 					<li><a class="dropdown-item" href="/report/list">신고 처리</a></li>
 				</ul></li>
 		</ul>
-		<button type="button" class="btn btn-outline-primary mx-2"
-			onclick="location.href='/user/login'">LOGIN</button>
-		<button type="button" class="btn btn-outline-warning mx-2"
-			onclick="location.href='/user/signIn'">SIGNIN</button>
+		 <!-- 로그인 X - 로그인 표시 -->
+		  <sec:authorize access="isAnonymous()">
+			<button type="button" class="btn btn-outline-primary mx-2"
+				onclick="location.href='/user/login'">LOGIN</button>
+			<button type="button" class="btn btn-outline-warning mx-2"
+				onclick="location.href='/user/signIn'">SIGNIN</button>
+		  </sec:authorize>
+		  
+		  <!-- 로그민 O - 로그아웃 표시 -->
+		   <sec:authorize access="isAuthenticated()">
+		   		<img src="/resources/images/default.png">
+		   		<span>user명</span>
+			   <button type="button" class="btn btn-outline-danger mx-2"
+					onclick="location.href='/user/logout'">LOGOUT</button>
+		   </sec:authorize>
 	</nav>
 	<hr style="">
 	<script>
