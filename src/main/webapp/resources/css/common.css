@@ -78,32 +78,58 @@ body {
 
 /* btn color */
 .btn-poka-main {
-    color: #fff;
-    background-color: #113351;
-    border-color: #113351;
+	color: #DFA01E;
+	background-color: #113351;
+	border-color: #113351;
 }
 
-.btn-poka-warning{
+.btn-poka-main:hover, .btn-poka-main:focus {
+	box-shadow: 0 0 0 .2rem #DFA01E
+}
+
+.btn-poka-warning {
 	background-color: #DFA01E;
 	border-color: #DFA01E;
 	color: #113351;
+	font-weight: bold;
 }
-.btn-poka-green{
+
+.btn-poka-warning:hover, .btn-poka-warning:focus {
+	box-shadow: 0 0 0 .2rem #113351
+}
+
+.btn-poka-green {
 	background-color: #37867F;
 	border-color: #37867F;
 	color: #fff;
+	font-weight: bold;
 }
-.btn-poka-light{
+
+.btn-poka-green:hover, .btn-poka-green:focus {
+	box-shadow: 0 0 0 .2rem #D8E9E7
+}
+
+.btn-poka-light {
 	background-color: #D8E9E7;
 	border-color: #D8E9E7;
-	color: #fff;
+	color: #113351;
+	font-weight: bold;
 }
-.btn-poka-danger{
+
+.btn-poka-light:hover, .btn-poka-light:focus {
+	box-shadow: 0 0 0 .2rem #37867F
+}
+
+.btn-poka-danger {
 	background-color: #DF314F;
 	border-color: #DF314F;
 	color: #fff;
+	font-weight: bold;
 }
 
+.btn-poka-danger:hover, .btn-poka-danger:focus {
+	box-shadow: 0 0 0 .2rem #9e2439;
+}
 
 /* hr design */
 hr {

@@ -26,15 +26,10 @@
 					<div class="panel-body">
 						<div class="d-flex flex-row justify-content-start">
 							<div>
-								<div class="row p-2">
-									<button class="btn btn-primary">질문 등록</button>
-								</div>
-								<div class="row p-2">
-									<button class="btn btn-warning">답변 등록</button>
-								</div>
+								<button onclick="location.href='#'" class="btn btn-poka-main">質問登録</button>
+								<button onclick="location.href='#'" class="btn btn-poka-warning">回答登録</button>
 							</div>
 						</div>
-
 						<div class="d-flex flex-row justify-content-end">
 							<label>回答なし<input type="checkbox" name="isReplied"
 								value="1"></label>
