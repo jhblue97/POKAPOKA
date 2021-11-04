@@ -7,21 +7,17 @@
 		<h1 class="display-5">
 			회원가입</h1></div></div>
 	<div class="container">
-			<form role="form" method="post" action="/user/signIn"
-				>
-				
-				<div style="display:block; float:right;">
+			<div style="display:block; float:right;">
 					<div class="col-sm-10">
 						<label>프로필 이미지</label>
-<!-- 						<div class="uploadDiv">
-						
+ 						<div class="uploadDiv">
 							<img class="img-thumbnail" id = "view_img" alt="50x50" src="/resources/images/profile.png" style=" width:200px; height : 200px; margin:auto; display: block;" ><br>
 							<input type="file"
 							multiple class="form-control" id="img" name="img" onchange="setThumbnail(event);">
-						</div> -->
+						</div>
 					</div>
 				</div>
-				
+			<form role="form" method="post" action="/user/signIn">
 				<div class="form-group row ">
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
@@ -55,8 +51,7 @@
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">비밀번호확인</label>
 					<div class="col-sm-4">
-						<input type="password" name="user_pw_ck" id="user_pw_ck"
-							class="form-control" required>
+						<input type="password" class="form-control" required>
 					</div>
 					<div class="col-sm-3">
 						<span style="color: gray;">비밀번호가 일치하지 않습니다.</span>
@@ -93,12 +88,15 @@
 						
 					</div>
 				</div>
-	
+				
+				<!-- 첨부파일 정보 hidden에 전달 -->
+				<input type="hidden" name="img" value="resouces/images/default.png">
+				
 				<div class="form-group row mt-4">
 					<div class="col-sm-offset-2 col-sm-12 text-center">
 						<input type="button" class="btn btn-secondary"
 							style="width: 100px;" value="취소" onclick="history.back()">
-						<input type="submit" class="btn offset-2"
+						<input type="submit" class="btn offset-2" id="uploadBtn"
 							style="width: 100px; background-color: #37867F; color:white; " value="등록">
 						<input type="hidden" name="${_csrf.parameterName }"
 												 value="${_csrf.token }">     

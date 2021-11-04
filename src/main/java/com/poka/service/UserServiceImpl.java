@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
 	public void signIn(UserVO user) {
 		userMapper.signIn(user);
 	}

@@ -1,9 +1,5 @@
 package com.poka.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.UserVO;
@@ -86,29 +81,11 @@ public class UserController {
 	@PostMapping("/signIn")
 	public String signIn(UserVO vo) {
 		log.info("signIn()");
-//		log.info("Upload File Name : " + uploadFile.getOriginalFilename());
-//		log.info("Upload File Size : " + uploadFile.getSize());
 		
-		//userService.signIn(vo);
-		
+		userService.signIn(vo);
 		return "redirect:/";
 	}
-	
-	//업로드 파일 - 이미지 여부 확인
-	public boolean checkImgType(File file) {
-		try {
-			String contentType = Files.probeContentType(file.toPath());
-			
-			//이미지 파일이면 true 반환
-			return contentType.startsWith("image");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	
-	
+
 	//회원탈퇴
 	@PostMapping("/delete")
 	public String delete(@RequestParam("userid") String userid, RedirectAttributes rttr) {

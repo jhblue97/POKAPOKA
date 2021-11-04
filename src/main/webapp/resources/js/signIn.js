@@ -16,8 +16,49 @@ $(function() {
 				$("#mail2").attr("readonly", true);
 			}
 			
-			$('#email').val($('#mail1').val() + $('#mail2').val());
+			$('#email').val($('#mail1').val() + '@' + $('#mail2').val());
 		});
+		
+		//파일의 확장자나 크기의 사전 처리
+		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		var maxSize = 1048576;	//1MB
+		
+		function checkExtension(fileName, fileSize){
+			if(fileSize >= maxSize){
+				alert("파일 사이즈 초과");
+				return false;
+			}
+			
+			if(regex.test(fileName)){
+				alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+				return false;
+			}
+			return ture;
+		}//END 파일의 확장자나 크기의 사전 처리
+		
+		//파일 업로드 처리
+		$("#uploadBtn").on("click", function(e){
+			var formData = new FormData();
+			var inputFile = $("input[name='img']");
+			var files = inputFile[0].files;
+			
+			for(var i = 0; i<files.lenth;i++){
+				formData.append("uploadFile", files[i]);
+			}
+			
+			$.ajax({
+				url: '/',
+				processData: false,
+				contentType: false,
+				data:formData,
+				type:'POST',
+				dataType:'json',
+				success:function(result){
+					console.log(result);
+				}
+			}); //$.ajax
+		});//END 파일 업로드 처리
+		
 	});
 });
 
@@ -32,7 +73,6 @@ function setThumbnail(event) {
    }; 
    reader.readAsDataURL(event.target.files[0]); 
 }
-
 
 //아이디 중복검사
 $('.id_input').on("propertychange change keyup paste input", function(){
