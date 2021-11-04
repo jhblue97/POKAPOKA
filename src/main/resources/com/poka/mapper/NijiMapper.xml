@@ -32,8 +32,10 @@
     
     <select id="getListWithPaging" resultType = "com.poka.domain.NijiVO" >
  <![CDATA[
-	 SELECT * 
-        FROM   (  SELECT rownum rn, 
+	  SELECT * 
+        FROM   (
+         SELECT  rownum rn,b.*
+         from ( select distinct
 	    N.NNO,N.TITLE,N.CONTENT,n.category,n.img,n.price,n.writer,n.regdate,n.updatedate
 		FROM P_NIJI N
 		LEFT OUTER JOIN P_NIJI_TAG T
@@ -43,7 +45,7 @@
         <!-- 보관해 둔 쿼리 사용 -->
     	<include refid="criteria"></include>
      <![CDATA[
-        AND    rownum <= #{pageNum} * #{amount} ) 
+        AND    rownum <= #{pageNum} * #{amount} ) b ) 
         WHERE  rn > (#{pageNum} - 1) * #{amount}
  ]]>
     </select>

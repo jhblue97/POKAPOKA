@@ -178,7 +178,17 @@
         </svg>
 	</div>	
 		</form>
+		
+			
+		<span class="col-2 text-right"><button type="button"
+				class="btn btn-poka-main">登録</button>			
+		</span>
+
+		
 	</div>
+
+	
+	
 
     <!-- 현재 페이지 번호 및 출력 게시물 수 전송 폼 -->
     <form id="actionForm" action="/niji/list">
@@ -248,6 +258,19 @@
     });
 
 });
+		
+		
+		 $("#search").on("keyup",function(key){
+			 
+		        if(key.keyCode==13) {
+		        	//검색을 하면 페이지 번호가 1이 되도록 설정
+		        	searchFrm.find("input[name='pageNum']").val('1');
+		    		searchFrm.submit();
+		        
+		        }
+		    });
+		 
+		 
 	</script>
 
 </body>
