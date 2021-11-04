@@ -13,23 +13,26 @@
     
     <!-- 쿼리 보관 -->
 	<sql id="criteria">		
-	
-			<choose>
-    			<when test="type == 'B'.toString()">
-    				n.category  = 'B' AND
-    			</when>
-    			<when test="type == 'S'.toString()">
-    				n.category  = 'S' AND
-    			</when>
-    		    </choose>
+
     				t.tagname like '%' || #{keyword} || '%'
 					or n.title like '%' || #{keyword} || '%'
 					or n.content like '%' || #{keyword} || '%'
 					or n.writer like '%' || #{keyword} || '%'
 	</sql>
 	
+	    <!-- 쿼리 보관 -->
+	<sql id="category">		
+			<choose>
+    			<when test="type == 'B'.toString()">
+    				WHERE b.category  = 'B' 
+    			</when>
+    			<when test="type == 'S'.toString()">
+    				WHERE b.category  = 'S'
+    			</when>
+    		 </choose>
+	</sql>
 	
-    
+	   
     <select id="getListWithPaging" resultType = "com.poka.domain.NijiVO" >
  <![CDATA[
 	  SELECT * 
@@ -45,9 +48,12 @@
         <!-- 보관해 둔 쿼리 사용 -->
     	<include refid="criteria"></include>
      <![CDATA[
-        AND    rownum <= #{pageNum} * #{amount} ) b ) 
-        WHERE  rn > (#{pageNum} - 1) * #{amount}
- ]]>
+        AND    rownum <= #{pageNum} * #{amount} ) b 
+      ]]>   
+        <include refid="category"></include>
+     <![CDATA[
+        )  WHERE  rn > (#{pageNum} - 1) * #{amount}
+ 	 ]]>
     </select>
     
     <update id="update">
