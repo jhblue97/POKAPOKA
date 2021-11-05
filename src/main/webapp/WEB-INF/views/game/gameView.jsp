@@ -50,8 +50,10 @@
 						</div>
 					</div>
 					<div class="add-review d-flex flex-row">
-						<p class="review-subtitle">レビュー作成</p>
-						<span class="btn btn-poka-main btn-review">+</span>
+						<p class="write-review">
+							レビュー作成 <span id="addreview" class="btn btn-poka-main"><i
+								class="fa fa-plus plusbtn"></i></span>
+						</p>
 					</div>
 					<div class="go-to-store">
 						<button
@@ -69,12 +71,60 @@
 			<div class="game-review-subtitle">レビュー</div>
 			<div class="game-review-content"></div>
 		</div>
+
+		<!-- 리뷰 모달 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="modalTitle">REPLY MODAL</h4>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Review</label> <input name="review" value="New Review!!"
+								class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Writer</label> <input name="writer" value="writer"
+								class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label>Review Date</label> <input name="regDate"
+								value="2021/10/12 10:41:11" class="form-control">
+						</div>
+					</div>
+					<!-- END modal-body -->
+
+					<div class="modal-footer">
+						<button id="modalModBtn" type="button"
+							class="btn btn-poka-warning">修正</button>
+						<button id="modalRemoveBtn" type="button"
+							class="btn btn-poka-danger">削除</button>
+						<button id="modalRegisterBtn" type="button"
+							class="btn btn-primary">作成者</button>
+						<button id="modalCloseBtn" type="button" class="btn btn-poka-main"
+							data-dismiss="modal">キャンセル</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /END -->
+
 	</div>
 	<script>
-		$(function(){
-			$('.btn-review').on('click',function(e){
+		$(function() {
+			$('#addreview').on('click', function(e) {
 				console.log("리뷰 추가");
+				/* 모달 초기화 */
+				
+				/* 모달 표시 */
+				$('.modal').modal('show');
 			});
+
 		});
 	</script>
 </body>

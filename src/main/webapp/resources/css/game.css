@@ -154,19 +154,25 @@ iframe {
 	display: none;
 }
 
-.go-to-store{
+.go-to-store {
 	width: 20rem;
 }
 
-.review-subtitle{
+.write-review {
 	font-size: 1.5em;
 	font-weight: bold;
 }
 
-.btn-review{
-	width: 38px;
-	height: 38px;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	font-size: 1.5em;
+.addbtn {
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1 px solid transparent;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: 0.25 rem;
 }

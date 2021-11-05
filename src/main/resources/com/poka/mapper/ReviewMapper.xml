@@ -5,13 +5,25 @@
 
 <mapper namespace="com.poka.mapper.ReviewMapper">
 	<!-- 리뷰 리스트 -->
-	<select id="getList" resultType="com.poka.domain.ReviewVO"></select>
+	<select id="getList" resultType="com.poka.domain.ReviewVO">
+		SELECT * FROM P_REVIEW WHERE gno = #{gno}
+	</select>
 	<!-- 단일 리뷰 -->
-	<select id="read" resultType="com.poka.domain.ReviewVO"></select>
+	<select id="read" resultType="com.poka.domain.ReviewVO">
+		SELECT * FROM P_REVIEW WHERE rno = #{rno}
+	</select>
 	<!-- 리뷰 작성 -->
-	<insert id="insert"></insert>
+	<insert id="insert">
+		INSERT INTO P_REVIEW(rno, content, writer, gno, score, regDate)
+		 VALUES(#{rno}, #{content}, #{writer}, #{gno}, #{score}, DEFAULT)
+	</insert>
 	<!-- 리뷰 수정 -->
-	<update id="update"></update>
+	<update id="update">
+		UPDATE P_REVIEW SET content = #{content}, writer = #{writer}, updateDate=SYSDATE
+		 WHERE rno=#{rno)
+	</update>
 	<!-- 리뷰 삭제 -->
-	<delete id="delete"></delete>
+	<delete id="delete">
+		DELETE P_REVIEW WHERE rno = #{rno}
+	</delete>
 </mapper>
