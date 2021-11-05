@@ -217,7 +217,7 @@
 			</div>
 			<br/> 
 			<div style="border-top-width: 0.1em; border-top-style: dashed; border-top-color: #7b7b7b;"></div><br/>		
-			<img class="img-thumbnail" alt="50x50" data-src="holder.js/100x200" src='../../../../resources/upload/${obj.image}' style=" width:200px; height : 200px; margin:auto; display: block;" >
+			<img class="img-thumbnail" alt="50x50" data-src="holder.js/100x200" src='../../../../resources/upload/water_${obj.image}' style=" width:200px; height : 200px; margin:auto; display: block;" >
 			<br/>			
 			<div style="border-top-width: 0.1em; border-top-style: dashed; border-top-color: #7b7b7b;"></div><br/>			
 			<div class="caption">
