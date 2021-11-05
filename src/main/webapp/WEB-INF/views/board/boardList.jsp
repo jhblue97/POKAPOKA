@@ -49,40 +49,37 @@
 		</table>
 		
 		  <!-- 페이지 번호 표시 영역 -->
-          <div class='pull-right'>
-           		<ul class="pagination">
-	               	<!-- 이전 표시 -->	
-	               	<c:if test="${pageMaker.prev }">
-						<li class="paginate_button previous">
-							<a href="${pageMaker.startPage - 1 }">Previous</a>
-					</li></c:if>
+<!--           <div class='pull-right'> -->
+<!--            		<ul class="pagination"> -->
+<!-- 	               	이전 표시	 -->
+<%-- 	               	<c:if test="${pageMaker.prev }"> --%>
+<!-- 						<li class="paginate_button previous"> -->
+<%-- 							<a href="${pageMaker.startPage - 1 }">Previous</a> --%>
+<%-- 					</li></c:if> --%>
 		
-	              	<!-- 페이지 번호 -->
-	              	<c:forEach begin="${pageMaker.startPage }"
-	              			   end="${pageMaker.endPage }"
-	              			   var="num">
-	                 		<%-- 현재 페이지 번호가 pageNum과 같으면 active 표시 --%>
-							<li class="paginate_button 
-								   ${pageMaker.cri.pageNum == num ? 'active' : '' }">		
-							<a href="${num }">${num }</a>
-							</li></c:forEach>
+<!-- 	              	페이지 번호 -->
+<%-- 	              	<c:forEach begin="${pageMaker.startPage }" --%>
+<%-- 	              			   end="${pageMaker.endPage }" --%>
+<%-- 	              			   var="num"> --%>
+<%-- 	                 		현재 페이지 번호가 pageNum과 같으면 active 표시 --%>
+<%-- 							<li class="paginate_button  --%>
+<%-- 								   ${pageMaker.cri.pageNum == num ? 'active' : '' }">		 --%>
+<%-- 							<a href="${num }">${num }</a> --%>
+<%-- 							</li></c:forEach> --%>
 	                 	
-	               	<!-- 다음 표시 -->	
-	               	<c:if test="${pageMaker.next }">
-					<li class="paginate_button next">
-						<a href="${pageMaker.endPage + 1 }">Next</a>
-					</li></c:if>
-                 	</ul>
-              </div>
+<!-- 	               	다음 표시	 -->
+<%-- 	               	<c:if test="${pageMaker.next }"> --%>
+<!-- 					<li class="paginate_button next"> -->
+<%-- 						<a href="${pageMaker.endPage + 1 }">Next</a> --%>
+<%-- 					</li></c:if> --%>
+<!--                  	</ul> -->
+<!--               </div> -->
               <!-- END 페이지 번호 표시 영역 -->
               
                <!-- 현재 페이지 번호 및 출력 게시물 수 전송 폼 -->
                <form id="actionForm" action="/board/list">
 	               	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 	               	<input type="hidden" name="amount"  value="${pageMaker.cri.amount }">
-	               	<!-- 검색 타입과 키워드 파라미터 추가 -->
-	           		<input type="hidden" name="type" value="${pageMaker.cri.type }" >
-	           		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }" >
                </form>
 				
 				  <!-- 게시물 등록 결과 표시 Modal -->
