@@ -20,7 +20,7 @@
 		<security:intercept-url pattern="/user/admin"  access="hasRole('ROLE_ADMIN')"/>
 		
    		<!-- 로그인 처리 -->
-   		<security:form-login login-page="/login"/>
+   		<security:form-login login-page="/user/login"/>
    		
    		<!-- REMEMBER-ME -->
    		<security:remember-me data-source-ref="dataSource"

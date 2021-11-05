@@ -7,7 +7,7 @@
 
 	<insert id="insert">
 		INSERT INTO p_boardattach 
-		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno} )
+		VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
     </insert>
     
     <select id="getOldFiles" resultType="com.poka.domain.BoardAttachVO">

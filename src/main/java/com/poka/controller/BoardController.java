@@ -44,7 +44,7 @@ public class BoardController {
 	@PreAuthorize("isAuthenticated()")
 	public String add() {
 		
-		return null;
+		return "/board/boardAdd";
 	}
 	
 	//게시글 등록
@@ -135,26 +135,26 @@ public class BoardController {
 					@ModelAttribute("cri") Criteria cri,
 					Model model) {
 		log.info(".....get() or modify() .....");
-		
+		model.addAttribute("board", boardService.get(bno));
 		return null;
 	}
 	
 	//boardList.jsp
-	//자유게시판 목록 화면
-//	@GetMapping("/list")
-//	public String list(Criteria cri, Model model) {
-//		log.info(".....list().....");
-//		model.addAttribute("list", boardService.getList(cri));
-//		model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
-//		return "/boardList";
-//	}
+	//게시물 목록 조회
+		@GetMapping("/list")
+		public String list(Criteria cri, Model model) {
+			log.info(".....list().....");
+			model.addAttribute("list", boardService.getList(cri));
+			model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
+			return "/board/boardList";
+		}
 	
-	//게시판목록 확인용
-	@GetMapping("/list")
-	public String list() {
-		log.info(".....list().....");
-		return "/board/boardList";
-	}
+//	//게시판목록 확인용
+//	@GetMapping("/list")
+//	public String list() {
+//		log.info(".....list().....");
+//		return "/board/boardList";
+//	}
 	
 	//신고하기
 	@GetMapping("/report")

@@ -12,7 +12,7 @@
 		<result property="email" column="email"/>
 		<result property="birth" column="birth"/>
 		<result property="gradecode" column="gradecode"/>
-		<result property="userimg" column="userimg"/>
+		<result property="img" column="img"/>
 		<result property="gender" column="gender"/>
 		<result property="lastlogin" column="lastlogin"/>
 		<result property="account" column="account"/>
@@ -39,10 +39,10 @@
     <insert id="signIn">
     	insert into p_member values(#{user_id}, #{user_pw}, #{nickname}, #{email}, #{birth}, 'A1' , #{img}, #{gender}, SYSDATE, null, SYSDATE, null, null, 0)
     </insert>
-    
-    <update id="update"></update>
-    
-    <delete id="withdraw"></delete>
+    	
+    <delete id="withdraw">
+    	delete p_member where user_id = #{user_id}
+    </delete>
     
 <!--     <select id="get" resultType="com.poka.domain.UserVO"> -->
 <!--     	select * from p_member where user_id = #{user_id} -->
@@ -56,9 +56,17 @@
     
     <select id="emailchk" resultType="boolean"></select>
     
-    <select id="pwchg" resultType="boolean"></select>
+    <update id="pwchg">
+    	update p_member
+    	set user_pw = #{user_pw}
+    	where user_id = #{user_id}
+    </update>
     
-    <select id="nickchg" resultType="boolean"></select>
+    <update id="nickchg">
+    	update p_member
+    	set nickname = #{nickname}
+    	where user_id = #{user_id}
+    </update>
     
 </mapper>
 

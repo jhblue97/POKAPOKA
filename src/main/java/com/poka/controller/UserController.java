@@ -101,10 +101,10 @@ public class UserController {
 	}
 
 	//회원탈퇴
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public String delete(@RequestParam("userid") String userid, RedirectAttributes rttr) {
 		log.info(".....delete().....");
-	
+		userService.withdraw(userid);
 		return "redirect:/";
 	}
 	
@@ -147,15 +147,17 @@ public class UserController {
 	//userUpdate.jsp
 	//회원정보 수정 화면
 	@GetMapping("/modify")
-	public String modify() {
-		return null;
+	public String modify(@RequestParam("userid") String userid, Model model) {
+		model.addAttribute("user", userService.get(userid));
+		
+		return "/user/userUpdate";
 	}
 	
 	//회원정보 수정
 	@PostMapping("/modify")
-	public String modify(UserVO vo) {
+	public String modify(UserVO user) {
 		
-		return null;
+		return "redirect:/user/get";
 	}
 	
 	//비밀번호 변경

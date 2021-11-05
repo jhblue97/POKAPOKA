@@ -7,7 +7,7 @@
 
 	<select id="getTotalCount" resultType="int">
         SELECT 	COUNT(*) FROM p_board
-        WHERE  	bno > 0
+        WHERE  	bno IS NOT NULL
     </select>
 
 	<select id="getListWithPaging" 
@@ -17,8 +17,8 @@
         FROM   ( SELECT /*+INDEX_DESC(p_board pk_board) */
         				rownum rn, bno, title, content, writer,
         				regDate, updateDate
-        		 FROM   p_board 
-        		 		rownum <= #{pageNum} * #{amount} ) 
+        		 FROM   p_board
+        		 WHERE	rownum <= (#{pageNum} * #{amount}))
         WHERE  rn > (#{pageNum} - 1) * #{amount}
     ]]>
     </select>
@@ -26,7 +26,7 @@
 	<select id="getList" 
 	        resultType="com.poka.domain.BoardVO">
 	<![CDATA[
-        SELECT * FROM p_board WHERE bno > 0 ORDER BY bno DESC
+        SELECT * FROM p_board WHERE bno IS NOT NULL ORDER BY bno DESC
     ]]>
     </select>
     
@@ -46,8 +46,8 @@
     </select>
 
 	<insert id="insertSelectKey">
-		<selectKey keyProperty="bno" order="BEFORE" resultType="Long">
-			SELECT seq_board.NEXTVAL FROM dual
+		<selectKey keyProperty="bno" order="BEFORE" resultType="String">
+			SELECT 'B'||seq_board.NEXTVAL FROM dual
 		</selectKey>
 	
 		INSERT INTO p_board(bno, title, content, writer)
@@ -56,7 +56,7 @@
     
 	<insert id="insert">
 		INSERT INTO p_board(bno, title, content, writer)
-		VALUES(seq_board.NEXTVAL, #{title}, #{content}, #{writer} )
+		VALUES('B'||seq_board.NEXTVAL, #{title}, #{content}, #{writer} )
     </insert>
     
 </mapper>

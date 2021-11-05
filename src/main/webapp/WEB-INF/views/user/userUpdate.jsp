@@ -4,7 +4,7 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1 class="display-5">
-			회원정보</h1></div></div>
+			회원정보수정</h1></div></div>
 <div class="container p-5 mb-5" style="border: solid 1px;">
 				<div class="ml-5" style="display:block; float:left;">
 					<div class="mr-5">
@@ -13,14 +13,14 @@
 							<img class="img-thumbnail" id = "view_img" alt="50x50" src="${user.img }" style=" width:200px; height : 200px; margin:auto; display: block;" ><br>
 						</div>
 					</div>
-					<span class="row mb-2">등급 <img class="ml-3 mr-2" src="/resources/images/001_g_bronze.png" style="width:30px; height:30px;"> 브론즈</span>
+						<span class="row mb-2">등급 <img class="ml-3 mr-2" src="/resources/images/001_g_bronze.png" style="width:30px; height:30px;"> 브론즈</span>
 					<div class="row">경험치 
 					<div class="progress ml-1 mt-1" style= "width:100px;">
 						 <div class="progress-bar" style= "width:20px;"></div>
 					</div>
 					</div>
 				</div>
-				
+				<form role="form" method="post" action="/user/signIn?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 				<div class="form-group row">
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
@@ -34,6 +34,14 @@
 					<div class="col-sm-4">
 						<input type="text" name="nickname" id="nickname"
 							class="form-control" value="${user.nickname }" readonly>
+					</div>
+					<button class="col-sm-2 btn btn-poka-light">닉네임 변경</button>
+				</div>
+				
+				<div class="form-group row mt-4">
+					<label class="col-sm-2">비밀번호</label>
+					<div class="col-sm-4">
+						<input type="button" class="form-control btn-poka-light" value="비밀번호변경">
 					</div>
 				</div>
 				
@@ -64,10 +72,13 @@
 				<div class="form-group row mt-4">
 					<div class="col-sm-offset-2 col-sm-12 text-center">
 						<input type="button" class="btn btn-secondary"
-							style="width: 100px;" value="취소" onclick="history.back()">
-						<input type="button" class="btn btn-poka-green" value="수정" style="width: 100px;"
-							onclick="location.href='/user/modify?userid='+'${user.user_id}'">
+							style="width: 100px; font-weight:bold;" value="취소" onclick="history.back()">
+						
+						<input type="button" class="btn btn-poka-danger"
+							style="width: 100px;" value="탈퇴" onclick="location.href='/user/delete?userid='+'${user.user_id}'">
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">     
 					</div>
 				</div>
+			</form>
 		</div>
 <%@ include file="../include/footer.jsp" %>

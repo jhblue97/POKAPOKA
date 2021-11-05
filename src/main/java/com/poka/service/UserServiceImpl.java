@@ -22,12 +22,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean modify(UserVO user) {
-		boolean modifyResult = userMapper.update(user) == 1; //게시물 수정
-		return modifyResult;
-	}
-
-	@Override
 	public boolean withdraw(String userid) {
 		return userMapper.withdraw(userid) == 1 ? true : false;
 	}
@@ -53,13 +47,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean pwchg(UserVO user) {
-		return userMapper.pwchg(user);
+	public void pwchg(UserVO user) {
+		userMapper.pwchg(user);
 	}
 
 	@Override
-	public boolean nickchg(UserVO user) {
-		return userMapper.nickchg(user);
+	public void nickchg(UserVO user) {
+		userMapper.nickchg(user);
 	}
 
 }
