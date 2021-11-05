@@ -3,7 +3,6 @@ package com.poka.service;
 import com.poka.domain.UserVO;
 
 public interface UserService {
-	public int logIn(String userid, String userpw);	//로그인
 	public void signIn(UserVO vo);	//회원가입
 	public boolean modify(UserVO vo);	//회원정보 수정
 	public boolean withdraw(String userid);	//회원탈퇴

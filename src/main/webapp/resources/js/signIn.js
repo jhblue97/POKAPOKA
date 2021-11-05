@@ -1,7 +1,7 @@
 $(function() {
 	$(document).ready(function() {
 		//이메일 선택시 데이터 전송
-		$('select[name=emailSelection]').change(function() {
+		$('select[name=emailSelection], #mail2').change(function() {
 
 			if ($(this).val() == "direct") {
 

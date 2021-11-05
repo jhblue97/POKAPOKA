@@ -1,7 +1,13 @@
 package com.poka.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +31,8 @@ public class UserController {
 
 	private UserService userService;
 	
+	BCryptPasswordEncoder pwdEncoder;
+	
 	//로그인
 	@GetMapping("/login")
 	public void login(String error, String logout, Model model) {
@@ -42,8 +50,10 @@ public class UserController {
 	
 	//로그아웃
 	@GetMapping("/logout")
-	public void logout() {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		log.info("logout()");
+		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+		return "redirect:/";
 	}
 	
 	//로그인을 하지 않은 사용자도 접근 가능한 URL
@@ -78,11 +88,16 @@ public class UserController {
 	
 	//회원 가입
 	@PostMapping("/signIn")
-	public String signIn(UserVO vo) {
+	public String signIn(UserVO user, RedirectAttributes rttr){
 		log.info("signIn()");
-System.out.println("user -->"+vo.getEmail());
-		userService.signIn(vo);
-		return "redirect:/";
+		
+		String pwd = pwdEncoder.encode(user.getUser_pw());
+		user.setUser_pw(pwd);
+		
+		userService.signIn(user);
+		rttr.addAttribute("result", user.getUser_id());
+
+		return "redirect:/user/login";
 	}
 
 	//회원탈퇴
@@ -96,10 +111,12 @@ System.out.println("user -->"+vo.getEmail());
 	//userView.jsp
 	//회원 정보 조회 화면
 	@GetMapping("/get")
-	public String get(UserVO vo) {
+	public String get(@RequestParam("user_id") String user_id, Model model) {
 		log.info("get()");
-		return null;
+		model.addAttribute("user", userService.get(user_id));
+		return "/user/userView";
 	}
+	
 	
 	//아이디 체크
 	@GetMapping("/chk/id")

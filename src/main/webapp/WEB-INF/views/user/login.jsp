@@ -25,11 +25,17 @@
 					</div>
 					<input type="submit" class="btn btn-lg btn-success btn-block" value="login">
 				</fieldset>
-				<input type="hidden" name="${_csrf.parameterName }"
-												 value="${_csrf.token }">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		</div>
 	</div>
-
+<script>
+//Login 버튼 클릭 이벤트 처리
+$('.btn-success').on('click', function(e){
+	e.preventDefault();
+	$('form').submit();
+});
+//END Login 버튼 클릭 이벤트 처리
+</script>
 
 <%@ include file="../include/footer.jsp" %>

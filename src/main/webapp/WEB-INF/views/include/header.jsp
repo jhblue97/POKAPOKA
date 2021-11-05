@@ -55,8 +55,9 @@
 		  
 		  <!-- 로그민 O - 로그아웃 표시 -->
 		   <sec:authorize access="isAuthenticated()">
-		   		<img src="/resources/images/default.png">
-		   		<span>user명</span>
+		   		<img src="/resources/images/profile.png" style="width:50px; height:50px;" onclick="location.href='/user/get?user_id='+'<sec:authentication property="principal.username"/>'">
+		   		<span class="mr-3" style="color:white;">&nbsp;
+		   		<sec:authentication property="principal.user.nickname"/>님</span>
 			   <button type="button" class="btn btn-outline-danger mx-2"
 					onclick="location.href='/user/logout'">LOGOUT</button>
 		   </sec:authorize>

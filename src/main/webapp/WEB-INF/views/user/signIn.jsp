@@ -90,7 +90,7 @@
 				</div>
 				
 				<!-- 첨부파일 정보 hidden에 전달 -->
-				<input type="hidden" name="img" value="resouces/images/default.png">
+				<input type="hidden" name="img" value="/resources/images/profile.png">
 				
 				<div class="form-group row mt-4">
 					<div class="col-sm-offset-2 col-sm-12 text-center">
@@ -98,8 +98,7 @@
 							style="width: 100px;" value="취소" onclick="history.back()">
 						<input type="submit" class="btn offset-2" id="uploadBtn"
 							style="width: 100px; background-color: #37867F; color:white; " value="등록">
-						<input type="hidden" name="${_csrf.parameterName }"
-												 value="${_csrf.token }">     
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">     
 					</div>
 				</div>
 			</form>

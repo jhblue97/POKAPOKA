@@ -151,8 +151,8 @@ public class BoardController {
 	
 	//게시판목록 확인용
 	@GetMapping("/list")
-	public String boardList() {
-		log.info(".....boardList().....");
+	public String list() {
+		log.info(".....list().....");
 		return "/board/boardList";
 	}
 	

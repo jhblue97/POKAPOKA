@@ -6,8 +6,8 @@
 <mapper namespace="com.poka.mapper.UserMapper">
 	 <resultMap type="com.poka.domain.UserVO" id="userMap">
 		<id property="userid" column="userid"/>
-		<result property="userid" column="userid"/>
-		<result property="userpw" column="userpw"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_pw" column="user_pw"/>
 		<result property="nickname" column="nickname"/>
 		<result property="email" column="email"/>
 		<result property="birth" column="birth"/>
@@ -36,8 +36,6 @@
         WHERE				m.user_id = #{user_id}
      </select>
     
-    <select id="logIn" resultType="int"></select>
-    
     <insert id="signIn">
     	insert into p_member values(#{user_id}, #{user_pw}, #{nickname}, #{email}, #{birth}, 'A1' , #{img}, #{gender}, SYSDATE, null, SYSDATE, null, null, 0)
     </insert>
@@ -46,7 +44,9 @@
     
     <delete id="withdraw"></delete>
     
-    <select id="get" resultType="com.poka.domain.UserVO"></select>
+<!--     <select id="get" resultType="com.poka.domain.UserVO"> -->
+<!--     	select * from p_member where user_id = #{user_id} -->
+<!--     </select> -->
     
 <!--     <select id="idchk" resultType="int"> -->
 <!--     	select count(*) from p_member where userid = #{userid} -->

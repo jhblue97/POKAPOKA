@@ -33,16 +33,18 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		//ROLE_ADMIN이면 /sample/admin으로 리다이렉트
 		if(roleNms.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/sample/admin");
+			response.sendRedirect("/user/admin");
 			return;
 		}
 		//ROLE_MEMBER이면 /sample/member로 리다이렉트
 		if(roleNms.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/sample/member");
+			response.sendRedirect("/user/member");
 			return;
 		}
 		//그 외는 /로 리다이렉트
 		response.sendRedirect("/");
+		
+		
 	}
 
 }
