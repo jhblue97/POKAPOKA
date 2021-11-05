@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,7 @@ public class NijiController {
 			  
 			  list.forEach(niji -> {
 			  
-			  niji.setTagVO(nijiService.getTag(niji.getNno()));
+			  niji.setTag(nijiService.getTag(niji.getNno()));
 			  
 			  System.out.println("niji : -> " + niji); });
 			 
@@ -103,10 +104,16 @@ public class NijiController {
 		
 		//게시물 등록
 		@PostMapping("/add")
-		@PreAuthorize("isAuthenticated()")
+		//@PreAuthorize("isAuthenticated()")
 		public String add(NijiVO niji, RedirectAttributes rttr) {
-		
-			return "redirect:/niji/nijiList";
+			System.out.println("getImage :::  "+niji.getImage());
+			System.out.println("full tag :::  "+niji.getFullTag());
+			
+
+			nijiService.add(niji);
+			rttr.addFlashAttribute("result","登録しました。");
+
+			return "redirect:/niji/list";
 		}
 		
 		

@@ -1,6 +1,7 @@
 package com.poka.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.poka.domain.Criteria;
 import com.poka.domain.NijiTagVO;
@@ -31,5 +32,10 @@ public interface NijiMapper {
 	
 	public List<NijiTagVO> getTag(String nno);
 	
+	//마지막 시퀀스 찾기
+	public int getLastSeq();
+	
+	//게시물 등록
+	public void insertTag(Map<String,String> map);
 	
 }

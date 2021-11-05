@@ -1,6 +1,8 @@
 package com.poka.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -68,7 +70,31 @@ public class NijiServiceImpl implements NijiService{
 		/*
 		 * //첨부파일이 없는 경우 if(nijivo.getNijiAttachVO() == null) { return; }
 		 * attachMapper.insert(nijivo.getNijiAttachVO()); //이거는 무조건 attach메퍼타입으로
-		 */	}
+		 */	
+		
+		int number = nijiMapper.getLastSeq(); //19
+		String nno = "N"+(number);
+		//nijivo.setNno(nno);
+		
+		nijiMapper.insert(nijivo);
+		Map<String,String> map;
+		if(nijivo.getFullTag()!=null) {
+			String[] tag = nijivo.getFullTag().split(",");
+			
+			for(int i=0; i<tag.length; i++) {
+				map = new HashMap<String,String>();
+				System.out.println("이게맞나"+nno + tag[i]);
+				map.put("nno", nno);
+				map.put("tagname",tag[i]);
+				nijiMapper.insertTag(map);
+				
+			}
+		
+		
+		}
+	
+		
+	}
 
 	@Override
 	public List<NijiVO> getList(Criteria cri) {
@@ -79,8 +105,6 @@ public class NijiServiceImpl implements NijiService{
 
 	@Override
 	public List<NijiTagVO> getTag(String nno) {
-		
-		
 		
 		return nijiMapper.getTag(nno);
 	}	

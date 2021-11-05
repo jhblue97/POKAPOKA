@@ -213,16 +213,16 @@
 		<div style="margin: 10px;">		
 			<div class="profileusername">
 			&emsp;<strong>${obj.nno}</strong>
+			${obj.writer}
 			</div>
 			<br/> 
 			<div style="border-top-width: 0.1em; border-top-style: dashed; border-top-color: #7b7b7b;"></div><br/>		
-			<img class="img-thumbnail" alt="50x50" data-src="holder.js/100x200" src='../../../resources/images/logo2.png' style=" width:200px; height : 200px; margin:auto; display: block;" >
+			<img class="img-thumbnail" alt="50x50" data-src="holder.js/100x200" src='../../../../resources/upload/${obj.image}' style=" width:200px; height : 200px; margin:auto; display: block;" >
 			<br/>			
 			<div style="border-top-width: 0.1em; border-top-style: dashed; border-top-color: #7b7b7b;"></div><br/>			
 			<div class="caption">
 				<p>CONTENT :${obj.title}</p>  
 				<p>CONTENT :${obj.content}</p>  
-		
 			</div>	 
 			<div style="text-align: right;"> 
 			<!-- <button type="button" class="btn btn-b" name="get" data-param="" onclick = >view</button> -->

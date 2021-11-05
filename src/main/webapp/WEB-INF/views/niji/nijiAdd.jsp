@@ -24,12 +24,15 @@
 	<div class="container">
 		<h1 class="display-5" id = "jumbo">
 			販売 登録</h1></div></div>
+	
+	
+	
 	<div class="container">
 	
 	
 	<!----------------------------- 판매글 영역 시작------------------ --> 
 	
-			<form role="form" method="post" action="/niji/nijiAdd" id ="seller">
+			<form role="form" method="post" action="/niji/add" id ="seller">
 				
 				<div class="col-sm-5">
 						<label><input type="radio" name="category" value="S" checked> 販売</label>
@@ -37,6 +40,10 @@
 						
 					</div>
 				
+						<input name="writer" class="form-control" 
+	                    		       value='<sec:authentication property="principal.username"/>'
+	                    		       readonly> </div>
+	                    		       
 				<div class="form-group row ">
 					<label class="col-sm-2">タイトル</label>
 					<div class="col-sm-4">
@@ -55,40 +62,19 @@
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">販売イメージ</label>
 					<div class="col-sm-4">
-						<input type="text" name="img" id="img"
-							class="form-control" required>
-					</div>
+						<p>drag and drop your image!</p>
+						<div class="content">
+						</div>
+						
+						<input type = "hidden" id = "image" name = "image">	
+												
 				</div>
-				
-				
-<!-- 사진 시작 -->
-<div class="row">
-<div class="col-xs-8 col-md-2 text-right" style="padding-top: .5em; padding-bottom: .5em;"><strong>사진</strong></div>
-<div class="col-xs-4 col-md-10" style="border-left-width: 0.1em; border-left-style: solid; border-left-color: #777; padding-top: .5em; padding-bottom: .5em;">
-
-	<input id=file type=file multiple="multiple" onchange="setThumbnail(event);">
- <img class="img-thumbnail" id = "view_img" alt="50x50"  data-src="holder.js/100x200" src='' style=" width:200px; height : 200px; margin:auto; display: block;" >
-    
-	
-	<input type="hidden" id="link" value="" name="photo1"/><!-- 이미지 링크 append 되는 부분 -->
-	<input type="hidden" name="userNo" value=""/><!-- value 수정해야함 -->
-</div>
-</div>
-<!-- 사진 끝 -->
-
-
-<p>drag and drop your image!</p>
-<div class="content">
-</div>
-
-
-		
-				
+				</div>
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">tag</label>
 					<div class="col-sm-4">
-						<input type="text" name="tag" id="tag"
-							class="form-control" disabled>
+						<input type="text" name="fullTag" id="fullTag"
+							class="form-control" readonly>
 					</div>
 				</div>
 	
@@ -114,14 +100,16 @@
 			<!----------------------------- 판매글 영역 끝  ------------------ -->
 			
 			<!----------------------------- 구매글 영역 시작 ------------------ -->
-			<form role="form" method="post" action="/niji/nijiAdd" id = "buyer" style = "display:none">
+			<form role="form" method="post" action="/niji/add" id = "buyer" style = "display:none">
 				
 				<div class="col-sm-5">
 						<label><input type="radio" name="category" value="S"> 販売</label>
 						<label><input type="radio" name="category" value="B"> 購買</label>
 						
 					</div>
-				
+						<input name="writer" class="form-control" 
+	                    		       value='<sec:authentication property="principal.username"/>'
+	                    		       readonly> </div>
 				<div class="form-group row ">
 					<label class="col-sm-2">タイトル</label>
 					<div class="col-sm-4">
@@ -376,16 +364,21 @@
 		var file_real = "";
 		var reader = new FileReader(); 	
 		var test = files[0];
-		var form = new FormData();
-		
+		var form = new FormData();	
 		form.append("image", files[0]);
 		
+		var csrfHeaderName = '${_csrf.headerName}';	//CSRF 토큰 관련 변수
+		var csrfTokenValue = '${_csrf.token}';	
 		
 	//////////////////파일업로드 ajax 시작 ///////////////////	
-		/*$.ajax({
+		var form2 = new FormData();	
+		form2.append("uploadFile", files[0]);
+	
+	
+		$.ajax({
 			type	: 'post',
-			url 	: '/uploadAjaxAction',
-			data	: formData,
+			url 	: '/uploadAjaxAction2',
+			data	: form2,
 			contentType : false,
 			processData : false,
 			dataType    : 'json',
@@ -393,33 +386,37 @@
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 			},
 			success : function(result){
-				console.log(result);
+				
+				console.log("fileName :::" + result.fileName);
+				
+				console.log("uploadPath :::" + result.uploadPath);
+				$('#image').val(result.fileName);
+				
 				
 				//업로드 결과 출력 함수 호출
-				showUploadedFile(result);
+				//showUploadedFile(result);
 				
 		//		$('.uploadDiv').html(uploadTag.html());
 			}
-		});*/
+		});
 	//////////////////파일업로드 ajax 끝 ///////////////////	
-		
+		 
 	
-		 	        var settings = {
-		 	          "url": "https://api.imgbb.com/1/upload?key=dd33b5196e0d8185ce64c99507776fa2",
-		 	          "method": "POST",
-		 	          "timeout": 0, 	       
-		 	         "processData": false,
-		 	          "mimeType": "multipart/form-data",
-		 	          "contentType": false,
-		 	          "data": form
-		 	        };
+		  var settings = {
+		 	     "url": "https://api.imgbb.com/1/upload?key=dd33b5196e0d8185ce64c99507776fa2",
+		 	     "method": "POST",
+		 	     "timeout": 0, 	       
+		 	     "processData": false,
+		 	     "mimeType": "multipart/form-data",
+		 	     "contentType": false,
+		 	     "data": form
+		 	};
  	 
 		 	   $.ajax(settings).done(function (response) {
 		 	              console.log(response);
 		 	             var jx = JSON.parse(response);
 		 	            console.log(jx.data.url);
-		 	           file_real = jx.data.url;    
-		 	   	  
+		 	           file_real = jx.data.url;         
 		 	           $.ajax(	
 			        		{
 			        			url : "https://dapi.kakao.com/v2/vision/multitag/generate",
@@ -447,7 +444,7 @@
 			        						tag_input_val += tag_list_parse[i]+',';
 			        						
 			        					}
-			        				$('#tag').val(tag_input_val.slice(0,-1));
+			        				$('#fullTag').val(tag_input_val.slice(0,-1));
 			        			}	        			
 			        			,complete:function(){
 			        		        $('.wrap-loading').addClass('display-none'); //로딩중 이미지 감추기

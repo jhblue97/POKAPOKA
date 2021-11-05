@@ -39,7 +39,7 @@
         FROM   (
          SELECT  rownum rn,b.*
          from ( select distinct
-	    N.NNO,N.TITLE,N.CONTENT,n.category,n.img,n.price,n.writer,n.regdate,n.updatedate
+	    N.NNO,N.TITLE,N.CONTENT,n.category,n.img as image,n.price,n.writer,n.regdate,n.updatedate
 		FROM P_NIJI N
 		LEFT OUTER JOIN P_NIJI_TAG T
 		ON N.NNO = T.NNO
@@ -68,6 +68,8 @@
     </select>
 
 	<insert id="insert">
+	Insert into DEV.P_NIJI (NNO,TITLE,CONTENT,CATEGORY,IMG,PRICE,WRITER,REGDATE,UPDATEDATE) values ('N'||SEQ_NIJI.NEXTVAL,#{title},#{content},#{category},#{image},#{price},#{writer},sysdate,null)
+	 
     </insert>
     
     
@@ -92,6 +94,20 @@
 		FROM P_NIJI_TAG
 		WHERE nno = #{nno}
     </select>
+    
+     <select id="getLastSeq" resultType = "int">
+			SELECT 
+       		LAST_NUMBER 
+			FROM 
+       		 USER_SEQUENCES 
+			WHERE     
+        SEQUENCE_NAME = 'SEQ_NIJI'
+    </select>
+    
+     
+    	<insert id="insertTag" parameterType="map">
+	INSERT INTO P_NIJI_TAG VALUES(#{nno},#{tagname})
+    </insert>
     
     
 </mapper>

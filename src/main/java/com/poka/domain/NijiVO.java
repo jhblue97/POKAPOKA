@@ -13,12 +13,13 @@ public class NijiVO {
 	private String title; 
 	private String content;
 	private String category;
-	private String img; //판매이미지
+	private String image; //판매이미지
 	private int price;
 	private String writer;
-	private List<NijiTagVO> tagVO;
+	private List<NijiTagVO> tag;
 	private Date   regDate;
 	private Date   updateDate;
+	private String fullTag;
 	
 	
 	
