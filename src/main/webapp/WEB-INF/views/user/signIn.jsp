@@ -17,7 +17,7 @@
 						</div>
 					</div>
 				</div>
-			<form role="form" method="post" action="/user/signIn">
+			<form role="form" method="post" action="/user/signIn?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 				<div class="form-group row ">
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
