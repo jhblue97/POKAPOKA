@@ -26,50 +26,50 @@ public class GradeController {
 	//gradeAdd.jsp
 	//등급 등록 화면
 	@GetMapping("/add")
-	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String add() {
 		log.info(".....add().....");
 				
-		return null;
+		return "/grade/gradeAdd";
 	}
 	//등급 등록
 	@PostMapping("/add")
-	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String add(String admin, GradeVO grade, RedirectAttributes rttr) {
 		log.info(".....add().....");
 		
-		return "redirect:/grade/list";
+		return "/grade/gradeList";
 	}
 		
 	//등급 삭제
 	@PostMapping("/delete")
-	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String delete(String admin, @RequestParam("grade_code") String grade_code, RedirectAttributes rttr) {
 		log.info(".....delete().....");
-		return "redirect:/board/list";
+		return "/grade/gradeList";
 	}
 	
 	//gradeUpdate.jsp
 	//등급 수정 화면
 	@GetMapping("/update")
-	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String update(String admin, @RequestParam("gradeNo") String gradeNo) {
-		return null;
+		return "/grade/gradeUpdate";
 	}
 	
 	//등급 수정
 	@PostMapping("/update")
-	@PreAuthorize("principal.username == #admin")		//관리자 확인
+	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String update(String admin, GradeVO vo, RedirectAttributes rttr) {
 		
-		return null;
+		return "/grade/gradeList";
 	}
 	
 	//gradeList.jsp
 	//등급 기준 조회 화면
 	@GetMapping("/list")
-	@PreAuthorize("principal.username == #admin")		//관리자 확인
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String list(String admin, Model model) {
-		return null;
+		return "/grade/gradeList";
 	}
 }

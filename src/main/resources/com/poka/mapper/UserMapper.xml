@@ -39,7 +39,7 @@
     <insert id="signIn">
     	insert into p_member values(#{user_id}, #{user_pw}, #{nickname}, #{email}, #{birth}, 'A1' , #{img}, #{gender}, SYSDATE, null, SYSDATE, null, null, 0)
     </insert>
-    	
+    
     <delete id="withdraw">
     	delete p_member where user_id = #{user_id}
     </delete>

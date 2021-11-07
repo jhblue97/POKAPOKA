@@ -1,0 +1,11 @@
+@charset "UTF-8";
+.uploadResult { width:100%; 				background: lightgray; }
+.uploadResult ul { display: flex; 			flex-flow: row; 
+				   justify-content: center;	align-items: center; }
+.uploadResult ul li { list-style: none; 	padding: 10px; }	
+.uploadResult ul li img { width:100px; }
+
+.bigPicWrapper { position: absolute;   display: none;	 justify-content: center;	align-items: center;
+				 top: 0%;	z-index: 100;	width: 100%;	height:100%;	 background: gray;	 }
+.bigPic { 		 position: relative;	display: flex; justify-content: center;	align-items: center; }
+.bigPic img {    width:600px; }						 

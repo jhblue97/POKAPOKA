@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
+<link rel="stylesheet" type="text/css" href="/resources/css/board.css">
 
 <div class="jumbotron">
 	<div class="container">
@@ -39,23 +40,25 @@
 		
 		<div class="form-group row ">
 			<div class="col-sm-offset-2 col-sm-10" align="right">
-			<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
-				<input type="submit" class="btn btn-info" value="등록"></div></div>		
+				<button class="btn btn-secondary" type="reset">취소</button>
+				<button class="btn btn-poka-main" type="submit">등록</button></div></div>		
        	</form>
        	<!-- END 게시물 등록 폼 -->
        	
        	<!-- 첨부파일 -->
-    	<div class="form-group row">
+    	<div class="row">
 			<label class="col-sm-2">파일첨부</label>
 			<div class="col-sm-8">
 				<div class="form-group uploadDiv">
-					<input type="file" name="uploadFile" multiple></div></div>	
-       			</div>
-       			<!-- 첨부파일 업로드 결과 표시 -->
-               	<div class="uploadResult">
-					<ul></ul>                    	
-               	</div>
-       </div>	
+					<input type="file" name="uploadFile" multiple>
+				</div>
+			</div>	
+       	</div>
+     	<!-- 첨부파일 업로드 결과 표시 -->
+         <div class="uploadResult">
+			<ul></ul>                    	
+         </div>
+     </div>	
  <script>
 $(function(e){
 	var formObj = $("form[role='form']");
@@ -87,7 +90,7 @@ $(function(e){
 	});	//END submit 버튼 클릭 이벤트 처리
 	
 	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");	//확장자 제한 정규표현식
-	var maxSize = 52428800;	//최대 업로드 크기 500MB
+	var maxSize = 5242880;	//최대 업로드 크기
 	
 	//확장자 및 업로드 크기 체크 
 	function checkExtension(fileName, fileSize){
@@ -137,8 +140,6 @@ $(function(e){
 				
 				//업로드 결과 출력 함수 호출
 				showUploadedFile(result);
-				
-		//		$('.uploadDiv').html(uploadTag.html());
 			}
 		});//END ajax()
 	});//END 첨부파일 선택 이벤트 처리 
@@ -170,7 +171,7 @@ $(function(e){
 						        "<button type='button' class='btn btn-warning btn-circle' " +  
 						               " data-file='" + fileCallPath + "' data-type='file' >" + 
 						        	"<i class='fa fa-times'></i></button><br>" +
-						        "<img src='/resources/img/attach.png'></div></li>";	
+						        "<img src='/resources/images/attach.png'></div></li>";	
 
 			} else {	//그렇지 않으면 썸네일 표시
 				var fileCallPath = encodeURIComponent(
@@ -210,7 +211,5 @@ $(function(e){
 	
 });//END $
 </script>        
-       
-
 
 <%@ include file="../include/footer.jsp"%>

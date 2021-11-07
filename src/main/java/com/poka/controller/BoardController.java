@@ -52,7 +52,7 @@ public class BoardController {
 	@PreAuthorize("isAuthenticated()")
 	public String add(BoardVO board, RedirectAttributes rttr) {
 		log.info(".....add().....");
-		
+		log.info("add: " + board);
 		//첨부파일이 있는 경우 데이터베이스에 추가
 		if(board.getAttachList() != null) {
 			board.getAttachList().forEach(attach -> log.info(attach));
@@ -116,6 +116,17 @@ public class BoardController {
 		return new ResponseEntity<>(boardService.getAttachList(bno), HttpStatus.OK);
 	}
 	
+	//boardUpdate.jsp
+	//게시물 수정 화면 이동
+	@GetMapping("/modify")
+	public String modify(@RequestParam("bno") String bno, 
+					@ModelAttribute("cri") Criteria cri,
+					Model model) {
+		log.info("modify() .....");
+		model.addAttribute("board", boardService.get(bno));
+		return "/board/boardUpdate";
+	}
+	
 	//게시물 수정
 	@PostMapping("/modify")
 	@PreAuthorize("principal.username == #board.writer")	//작성자 확인
@@ -124,37 +135,31 @@ public class BoardController {
 						 RedirectAttributes rttr) {
 		log.info(".....modify()....." + cri);
 		log.info(board);
-
+		boardService.modify(board);
 		return "redirect:/board/list" + cri.getListLink();
 	}
+
 	
 	//boardView.jsp
-	//게시물 하나 조회, 게시물 수정 화면 이동
-	@GetMapping({ "/get", "/modify" })
+	//게시물 하나 조회, 
+	@GetMapping("/get")
 	public String get(@RequestParam("bno") String bno, 
 					@ModelAttribute("cri") Criteria cri,
 					Model model) {
-		log.info(".....get() or modify() .....");
+		log.info(".....get .....");
 		model.addAttribute("board", boardService.get(bno));
-		return null;
+		return "/board/boardView";
 	}
 	
 	//boardList.jsp
 	//게시물 목록 조회
-		@GetMapping("/list")
-		public String list(Criteria cri, Model model) {
-			log.info(".....list().....");
-			model.addAttribute("list", boardService.getList(cri));
-			model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
-			return "/board/boardList";
-		}
-	
-//	//게시판목록 확인용
-//	@GetMapping("/list")
-//	public String list() {
-//		log.info(".....list().....");
-//		return "/board/boardList";
-//	}
+	@GetMapping("/list")
+	public String list(Criteria cri, Model model) {
+		log.info(".....list().....");
+		model.addAttribute("list", boardService.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(boardService.getTotal(cri), cri));
+		return "/board/boardList";
+	}
 	
 	//신고하기
 	@GetMapping("/report")

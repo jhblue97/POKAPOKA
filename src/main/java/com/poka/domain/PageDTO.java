@@ -22,7 +22,7 @@ public class PageDTO { // 페이징 처리 클래스
 		// 끝 페이지 계산 - 1 페이지에 4개씩 페이지 번호를 표시하는 경우
 		endPage = (int) (Math.ceil(cri.getPageNum() / 4.0)) * 4;
 
-		startPage = endPage - 9; // 시작 페이지 계산
+		startPage = endPage - 3; // 시작 페이지 계산
 
 		// 실제 끝 페이지 계산
 		int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));

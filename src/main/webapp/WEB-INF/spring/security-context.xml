@@ -15,9 +15,9 @@
 		  class="com.poka.security.CustomUserDetailsService"/>
 		  
 	<security:http>
-		<security:intercept-url pattern="/user/all"    access="permitAll"/>
-		<security:intercept-url pattern="/user/member" access="hasRole('ROLE_MEMBER')"/>
-		<security:intercept-url pattern="/user/admin"  access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/**"    access="permitAll"/>
+		<security:intercept-url pattern="/**/get" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/grade/**"  access="hasRole('ROLE_ADMIN')"/>
 		
    		<!-- 로그인 처리 -->
    		<security:form-login login-page="/user/login"/>
@@ -25,17 +25,14 @@
    		<!-- REMEMBER-ME -->
    		<security:remember-me data-source-ref="dataSource"
    							  token-validity-seconds="604800"/>
-   			
    		<!-- 로그아웃 처리 -->
    		<security:logout logout-url="/logout" 
    						 invalidate-session="true"
    						 delete-cookies="remember-me,JSESSION_ID"/>
 		
-		<!-- 접근 권한 메시지 처리 -->
-		<security:access-denied-handler error-page="/accessError"/>
 		
 		<!-- 접근 권한 구현 클래스 참조 -->
-		<security:access-denied-handler ref="accessDenied"/>
+		<security:access-denied-handler ref="customAccessDenied"/>
 		
 	</security:http>
 	

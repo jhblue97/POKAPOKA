@@ -47,33 +47,39 @@
 			</c:forEach>
 			</tbody>
 		</table>
-		
+		</div>
 		  <!-- 페이지 번호 표시 영역 -->
-<!--           <div class='pull-right'> -->
-<!--            		<ul class="pagination"> -->
-<!-- 	               	이전 표시	 -->
-<%-- 	               	<c:if test="${pageMaker.prev }"> --%>
-<!-- 						<li class="paginate_button previous"> -->
-<%-- 							<a href="${pageMaker.startPage - 1 }">Previous</a> --%>
-<%-- 					</li></c:if> --%>
+          <div aria-label="Page navigation example">
+           		<ul class="pagination justify-content-center">
+	               	<!-- 이전 표시 -->	
+	               	<c:if test="${pageMaker.prev }">
+						<li class="page-item">
+							<a class="page-link" href="${pageMaker.startPage - 1 }" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+       						 	<span class="sr-only">Previous</span></a>
+						</li>
+					</c:if>
 		
-<!-- 	              	페이지 번호 -->
-<%-- 	              	<c:forEach begin="${pageMaker.startPage }" --%>
-<%-- 	              			   end="${pageMaker.endPage }" --%>
-<%-- 	              			   var="num"> --%>
-<%-- 	                 		현재 페이지 번호가 pageNum과 같으면 active 표시 --%>
-<%-- 							<li class="paginate_button  --%>
-<%-- 								   ${pageMaker.cri.pageNum == num ? 'active' : '' }">		 --%>
-<%-- 							<a href="${num }">${num }</a> --%>
-<%-- 							</li></c:forEach> --%>
+	              	<!-- 페이지 번호 -->
+	              	<c:forEach begin="${pageMaker.startPage }"
+ 	              			   end="${pageMaker.endPage }" 
+ 	              			   var="num"> 
+ 	                 		<%-- 현재 페이지 번호가 pageNum과 같으면 active 표시  --%>
+ 							<li class="page-item 
+								   ${pageMaker.cri.pageNum == num ? 'active' : '' }">		
+							<a class="page-link" href="${num }">${num }</a>
+							</li></c:forEach> 
 	                 	
-<!-- 	               	다음 표시	 -->
-<%-- 	               	<c:if test="${pageMaker.next }"> --%>
-<!-- 					<li class="paginate_button next"> -->
-<%-- 						<a href="${pageMaker.endPage + 1 }">Next</a> --%>
-<%-- 					</li></c:if> --%>
-<!--                  	</ul> -->
-<!--               </div> -->
+	               	<!-- 다음 표시	 -->
+	               	<c:if test="${pageMaker.next }"> 
+					<li class="page-item">
+						<a class="page-link" href="${pageMaker.endPage + 1 }" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+	      					<span class="sr-only">Next</span>
+						</a>
+					</li></c:if>
+              	</ul> 
+              </div> 
               <!-- END 페이지 번호 표시 영역 -->
               
                <!-- 현재 페이지 번호 및 출력 게시물 수 전송 폼 -->
@@ -103,7 +109,7 @@
                            </div>	
                        </div>	 
                    </div><!-- END 게시물 등록 결과 표시 modal -->
-	</div>
+	
 </div>
 <script>
 $(function(){
@@ -151,7 +157,7 @@ $(function(){
 		e.preventDefault();
 		
 		actionFrm.append("<input type='hidden' name='bno' value='" + 
-							$(this).attr('href') + "'>");
+				$(this).children().eq(0).text() + "'>");	//첫번째 행인 No.의 값 가져오기
 		actionFrm.attr('action', '/board/get');
 		actionFrm.submit();		
 	});	//END 게시물의 제목 클릭 이벤트 처리

@@ -22,14 +22,14 @@ public class CustomUser extends User {
 		
 	}
 
-	public CustomUser(UserVO user) {
-		super(user.getUser_id() , 
-			  user.getUser_pw(), 
-			  user.getAuthList()
+	public CustomUser(UserVO vo) {
+		super(vo.getUser_id() , 
+				vo.getUser_pw(), 
+				vo.getAuthList()
 			  		.stream()
 			  		.map(auth -> new SimpleGrantedAuthority(auth.getAuth()))
 			  		.collect(Collectors.toList()));
-		this.user = user;	
+		this.user = vo;	
 	}
 }
 
