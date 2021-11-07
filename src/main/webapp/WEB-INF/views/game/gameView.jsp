@@ -8,9 +8,7 @@
 <title>${game.gameNm }-ぽかぽかゲーム</title>
 </head>
 <body>
-
-	<div
-		class="game-trailer d-flex justify-content-center embed-responsive-16by9">
+	<div class="game-trailer d-flex justify-content-center embed-responsive-16by9">
 		<c:choose>
 			<c:when test="${game.game_vid != null}">
 				<iframe id="game-vid embed-responsive-item"
@@ -71,8 +69,45 @@
 			<div class="game-review-subtitle">レビュー</div>
 			<div class="game-review-content"></div>
 		</div>
+		<!-- 댓글 목록 -->
+		<div class='row'>
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-comments fa-fw"></i>Reply
 
-		<!-- 리뷰 모달 -->
+						<!-- 로그인한 경우에만 댓글 작성 버튼 표시 -->
+						<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New
+							Reply</button>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<ul class="chat">
+							<!-- REPLY START -------------------------->
+							<li class="left clearfix" data-rno='12'>
+								<div>
+									<div class="header">
+										<strong class="primary-font">user00</strong> <small
+											class="pull-right text-muted"> 2021-10-12 17:41 </small>
+									</div>
+									<p>Good job!</p>
+								</div>
+							</li>
+							<!-- REPLY END ---------------------------->
+						</ul>
+					</div>
+
+					<!-- 댓글 목록 페이징 -->
+					<div class="panel-footer"></div>
+					<!-- END 댓글 목록 페이징 -->
+				</div>
+			</div>
+		</div>
+		<!-- END 댓글 목록 -->
+
+
+		<!-- 댓글 작성 Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -80,39 +115,45 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="modalTitle">REPLY MODAL</h4>
+						<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
 					</div>
+					<!-- END modal-header -->
 
 					<div class="modal-body">
 						<div class="form-group">
-							<label>Review</label> <input name="review" value="New Review!!"
+							<label>Reply</label> <input name="reply" value="New Reply!!"
 								class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Writer</label> <input name="writer" value="writer"
+							<label>Replyer</label> <input name="replyer" value="replyer"
 								class="form-control" readonly>
 						</div>
 						<div class="form-group">
-							<label>Review Date</label> <input name="regDate"
+							<label>Reply Date</label> <input name="regDate"
 								value="2021/10/12 10:41:11" class="form-control">
 						</div>
 					</div>
 					<!-- END modal-body -->
 
 					<div class="modal-footer">
-						<button id="modalModBtn" type="button"
-							class="btn btn-poka-warning">修正</button>
-						<button id="modalRemoveBtn" type="button"
-							class="btn btn-poka-danger">削除</button>
+						<button id="modalModBtn" type="button" class="btn btn-warning">
+							Modify</button>
+						<button id="modalRemoveBtn" type="button" class="btn btn-danger">
+							Remove</button>
 						<button id="modalRegisterBtn" type="button"
-							class="btn btn-primary">作成者</button>
-						<button id="modalCloseBtn" type="button" class="btn btn-poka-main"
-							data-dismiss="modal">キャンセル</button>
+							class="btn btn-primary">Register</button>
+						<button id="modalCloseBtn" type="button" class="btn btn-default"
+							data-dismiss="modal">Close</button>
 					</div>
+					<!-- END modal-footer -->
+
 				</div>
+				<!-- /.modal-content -->
 			</div>
+			<!-- /.modal-dialog -->
 		</div>
-		<!-- /END -->
+		<!-- /.modal -->
+		<!-- END 댓글 작성 Modal -->
 
 	</div>
 	<script>
@@ -124,6 +165,65 @@
 				/* 모달 표시 */
 				$('.modal').modal('show');
 			});
+			
+
+			//댓글 모달 창 ------------------------------------------------------
+			var modal = $('.modal');
+			var modalInputReply   = modal.find("input[name='reply']"); 
+			var modalInputReplyer = modal.find("input[name='replyer']");
+			var modalInputRegDate = modal.find("input[name='regDate']");
+			
+			var modalModBtn      = $('#modalModBtn'); 
+			var modalRemoveBtn   = $('#modalRemoveBtn'); 
+			var modalRegisterBtn = $('#modalRegisterBtn'); 
+			
+			var replyer = "";
+			<sec:authorize access="isAuthenticated()">
+			  	replyer = '<sec:authentication property="principal.username"/>';
+			</sec:authorize>
+			
+			var csrfHeaderName = '${_csrf.headerName}';	//CSRF 토큰 관련 변수
+			var csrfTokenValue = '${_csrf.token}';		
+			
+			//신규 댓글 버튼 클릭 이벤트 처리
+			$('#addReplyBtn').on('click', function(e){
+				console.log('신규 클릭');
+				
+				
+				modal.find("input").val('');  //댓글 모달의 입력값들 지우기
+				modal.find("input[name='replyer']").val(replyer);
+				
+				modalInputRegDate.closest('div').hide(); //regDate에 가까운 div들 숨기기
+				modal.find("button[id != 'modalCloseBtn']").hide(); //close 버튼이 아닌 요소들 숨기기
+				modalRegisterBtn.show();				 //등록 버튼은 표시하기
+				
+				modal.modal('show');
+			});//END 신규 댓글 버튼 클릭 이벤트 처리
+			
+			/* //beforeSend 대신 CSRF 토큰 전송
+			$(document).ajaxSend(function(e, xhr, options){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			});//END add()
+			
+			//댓글 클릭 이벤트 처리
+			replyUL.on('click', 'li', function(e){
+				console.log('댓글 클릭');
+				//END get()		
+			});//END 댓글 클릭 이벤트 처리
+			
+			//댓글 수정 버튼 클릭 이벤트 처리
+			modalModBtn.on('click', function(e){
+				console.log('수정 클릭');
+				//END modify()
+			});//END 댓글 수정 버튼 클릭 이벤트 처리
+			
+			//댓글 삭제 버튼 클릭 이벤트 처리
+			modalRemoveBtn.on('click', function(e){
+				console.log('삭제 클릭');
+				//END remove();
+			});//END 댓글 삭제 버튼 클릭 이벤트 처리 */
+			
+			//END 댓글 모달 창 ------------------------------------------------------
 
 		});
 	</script>
