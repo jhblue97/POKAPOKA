@@ -40,7 +40,7 @@ public class ReviewController {
 	}
 
 	// 단일 리뷰 상세
-	@GetMapping("/get")
+	@GetMapping("/{rno}")
 	public ResponseEntity<ReviewVO> get(@PathVariable("rno") String rno) {
 		log.info("get Review");
 

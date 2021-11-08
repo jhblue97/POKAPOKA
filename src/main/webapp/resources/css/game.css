@@ -176,3 +176,78 @@ iframe {
 	line-height: 1.5;
 	border-radius: 0.25 rem;
 }
+
+/* 리뷰 폼 */
+.review-form {
+	margin: 0.5rem;
+}
+
+/* 별점 css */
+.star-rating {
+	display: flex;
+	flex-direction: row-reverse;
+	font-size: 1.5em;
+	justify-content: space-around;
+	padding: 0 .2em;
+	text-align: center;
+	width: 5em;
+}
+
+.star-rating input {
+	display: none;
+}
+
+.star-rating label {
+	color: #ccc;
+	cursor: pointer;
+}
+
+.star-rating :checked ~ label {
+	color: #f90;
+}
+
+.star-rating label:hover, .star-rating label:hover ~ label {
+	color: #fc0;
+}
+
+/****** Style Star review-rating Widget *****/
+.review-rating {
+	border: none;
+	float: left;
+}
+
+.review-rating>input {
+	display: none;
+}
+
+.review-rating>label:before {
+	margin: 5px;
+	font-size: 1.25em;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: "\f005";
+}
+
+.review-rating>.half:before {
+	content: "\f089";
+	position: absolute;
+}
+
+.review-rating>label {
+	color: #ddd;
+	float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+.review-rating>input:checked ~ label, /* show gold star when clicked */
+	.review-rating:not(:checked)>label:hover, /* hover current star */
+	.review-rating:not(:checked)>label:hover ~ label {
+	color: #FFD700;
+} /* hover previous stars in list */
+.review-rating>input:checked+label:hover,
+	/* hover current star when changing review-rating */ .review-rating>input:checked 
+	~ label:hover, .review-rating>label:hover ~ input:checked ~ label,
+	/* lighten current selection */ .review-rating>input:checked ~ label:hover 
+	~ label {
+	color: #FFED85;
+}
