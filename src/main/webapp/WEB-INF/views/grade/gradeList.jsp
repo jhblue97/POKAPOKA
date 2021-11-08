@@ -39,5 +39,21 @@
 		</div>
 	
 </div>
+<script>
+$(function(){
+	$('button').on('click', function(e){
+		e.preventDefault();	
+		
+		var operation = $(this).data('oper');
+		
+		if(operation === 'remove') { 		//삭제 버튼 눌린 경우
+			location.href="/grade/delete?grade_code="+ $(this).parent().parent().children().eq(0).text();
+		}
+		 else if(operation === 'modify'){	//수정 버튼이 눌린 경우
+			 location.href="/grade/update?grade_code="+ $(this).parent().parent().children().eq(0).text();	
+		}
+	});
+});
+</script>
 
 <%@ include file="../include/footer.jsp"%>

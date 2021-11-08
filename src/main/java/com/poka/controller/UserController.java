@@ -1,5 +1,10 @@
 package com.poka.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -90,6 +95,17 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	//첨부파일 삭제
+	public void deleteFile(String filename) {
+		try {
+			Path file = Paths.get("c:\\upload\\" + filename);
+			Files.deleteIfExists(file);	//파일이 존재하면 삭제
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//userView.jsp
 	//회원 정보 조회 화면
 	@GetMapping("/get")
@@ -98,7 +114,6 @@ public class UserController {
 		model.addAttribute("user", userService.get(user_id));
 		return "/user/userView";
 	}
-	
 	
 	//아이디 체크
 	@GetMapping("/chk/id")

@@ -4,36 +4,36 @@
 
 <div class="jumbotron">
 	<div class="container">
-		<h1 class="display-5">등급등록</h1>
+		<h1 class="display-5">등급수정</h1>
 	</div>
 </div>
 <div class="container">
-	<form action="/grade/add" method="post" role="form">
+	<form action="/grade/update" method="post" role="form">
        	
        	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">     
        	
        	<div class="form-group row">
 			<label class="col-sm-2">등급코드</label>
 			<div class="col-sm-3">
-				<input type="text" name="grade_code" id="grade_code" class="form-control"></div></div>
+				<input type="text" name="grade_code" id="grade_code" class="form-control" value="${grade.grade_code}"></div></div>
 				
 		<div class="form-group row">
 			<label class="col-sm-2">등급이름</label>
 			<div class="col-sm-3">
-				<input type="text" name="grade_name" id="grade_name" class="form-control"></div></div>
+				<input type="text" name="grade_name" id="grade_name" class="form-control" value="${grade.grade_name}"></div></div>
 		
 		<div class="form-group row">
 			<label class="col-sm-2">등급기준</label>
 			<div class="col-sm-3">
-				<input type="text" name="grade_lv" id="grade_lv" class="form-control"></div></div>	
+				<input type="text" name="grade_lv" id="grade_lv" class="form-control" value="${grade.grade_lv}"></div></div>	
 			
 		<!-- 첨부파일 정보 -->	
 		<input type = "hidden" id = "grade_img" name = "grade_img" value="profile.png">	
 		<div class="d-flex flex-column-reverse">
 					<div class="form-group row p-2">
-						<div class="col-sm-offset-2 col-sm-10" align="right">
-						<button class="btn btn-secondary" type="reset" onclick="history.back()">취소</button>
-						<button class="btn btn-poka-main" type="submit">등록</button></div></div>		
+						<div class="col-sm-offset-2 col-sm-10" align="right" onclick="history.back()">
+						<button class="btn btn-secondary" type="reset">취소</button>
+						<button class="btn btn-poka-main" type="submit">수정</button></div></div>		
 			</form>
 			<div class="row mb-3 p-2">
 				<label class="col-sm-2">등급이미지</label>

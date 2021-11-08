@@ -47,7 +47,7 @@ $(function() {
 			}
 			
 			$.ajax({
-				url: '/',
+				url: '/uploadAjaxAction2',
 				processData: false,
 				contentType: false,
 				data:formData,

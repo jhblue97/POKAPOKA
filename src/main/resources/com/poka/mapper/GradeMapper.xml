@@ -6,27 +6,27 @@
 <mapper namespace="com.poka.mapper.GradeMapper">
 
 	<insert id="insert">
-		<selectKey keyProperty="grade_code" order="BEFORE" resultType="String">
-			SELECT 'A'||seq_grade.NEXTVAL FROM dual
-		</selectKey>
 		insert into p_grade(grade_code, grade_name, grade_img, grade_lv)
-		values(#{grade_code}, #{grade_name}, #{grade_img}, #{grade_lv})
+		values('A'||#{grade_code}, #{grade_name}, #{grade_img}, #{grade_lv})
     </insert>
     
     <update id="update">
-    
+    	update p_grade set grade_name = #{grade_name},
+    					   grade_img = #{grade_img}, grade_lv = #{grade_lv}
+    	where grade_code = #{grade_code}
     </update>
     
     <delete id="delete">
-    
+    	delete p_grade where grade_code = #{grade_code}
     </delete>
     
     <select id="read" resultType="com.poka.domain.GradeVO">
+    	select * from p_grade where grade_code = #{grade_code}
     </select>
     
     <select id="getList" 
 	        resultType="com.poka.domain.GradeVO">
-	        select *  from p_grade where grade_code IS NOT NULL
+	        select *  from p_grade where grade_code IS NOT NULL order by grade_lv
 	</select>
 </mapper>
 
