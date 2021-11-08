@@ -63,7 +63,7 @@ public class ReviewController {
 	// 리뷰 수정
 	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH }, value = "/{rno}", produces = {
 			MediaType.TEXT_PLAIN_VALUE })
-	@PreAuthorize("principal.userId == #vo.writer") // 작성자 일치 확인
+	@PreAuthorize("principal.username == #vo.writer") // 작성자 일치 확인
 	public ResponseEntity<String> update(@RequestBody ReviewVO vo, @PathVariable("rno") String rno) {
 		log.info("update Review"); // 동작 확인용
 		vo.setRno(rno); // 혹시 몰라서 vo의 rno를 한번 더 정정해줌.
@@ -75,7 +75,7 @@ public class ReviewController {
 
 	// 리뷰 삭제
 	@DeleteMapping(value = "/{rno}", produces = { MediaType.TEXT_PLAIN_VALUE })
-	@PreAuthorize("principal.userId == #vo.writer") // 작성자 일치 확인
+	@PreAuthorize("principal.username == #vo.writer") // 작성자 일치 확인
 	public ResponseEntity<String> delete(@RequestBody ReviewVO vo, @PathVariable("rno") String rno) {
 		log.info("executing update"); // 동작 확인용
 

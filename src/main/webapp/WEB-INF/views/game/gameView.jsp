@@ -52,7 +52,6 @@
 					</div>
 					<div class="add-review d-flex flex-row">
 						<!-- 로그인한 경우에만 작성 버튼 표시 -->
-						<sec:authentication property="principal" var="p" />
 						<sec:authorize access="isAuthenticated()">
 							<p class="write-review">
 								レビュー作成 <span id="addreview" class="btn btn-poka-main"> <i
@@ -77,17 +76,13 @@
 			<div class="game-review-subtitle">レビュー</div>
 			<div class="game-review-content"></div>
 		</div>
-		<!-- 댓글 목록 -->
+		<!-- 리뷰 목록 -->
 		<div class='row'>
-			<div class="col-lg-12">
+			<div class="col-lg-11 reviewPage" style="margin: 1rem">
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<i class="fa fa-comments fa-fw"></i>Review
-					</div>
-					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<ul class="reviewBox">
-							<!-- REPLY START -------------------------->
+							<!-- REPLY TEST DATA -------------------------->
 							<li class="left clearfix" data-rno='12'>
 								<div>
 									<div class="header">
@@ -100,15 +95,15 @@
 							<!-- REPLY END ---------------------------->
 						</ul>
 					</div>
-					<!-- 댓글 목록 페이징 -->
+					<!-- 리뷰 목록 페이징 -->
 					<div class="panel-footer"></div>
-					<!-- END 댓글 목록 페이징 -->
+					<!-- END 리뷰 목록 페이징 -->
 				</div>
 			</div>
 		</div>
 		<!-- END 리뷰 목록 -->
 
-		<!-- 댓글 작성 Modal -->
+		<!-- 리뷰 작성 Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -145,6 +140,7 @@
 									for="starhalf"></label>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label>内容</label>
 							<textarea name="content" class="form-control" maxlength="1000"></textarea>
@@ -174,8 +170,20 @@
 	<script src="/resources/js/review.js"></script>
 	<script>
 		$(function() {
+			//변수들 -----------------------------------------------------------
 			var gnoVal = '${game.gno}'; 
 			var reviewBox = $('.reviewBox');
+			
+			var modal = $('.modal');
+			var content = modal.find("textarea[name='content']");
+			var writer = modal.find("input[name='writer']");
+			var regDate = modal.find("input[name='regDate']");
+
+			var regReview = $('#regReview');
+			var modReview = $('#modReview');
+			var removeReview = $('#removeReview');
+			
+			//----------------------------------------------------------------
 			
 			showList(1);
 			
@@ -190,30 +198,30 @@
 			
 			//보안 세션 END --------------------------------------------------
 
-			//댓글 목록 --------------------------------------------------------
+			//리뷰 목록 --------------------------------------------------------
 			function showList(page){
 				console.log('List loaded');
 				
-				//댓글 목록 가져오기
+				//리뷰 목록 가져오기
 				reviewService.getList(
 					{ page:page || 1, gno:gnoVal }, 	
 					function(/* replyCnt, */list){
 						console.log("list.length : " + list.length);
 						
-						//댓글을 추가한 경우 -1을 파라미터로 전송하여 마지막 페이지 표시
+						//리뷰을 추가한 경우 -1을 파라미터로 전송하여 마지막 페이지 표시
 						if(page == -1){
 							pageNum = Math.ceil(replyCnt/5.0); //마지막 페이지 계산
 							showList(pageNum);
 							return;
 						}
 						
-						//댓글 목록이 없으면 ul의 내용을 비우고 중단
+						//리뷰 목록이 없으면 ul의 내용을 비우고 중단
 						if(list == null || list.length == 0){
 							reviewBox.html('등록된 리뷰가 없습니다.');
 							return;					
 						}
 						
-						//댓글 목록이 있으면 ul에 li 추가
+						//리뷰 목록이 있으면 ul에 li 추가
 						var str="";
 						for(var i=0 ; i<list.length ; i++){
 							str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>" +
@@ -222,7 +230,7 @@
 								   "      <strong class='primary-font'>" + 
 								  				 list[i].writer + "</strong>"+
 								   "      <small class='pull-right text-muted'>"+
-								   				reviewService.displayTime(list[i].regDate) +
+								   				reviewService.reviewDate(list[i].regDate) +
 								   "      </small>"+
 								   "   </div>"+
 								   "   <p>" + list[i].content +"</p>"+
@@ -236,108 +244,111 @@
 			
 			//리뷰 클릭 이벤트 처리
 			reviewBox.on('click', 'li', function(e){
+				console.log('리뷰 클릭');　//END get()
+				reviewService.get($(this).data('rno'),function(result){
+							console.log(result);
+							content.val(result.reply);		//리뷰 표시
+							writer.val(result.writer);	//작성자 표시 	
+							regDate.val(reviewService.reviewDate(result.regDate))
+											 .attr('readonly', 'readonly');	//작성일자 표시 - 읽기 전용		
+							
+							regDate.closest('div').show();	//!!!!!
+							modal.find("button[id != 'modalCloseBtn']").hide(); //close 버튼이 아닌 요소들 숨기기
+							//로그인 되어 있고, 작성자가 리뷰 작성자와 같은 경우
+							<sec:authorize access="isAuthenticated()">
+								<c:if test="${p.username == result.writer }">
+									modReview.show();		 //수정, 삭제 버튼 표시하기
+									removeReview.show();	
+								</c:if>
+							</sec:authorize>
+								
+							modal.data('rno', result.rno);
+							modal.modal('show');	//모달창 보이기
+						}
+					);//END get()
+				
+			});//END 리뷰 클릭 이벤트 처리
+
+			//리뷰 목록 END-----------------------------------------------------
 			
-				console.log('댓글 클릭');　//END get()		
-			});//END 댓글 클릭 이벤트 처리
-
-			//댓글 목록 END-----------------------------------------------------
-			
-			//댓글 모달 창 ------------------------------------------------------
-			var modal = $('.modal');
-			var content = modal.find("textarea[name='content']");
-			var writer = modal.find("input[name='writer']");
-			var regDate = modal.find("input[name='regDate']");
-
-			var regReview = $('#regReview');
-			var modReview = $('#modReview');
-			var removeReview = $('#removeReview');
-
+			//리뷰 모달 창 ------------------------------------------------------
 			var writerVal = "";
 			<sec:authorize access="isAuthenticated()">
 			  	writerVal = '<sec:authentication property="principal.username"/>';
 			</sec:authorize>
 			
-			//신규 댓글 버튼 클릭 이벤트 처리
+			//신규 리뷰 버튼 클릭 이벤트 처리
 			$('#addreview').on('click', function(e) {
 				//console.log('신규 클릭');
-				modal.find("input").val(''); //댓글 모달의 입력값들 지우기
+				modal.find("input").val(''); //리뷰 모달의 입력값들 지우기
 				writer.closest('div').hide();// writer 숨기기
 				regDate.closest('div').hide(); //regDate 숨기기
 				modal.find("button[id != 'closeBtn']").hide(); //close 버튼이 아닌 요소들 숨기기
 				regReview.show(); //등록 버튼은 표시하기
 
 				modal.modal('show');
-			});//END 신규 댓글 버튼 클릭 이벤트 처리
+			});//END 신규 리뷰 버튼 클릭 이벤트 처리
 			
 			// 리뷰 등록 이벤트 처리
 			regReview.on('click', function(e) {
 				// 별점 가져오기
-				var star = modal.find("input[name='review-star']:checked").val() != null ?
-						modal.find("input[name='review-star']:checked").val() : 0 
+				var star = modal.find("input[name='review-star']:checked").val() != null ? modal.find("input[name='review-star']:checked").val() : 0 
+			
+				console.log("값 체크 : "+modal.find("input[name='review-star']:checked"));
+						
 				// 값 체크
 				console.log('gno:' + '${game.gno}');
 				console.log('content: ' + content.val());
 				console.log('writer: ' + writerVal);
 				console.log('별점 : ' + star);
 				
-				reviewService.add({
+				/* reviewService.add({
 					gno : '${game.gno}',
 					content : content.val(),
 					writer : writerVal,
 					score : star
 				}, function(result) {
-					alert('レビューが登録されました。');
 					modal.find("input").val(''); //입력값들 지우기
 					modal.modal('hide'); //모달창 숨기기
+					alert('レビューが登録されました。');
 					//showList(-1);		//목록을 새로 표시
-				});//END add()
+				});//END add() */
 			});
 
-			//댓글 수정 버튼 클릭 이벤트 처리
+			//리뷰 수정 버튼 클릭 이벤트 처리
 			modReview.on('click', function(e) {
 				console.log('수정 클릭');　//END modify()
 				
-				$.ajax({
-					type : 'put',
-					url : '/reviews/' + review.rno,
-					data : JSON.stringify(review),
-					contentType : 'application/json; charset=UTF-8',
-					success : function(result, status, xhr){
-						if(callback){
-							callback(result);
-						}
-					},
-					error : function(xhr, status, er){
-						if(error){
-							error(er);
-						}
+				reviewService.modify(
+					{ rno   : modal.data('rno'), 
+					  gno   : gnoVal, 
+					  content : content.val(),
+					  writer :  writer.val() },
+					function(result){
+						alert('리뷰이 수정되었습니다.');
+						modal.modal('hide');			//모달창 숨기기
+						showList(pageNum);				//목록을 새로 표시
 					}
-				});//END ajax()
-			});//END 댓글 수정 버튼 클릭 이벤트 처리
+				);//END modify()
+			});//END 리뷰 수정 버튼 클릭 이벤트 처리
 
-			//댓글 삭제 버튼 클릭 이벤트 처리
+			//리뷰 삭제 버튼 클릭 이벤트 처리
 			removeReview.on('click', function(e) {
 				console.log('삭제 클릭');　//END remove();
-				
-				$.ajax({
-					type : 'delete',
-					url  : '/reviews/' + rno,
-					data : JSON.stringify({ gno:gno, writer:writer}), 
-					contentType : 'application/json; charset=UTF-8',
-					success : function(result, status, xhr){
-						if(callback){
-							callback(result);
-						}
+				reviewService.remove(
+					modal.data('rno'), writer.val(),
+					function(result){
+						alert('리뷰이 삭제되었습니다');
+						modal.modal('hide');			//모달창 숨기기
+						showList(pageNum);				//목록을 새로 표시
 					},
-					error : function(xhr, status, er){
-						if(error){
-							error(er);
-						}
+					function(er){
+						alert('remove fail');
 					}
-				});
-			});//END 댓글 삭제 버튼 클릭 이벤트 처리 */
+				);//END remove();
+			});//END 리뷰 삭제 버튼 클릭 이벤트 처리 */
 
-			//END 댓글 모달 창 ------------------------------------------------------
+			//END 리뷰 모달 창 ------------------------------------------------------
 		});
 	</script>
 </body>
