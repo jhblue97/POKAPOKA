@@ -19,8 +19,7 @@
 					href="#">30개 씩</a> <a class="dropdown-item" href="#">50개 씩</a>
 			</div>
 		</div>
-		<span class="col-2 text-right"><button type="button"
-				class="btn btn-poka-main" onclick="location.href='/board/add'">글쓰기</button></span>
+		<span class="col-2 text-right"><button class="btn btn-poka-main" onclick="location.href='/board/add'">글쓰기</button></span>
 	</div>
 	<div class="row mb-3">
 		<table class="table table-hover">

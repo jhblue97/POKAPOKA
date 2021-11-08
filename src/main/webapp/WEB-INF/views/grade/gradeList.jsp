@@ -7,7 +7,37 @@
 		<h1 class="display-5">등급기준</h1>
 	</div>
 </div>
-<sec:authentication property="principal.user"/>
-<sec:authentication property="principal.user.authList"/>
+<div class="container">
+	<div class="row justify-content-end mb-2">
+		<span class="col-2 text-right">
+			<button	class="btn btn-poka-main mb-2" onclick="location.href='/grade/add'">등록</button></span>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">등급코드</th>
+					<th scope="col">등급이름</th>
+					<th scope="col">등급기준 [경험치]</th>
+					<th scope="col">등급이미지</th>
+					<th scope="col" style="text-align:center;">편집</th>
+				</tr>
+			</thead>
+			<tbody>
+			 <c:forEach items="${list }" var="grade">
+				<tr class="move">
+					<td scope="row">${grade.grade_code }</td>
+					<td>${grade.grade_name }</td>
+					<td>${grade.grade_lv }</td>
+					<td><img src="/resources/images/${grade.grade_img }" style="margin-left:20px; width:30px; height:30px; "></td>
+					<td style="text-align:center;">
+						<button class="btn btn-poka-green" data-oper="modify">수정</button>
+						<button class="btn btn-poka-danger" data-oper="remove">삭제</button>
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+		</div>
+	
+</div>
 
 <%@ include file="../include/footer.jsp"%>

@@ -51,7 +51,7 @@
 		<div class="form-group row ">
 			<div class="col-sm-offset-2 col-sm-10" align="right">
 				<button class="btn btn-poka-warning" data-oper="list">목록</button>
-				<button type="button" class="btn btn-poka-danger" data-oper="remove">삭제</button>
+				<button class="btn btn-poka-danger" data-oper="remove">삭제</button>
 				<button class="btn btn-info" data-oper="modify">수정</button></div></div>		
        	</form>
        	<!-- END 게시물 등록 폼 -->

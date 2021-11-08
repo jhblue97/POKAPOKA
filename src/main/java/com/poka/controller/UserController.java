@@ -54,25 +54,7 @@ public class UserController {
 		log.info("logout()");
 		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 		return "redirect:/";
-	}
-	
-	//로그인을 하지 않은 사용자도 접근 가능한 URL
-	@GetMapping("/all")
-	public void all() {
-		log.info("/all 접근 제한 x");
-	}
-
-	//로그인 한 사용자들만 접근할 수 있는 URL
-	@GetMapping("/member")
-	public void member() {
-		log.info("/member 접근 제한 O - 로그인한 사용자");
-	}
-
-	//로그인 한 사용자들 중에서 관리자 권한을 가진 사용자만이 접근할 수 있는 URL
-	@GetMapping("/admin")
-	public void admin() {
-		log.info("/admin 접근 제한 O - 로그인한 관리자");
-	}
+	}	
 	
 	//접근거부
 	@GetMapping("/accessError")

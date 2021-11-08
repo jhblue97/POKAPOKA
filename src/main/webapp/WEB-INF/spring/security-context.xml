@@ -17,7 +17,7 @@
 	<security:http>
 		<security:intercept-url pattern="/**"    access="permitAll"/>
 		<security:intercept-url pattern="/**/get" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/grade/**"  access="hasRole('ROLE_ADMIN')"/>
+<!-- 		<security:intercept-url pattern="/grade/**"  access="hasRole('ROLE_ADMIN')"/> -->
 		
    		<!-- 로그인 처리 -->
    		<security:form-login login-page="/user/login"/>

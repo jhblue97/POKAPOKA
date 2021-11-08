@@ -26,7 +26,7 @@ public class GradeController {
 	//gradeAdd.jsp
 	//등급 등록 화면
 	@GetMapping("/add")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String add() {
 		log.info(".....add().....");
 				
@@ -34,7 +34,7 @@ public class GradeController {
 	}
 	//등급 등록
 	@PostMapping("/add")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String add(String admin, GradeVO grade, RedirectAttributes rttr) {
 		log.info(".....add().....");
 		
@@ -70,6 +70,7 @@ public class GradeController {
 	@GetMapping("/list")
 //	@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인
 	public String list(String admin, Model model) {
+		model.addAttribute("list", gradeService.getList());
 		return "/grade/gradeList";
 	}
 }
