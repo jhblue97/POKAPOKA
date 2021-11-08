@@ -15,7 +15,7 @@
 	<!-- 리뷰 작성 -->
 	<insert id="insert">
 		INSERT INTO P_REVIEW(rno, content, writer, gno, score, regDate)
-		 VALUES(#{rno}, #{content}, #{writer}, #{gno}, #{score}, DEFAULT)
+		 VALUES('R'||seq_REVIEW.NEXTVAL, #{content}, #{writer}, #{gno}, #{score}, DEFAULT)
 	</insert>
 	<!-- 리뷰 수정 -->
 	<update id="update">

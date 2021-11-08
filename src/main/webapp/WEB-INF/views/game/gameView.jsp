@@ -51,10 +51,15 @@
 						</div>
 					</div>
 					<div class="add-review d-flex flex-row">
-						<p class="write-review">
-							レビュー作成 <span id="addreview" class="btn btn-poka-main"><i
-								class="fa fa-plus plusbtn"></i></span>
-						</p>
+						<!-- 로그인한 경우에만 작성 버튼 표시 -->
+						<sec:authentication property="principal" var="p" />
+						<sec:authorize access="isAuthenticated()">
+							<p class="write-review">
+								レビュー作成 <span id="addreview" class="btn btn-poka-main"> <i
+									class="fa fa-plus plusbtn"></i>
+								</span>
+							</p>
+						</sec:authorize>
 					</div>
 					<div class="go-to-store">
 						<button
@@ -77,17 +82,11 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-comments fa-fw"></i>Reply
-
-						<!-- 로그인한 경우에만 댓글 작성 버튼 표시 -->
-						<%-- <sec:authorize access="isAthenticated()"/> --%>
-						<button id="newReview" class="btn btn-primary btn-xs pull-right">New
-							Reply</button>
-
+						<i class="fa fa-comments fa-fw"></i>Review
 					</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
-						<ul class="chat">
+						<ul class="reviewBox">
 							<!-- REPLY START -------------------------->
 							<li class="left clearfix" data-rno='12'>
 								<div>
@@ -101,7 +100,6 @@
 							<!-- REPLY END ---------------------------->
 						</ul>
 					</div>
-
 					<!-- 댓글 목록 페이징 -->
 					<div class="panel-footer"></div>
 					<!-- END 댓글 목록 페이징 -->
@@ -109,7 +107,6 @@
 			</div>
 		</div>
 		<!-- END 리뷰 목록 -->
-
 
 		<!-- 댓글 작성 Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -121,10 +118,9 @@
 							aria-hidden="true">&times;</button>
 						<h4 class="modal-title" id="myModalLabel">レビュー登録</h4>
 					</div>
-
 					<div class="modal-body">
 						<div class="review-form d-flex flex-row">
-							<span class="align-middle" style="margin-right: 1rem;"> 별점
+							<span class="align-middle" style="margin-right: 1rem;">評価
 							</span>
 							<div class="review-rating">
 								<input type="radio" id="star5" name="review-star" value="5" />
@@ -151,22 +147,20 @@
 						</div>
 						<div class="form-group">
 							<label>内容</label>
-							<textarea name="content" class="form-control"></textarea>
+							<textarea name="content" class="form-control" maxlength="1000"></textarea>
 						</div>
 						<div class="form-group">
-							<label>作成者</label> <input name="writer" value="writer"
-								class="form-control" readonly>
+							<label>作成者</label> <input name="writer" class="form-control"
+								readonly>
 						</div>
 						<div class="form-group">
-							<label>登録日</label> <input name="regDate"
-								value="2021/10/12 10:41:11" class="form-control">
+							<label>登録日</label> <input name="regDate" class="form-control">
 						</div>
 					</div>
 
 					<div class="modal-footer">
 						<button id="regReview" type="button" class="btn btn-poka-green">登録</button>
-						<button id="modReview" type="button" class="btn btn-poka-warning">
-							修正</button>
+						<button id="modReview" type="button" class="btn btn-poka-warning">修正</button>
 						<button id="removeReview" type="button"
 							class="btn btn-poka-danger">削除</button>
 						<button id="closeBtn" type="button" class="btn btn-poka-main"
@@ -180,14 +174,74 @@
 	<script src="/resources/js/review.js"></script>
 	<script>
 		$(function() {
-			$('#addreview').on('click', function(e) {
-				console.log("리뷰 추가");
-				/* 모달 초기화 */
+			var gnoVal = '${game.gno}'; 
+			var reviewBox = $('.reviewBox');
+			
+			showList(1);
+			
+			//보안 세션 불러오기 -------------------------------------------------
+			var csrfHeaderName = '${_csrf.headerName}'; //CSRF 토큰 관련 변수
+			var csrfTokenValue = '${_csrf.token}';
 
-				/* 모달 표시 */
-				$('.modal').modal('show');
-			});
+			//beforeSend 대신 CSRF 토큰 전송
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			}); 
+			
+			//보안 세션 END --------------------------------------------------
 
+			//댓글 목록 --------------------------------------------------------
+			function showList(page){
+				console.log('List loaded');
+				
+				//댓글 목록 가져오기
+				reviewService.getList(
+					{ page:page || 1, gno:gnoVal }, 	
+					function(/* replyCnt, */list){
+						console.log("list.length : " + list.length);
+						
+						//댓글을 추가한 경우 -1을 파라미터로 전송하여 마지막 페이지 표시
+						if(page == -1){
+							pageNum = Math.ceil(replyCnt/5.0); //마지막 페이지 계산
+							showList(pageNum);
+							return;
+						}
+						
+						//댓글 목록이 없으면 ul의 내용을 비우고 중단
+						if(list == null || list.length == 0){
+							reviewBox.html('등록된 리뷰가 없습니다.');
+							return;					
+						}
+						
+						//댓글 목록이 있으면 ul에 li 추가
+						var str="";
+						for(var i=0 ; i<list.length ; i++){
+							str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>" +
+								   "<div>" +
+								   "   <div class='header'>" +
+								   "      <strong class='primary-font'>" + 
+								  				 list[i].writer + "</strong>"+
+								   "      <small class='pull-right text-muted'>"+
+								   				reviewService.displayTime(list[i].regDate) +
+								   "      </small>"+
+								   "   </div>"+
+								   "   <p>" + list[i].content +"</p>"+
+								   "</div></li>";
+						}
+						reviewBox.html(str);
+						//showReplyPage(replyCnt);
+					}
+				);//END getList();
+			}
+			
+			//리뷰 클릭 이벤트 처리
+			reviewBox.on('click', 'li', function(e){
+			
+				console.log('댓글 클릭');　//END get()		
+			});//END 댓글 클릭 이벤트 처리
+
+			//댓글 목록 END-----------------------------------------------------
+			
 			//댓글 모달 창 ------------------------------------------------------
 			var modal = $('.modal');
 			var content = modal.find("textarea[name='content']");
@@ -198,78 +252,92 @@
 			var modReview = $('#modReview');
 			var removeReview = $('#removeReview');
 
-			/* var writer = "";
+			var writerVal = "";
 			<sec:authorize access="isAuthenticated()">
-			  	writer = '<sec:authentication property="principal.username"/>';
-			</sec:authorize> */
-
-			var csrfHeaderName = '${_csrf.headerName}'; //CSRF 토큰 관련 변수
-			var csrfTokenValue = '${_csrf.token}';
-
-			//beforeSend 대신 CSRF 토큰 전송
-			$(document).ajaxSend(function(e, xhr, options) {
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			});//END add()
-
+			  	writerVal = '<sec:authentication property="principal.username"/>';
+			</sec:authorize>
+			
 			//신규 댓글 버튼 클릭 이벤트 처리
-			$('#newReview').on('click', function(e) {
+			$('#addreview').on('click', function(e) {
 				//console.log('신규 클릭');
 				modal.find("input").val(''); //댓글 모달의 입력값들 지우기
-				modal.find("input[name='writer']").val('writer');
-
-				regDate.closest('div').hide(); //regDate에 가까운 div들 숨기기
+				writer.closest('div').hide();// writer 숨기기
+				regDate.closest('div').hide(); //regDate 숨기기
 				modal.find("button[id != 'closeBtn']").hide(); //close 버튼이 아닌 요소들 숨기기
 				regReview.show(); //등록 버튼은 표시하기
 
 				modal.modal('show');
 			});//END 신규 댓글 버튼 클릭 이벤트 처리
-
-			//별점 등록 이벤트 처리
-
+			
 			// 리뷰 등록 이벤트 처리
 			regReview.on('click', function(e) {
-				console.log(modal.find('input[name="review-star"]:checked').val());
-				//별점 가져오기
-				var star = modal.find("input[name='review-star']:checked").val();
-
+				// 별점 가져오기
+				var star = modal.find("input[name='review-star']:checked").val() != null ?
+						modal.find("input[name='review-star']:checked").val() : 0 
+				// 값 체크
 				console.log('gno:' + '${game.gno}');
 				console.log('content: ' + content.val());
-				console.log('writer: ' + writer.val());
+				console.log('writer: ' + writerVal);
 				console.log('별점 : ' + star);
-
-				/* reviewService.add({
+				
+				reviewService.add({
 					gno : '${game.gno}',
 					content : content.val(),
-					writer : writer.val(),
+					writer : writerVal,
 					score : star
 				}, function(result) {
 					alert('レビューが登録されました。');
 					modal.find("input").val(''); //입력값들 지우기
 					modal.modal('hide'); //모달창 숨기기
-					//showList(-1);					//목록을 새로 표시
-				});//END add() */
+					//showList(-1);		//목록을 새로 표시
+				});//END add()
 			});
-
-			//리뷰 클릭 이벤트 처리
-			/* reviewCard.on('click', 'li', function(e){
-				console.log('댓글 클릭');
-				//END get()		
-			});//END 댓글 클릭 이벤트 처리 */
 
 			//댓글 수정 버튼 클릭 이벤트 처리
 			modReview.on('click', function(e) {
-				console.log('수정 클릭');
-				//END modify()
+				console.log('수정 클릭');　//END modify()
+				
+				$.ajax({
+					type : 'put',
+					url : '/reviews/' + review.rno,
+					data : JSON.stringify(review),
+					contentType : 'application/json; charset=UTF-8',
+					success : function(result, status, xhr){
+						if(callback){
+							callback(result);
+						}
+					},
+					error : function(xhr, status, er){
+						if(error){
+							error(er);
+						}
+					}
+				});//END ajax()
 			});//END 댓글 수정 버튼 클릭 이벤트 처리
 
 			//댓글 삭제 버튼 클릭 이벤트 처리
 			removeReview.on('click', function(e) {
-				console.log('삭제 클릭');
-				//END remove();
+				console.log('삭제 클릭');　//END remove();
+				
+				$.ajax({
+					type : 'delete',
+					url  : '/reviews/' + rno,
+					data : JSON.stringify({ gno:gno, writer:writer}), 
+					contentType : 'application/json; charset=UTF-8',
+					success : function(result, status, xhr){
+						if(callback){
+							callback(result);
+						}
+					},
+					error : function(xhr, status, er){
+						if(error){
+							error(er);
+						}
+					}
+				});
 			});//END 댓글 삭제 버튼 클릭 이벤트 처리 */
 
 			//END 댓글 모달 창 ------------------------------------------------------
-
 		});
 	</script>
 </body>

@@ -8,10 +8,10 @@ var reviewService = (function() {
 		var gno = param.gno;
 		var page = param.page || 1;
 
-		$.getJSON('/replies/pages/' + gno + '/' + page + '.json',
+		$.getJSON('/review/pages/' + gno + '/' + page + '.json',
 			function(result) {
 				if (callback) {
-					callback(result);	//댓글 목록만
+					callback(result.list);	//댓글 목록만
 					//callback(result.replyCnt, result.list);	//댓글 수, 댓글 목록
 				}
 			}
@@ -110,7 +110,6 @@ var reviewService = (function() {
 	function reviewDate() {
 
 	}
-
 
 	return {
 		reviewDate: reviewDate, get: get, modify: modify,
