@@ -21,8 +21,13 @@ public interface NijiMapper {
 	//게시물 하나 수정
 	public int update(NijiVO niji);
 	
+	public int update2(NijiVO niji);
+	
 	//게시물 하나 삭제
 	public int delete(String nno);
+	
+	public int deleteTag(String nno);
+	
 	
 	//게시물 하나 조회
 	public NijiVO read(String nno);

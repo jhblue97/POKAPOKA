@@ -91,7 +91,7 @@ public class BoardController {
 	
 	//게시글 삭제
 	@PostMapping("/delete")
-	@PreAuthorize("principal.username == #writer")	//작성자 확인
+	//@PreAuthorize("principal.username == #writer")	//작성자 확인
 	public String delete(String writer,
 						 @RequestParam("bno") String bno,
 						 @ModelAttribute("cri") Criteria cri,

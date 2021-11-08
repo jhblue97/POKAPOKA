@@ -58,13 +58,26 @@
     
     <update id="update">
 
+	UPDATE DEV.P_NIJI SET TITLE = #{title} ,CONTENT = #{content}, img  = #{image} , price = #{price}, updateDate = sysdate
+	WHERE nno = #{nno}
+
     </update>
     
-    <delete id="delete">
-	</delete>
+    <update id="update2">
+
+	UPDATE DEV.P_NIJI SET TITLE = #{title} ,CONTENT = #{content} ,updateDate = sysdate
+	WHERE nno = #{nno}
+
+    </update>
+    
+
     
     
     <select id="read" resultType="com.poka.domain.NijiVO">
+    
+    SELECT NNO,TITLE,CONTENT,CATEGORY,IMG as image,PRICE,WRITER,REGDATE,UPDATEDATE
+    FROM DEV.P_NIJI
+    WHERE NNO = #{nno}
     </select>
 
 	<insert id="insert">
@@ -105,10 +118,17 @@
     </select>
     
      
-    	<insert id="insertTag" parameterType="map">
+    <insert id="insertTag" parameterType="map">
 	INSERT INTO P_NIJI_TAG VALUES(#{nno},#{tagname})
     </insert>
     
+        <delete id="deleteTag">
+        delete from P_NIJI_TAG where nno = #{nno}
+	</delete>
+	
+        <delete id="delete">
+        DELETE FROM P_NIJI where nno = #{nno}
+	</delete>
     
 </mapper>
 

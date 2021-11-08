@@ -226,7 +226,7 @@
 			</div>	 
 			<div style="text-align: right;"> 
 			<!-- <button type="button" class="btn btn-b" name="get" data-param="" onclick = >view</button> -->
-			<button id = "view" class='btn btn-outline-warning' data-toggle="modal" data-target="#myModal2" data-num ="1">view</button> 
+			<button id = "view" class='btn btn-outline-warning' data-toggle="modal" data-target="#myModal2" data-num ="1" onclick = "location.href='/niji/get?nno=${obj.nno}'">view</button> 
 			</div>		
 		</div>  
 	</div>
