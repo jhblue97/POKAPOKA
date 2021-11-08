@@ -6,7 +6,11 @@
 <mapper namespace="com.poka.mapper.GradeMapper">
 
 	<insert id="insert">
-		
+		<selectKey keyProperty="grade_code" order="BEFORE" resultType="String">
+			SELECT 'A'||seq_grade.NEXTVAL FROM dual
+		</selectKey>
+		insert into p_grade(grade_code, grade_name, grade_img, grade_lv)
+		values(#{grade_code}, #{grade_name}, #{grade_img}, #{grade_lv})
     </insert>
     
     <update id="update">
@@ -22,7 +26,7 @@
     
     <select id="getList" 
 	        resultType="com.poka.domain.GradeVO">
-	        select *  from p_grade
+	        select *  from p_grade where grade_code IS NOT NULL
 	</select>
 </mapper>
 

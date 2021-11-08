@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class GradeVO {
-	private String gradecode;
-	private String gradename;
-	private String gradeimg;
-	private long gradelv;
+	private String grade_code;
+	private String grade_name;
+	private String grade_img;
+	private long grade_lv;
 	
 }
