@@ -5,6 +5,7 @@ import java.util.List;
 import com.poka.domain.BoardAttachVO;
 import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
+import com.poka.domain.GradeVO;
 
 public interface BoardService {
 	public List<BoardAttachVO> getAttachList(String bno);	//첨부파일 목록 반환

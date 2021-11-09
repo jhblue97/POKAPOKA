@@ -109,9 +109,10 @@ public class UserController {
 	//userView.jsp
 	//회원 정보 조회 화면
 	@GetMapping("/get")
-	public String get(@RequestParam("user_id") String user_id, Model model) {
+	public String get(@RequestParam("user_id") String user_id, Model model, @RequestParam("gradecode") String gradecode) {
 		log.info("get()");
 		model.addAttribute("user", userService.get(user_id));
+		model.addAttribute("grade", userService.getGrade(gradecode));
 		return "/user/userView";
 	}
 	
@@ -144,9 +145,9 @@ public class UserController {
 	//userUpdate.jsp
 	//회원정보 수정 화면
 	@GetMapping("/modify")
-	public String modify(@RequestParam("userid") String userid, Model model) {
+	public String modify(@RequestParam("userid") String userid, Model model,@RequestParam("gradecode") String gradecode) {
 		model.addAttribute("user", userService.get(userid));
-		
+		model.addAttribute("grade", userService.getGrade(gradecode));
 		return "/user/userUpdate";
 	}
 	

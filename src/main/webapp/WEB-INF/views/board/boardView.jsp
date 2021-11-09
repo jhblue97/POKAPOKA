@@ -16,10 +16,14 @@
     </div>
     <div class="row">
     	<div class="col">
-			<label class="mr-3">작성자</label>
-		 	[등급이미지] ${board.writer }
-		 </div>
-		 <div>
+			<label>작성자</label>
+			<span class="dropdown">
+				<a id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="/resources/images/001_g_bronze.png" style="width:20px; height:20px;"> ${board.writer }
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+						    <button class="dropdown-item" type="button">팔로우추가</button>
+					  </div></a></span></div><div>
+
 			<label class="mr-3">등록일</label>
 			 <fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd hh:mm:ss"/>
 		</div>

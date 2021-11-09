@@ -3,7 +3,9 @@ package com.poka.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.poka.domain.GradeVO;
 import com.poka.domain.UserVO;
+import com.poka.mapper.GradeMapper;
 import com.poka.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +17,7 @@ import lombok.extern.log4j.Log4j;
 public class UserServiceImpl implements UserService {
 
 	private UserMapper userMapper;
+	private GradeMapper gradeMapper;
 
 	@Override
 	public void signIn(UserVO user) {
@@ -31,6 +34,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.read(userid);
 	}
 
+	@Override
+	public GradeVO getGrade(String gradecode) {
+		return gradeMapper.read(gradecode);
+	}
+	
 	@Override
 	public int idchk(UserVO user) {
 		return userMapper.idchk(user);

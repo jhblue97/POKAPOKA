@@ -11,7 +11,7 @@ public class UserVO {
 	private String  user_pw;
 	private String  nickname;
 	private String  email;
-	private String    birth;
+	private String  birth;
 	private String  gradecode;
 	private String  img;
 	private String  gender;
@@ -22,4 +22,6 @@ public class UserVO {
 	private boolean enabled;
 	private int grade_exp;
 	private List<AuthVO> authList;
+	private UserVO user;
+	private GradeVO grade;
 }

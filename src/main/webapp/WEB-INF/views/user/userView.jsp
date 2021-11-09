@@ -13,14 +13,13 @@
 							<img class="img-thumbnail" id = "view_img" alt="50x50" src="${user.img }" style=" width:200px; height : 200px; margin:auto; display: block;" ><br>
 						</div>
 					</div>
-					<span class="row mb-2">등급 <img class="ml-3 mr-2" src="/resources/images/001_g_bronze.png" style="width:30px; height:30px;"> 브론즈</span>
+					<span class="row mb-2">등급 <img class="ml-3 mr-2" src="/resources/images/${grade.grade_img }" style="width:30px; height:30px;"> ${grade.grade_name }</span>
 					<div class="row">경험치 
 					<div class="progress ml-1 mt-1" style= "width:100px;">
-						 <div class="progress-bar" style= "width:20px;"></div>
+						 <div class="progress-bar bg-success" role="progressbar" style="width: ${user.grade_exp }%" aria-valuenow="${user.grade_exp }" aria-valuemin="0" aria-valuemax="${grade.grade_lv }" ></div>
 					</div>
 					</div>
 				</div>
-				
 				<div class="form-group row">
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
@@ -66,7 +65,7 @@
 						<input type="button" class="btn btn-secondary"
 							style="width: 100px;" value="취소" onclick="history.back()">
 						<input type="button" class="btn btn-poka-green" value="수정" style="width: 100px;"
-							onclick="location.href='/user/modify?userid='+'${user.user_id}'">
+							onclick="location.href='/user/modify?userid='+'${user.user_id}'+'&gradecode='+'${grade.grade_code}'">
 					</div>
 				</div>
 		</div>

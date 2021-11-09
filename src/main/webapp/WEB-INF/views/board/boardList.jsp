@@ -41,7 +41,7 @@
 					<td>등급</td>
 					<td>${board.writer }</td>
 					<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd"/></td>
-					<td>조회수</td>
+					<td>0</td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -94,11 +94,9 @@
                            <div class="modal-content">
                                <div class="modal-header">
                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                   <h4 class="modal-title" id="myModalLabel">
-                                   	Notification</h4>
                                </div>
                                <div class="modal-body">
-                               	처리가 완료되었습니다.
+                               	글이 등록되었습니다.
                                </div>
                                <div class="modal-footer">
                                    <button type="button" 

@@ -55,7 +55,7 @@
 		  
 		  <!-- 로그민 O - 로그아웃 표시 -->
 		   <sec:authorize access="isAuthenticated()">
-		   		<img src="<sec:authentication property="principal.user.img"/>" style="width:50px; height:50px;" onclick="location.href='/user/get?user_id='+'<sec:authentication property="principal.username"/>'">
+		   		<img src="<sec:authentication property="principal.user.img"/>" style="width:50px; height:50px;" onclick="location.href='/user/get?user_id='+'<sec:authentication property="principal.username"/>'+'&'+'gradecode='+'<sec:authentication property="principal.user.gradecode"/>'">
 		   		<span class="mr-3" style="color:white;">&nbsp;
 		   		<sec:authentication property="principal.user.nickname"/>님</span>
 			   <button type="button" class="btn btn-outline-danger mx-2"
