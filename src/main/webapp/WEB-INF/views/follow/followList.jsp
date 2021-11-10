@@ -101,28 +101,7 @@ z-index: 999;
 				  	</li>
 				  	<!-- 클릭 드롭박스 -->
 				  	<div id="followList" class="dropdown"></div>
-				  	<!-- 
-				  	<div class="dropdown">
-					   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  		<div class="d-flex w-100 justify-content-between">
-						      <img src="#" class="img-thumbnail">
-						      <p class="mb-1">Mem00</p>
-						      <small class="text-muted col-6"><i class="fas fa-circle" style="color:lightgreen;"></i> 접속중</small>
-						    </div>
-					  </li>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					    <button class="dropdown-item" type="button">채팅신청</button>
-					    <button class="dropdown-item" type="button">팔로우삭제</button>
-					  </div>
-					</div>
-				  	 
-					    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-					  		<div class="d-flex w-100 justify-content-between">
-						      <img src="#" class="img-thumbnail">
-						      <p class="mb-1">Mem01</p>
-						      <small class="text-muted col-6">Over 30 days</small>
-						    </div>
-					  </li> -->
+				
 				</ul>
 				<ul class="list-group list-group-flush ">
 					  <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -131,20 +110,7 @@ z-index: 999;
 					  </li>
 					  <!-- 팔로워 리스트 -->
 					  <div id="followerList" class="dropdown"></div>
-<!-- 					  <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action"> -->
-<!-- 					  		<div class="d-flex w-100 justify-content-between"> -->
-<!-- 						      <img src="#" class="img-thumbnail"> -->
-<!-- 						      <p class="mb-1">User00</p> -->
-<!-- 						      <small class="text-muted col-6"><i class="fas fa-circle" style="color:lightgreen;"></i> 접속중</small> -->
-<!-- 						    </div> -->
-<!-- 					  </li> -->
-<!-- 					    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action"> -->
-<!-- 					  		<div class="d-flex w-100 justify-content-between"> -->
-<!-- 						      <img src="#" class="img-thumbnail"> -->
-<!-- 						      <p class="mb-1">User01</p> -->
-<!-- 						      <small class="text-muted col-6">3 days ago</small> -->
-<!-- 						    </div> -->
-<!-- 					  </li> -->
+
 				</ul>
 			</div>
 		</div>
@@ -179,8 +145,8 @@ $(function(){
 				      "<p class='mb-1'>"+ list[i].follow +"</p>" +
 				      "<small class='text-muted col-6'><i class='fas fa-circle' style='color:lightgreen;'></i> 접속중</small></div>" + 
 				      "<div class='dropdown-menu' aria-labelledby='dropdownMenu2'>" +
-					    "<button class='dropdown-item' type='button'>채팅신청</button>" +
-					    "<button class='dropdown-item' type='button'>팔로우삭제</button></div>";
+					    "<button class='dropdown-item'>채팅신청</button>" +
+					    "<button class='dropdown-item' onclick='followDel(" + list[i].fno +")'>팔로우삭제</button></div>";
 				}
 				followList.html(str);
 			}
@@ -215,6 +181,19 @@ $(function(){
 						
 				);//END list1
 	}
+	
+	//팔로우 삭제
+	function followDel(fno){
+		followService.remove(
+				{fno:fno},
+				function(result){
+					console.log(fno);
+			},
+			function(error){
+				alert('삭제실패');
+			}
+		)
+	}//END 팔로우 삭제
 	
 })
 </script>

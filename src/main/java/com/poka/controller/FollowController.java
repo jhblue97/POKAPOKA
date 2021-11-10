@@ -38,12 +38,14 @@ public class FollowController {
 	}
 	
 	//팔로우 삭제 
-	@DeleteMapping(value="/{userid}",
+	@DeleteMapping(value="/{fno}",
 			 produces= { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> delete() {
+	public ResponseEntity<String> delete(@PathVariable("fno") String fno) {
 		
-		return null;
+		return followService.delete(fno) == true
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//팔로워 조회 화면
