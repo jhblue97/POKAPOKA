@@ -364,6 +364,7 @@ body {
 						</div>
 						
 						<input type = "hidden" id = "image" name = "image">	
+						<input type = "hidden" id = "serverImage" name = "serverImage">	
 												
 				</div>
 				</div>
@@ -671,6 +672,10 @@ body {
 		var form = new FormData();	
 		form.append("image", files[0]);
 		
+
+		alert(files[0]); 
+		
+		
 		var csrfHeaderName = '${_csrf.headerName}';	//CSRF 토큰 관련 변수
 		var csrfTokenValue = '${_csrf.token}';	
 		
@@ -704,8 +709,8 @@ body {
 		});
 	//////////////////파일업로드 ajax 끝 ///////////////////	
 		 
-	
-		  var settings = {
+	 
+	  var settings = {
 		 	     "url": "https://api.imgbb.com/1/upload?key=dd33b5196e0d8185ce64c99507776fa2",
 		 	     "method": "POST",
 		 	     "timeout": 0, 	       
@@ -713,13 +718,26 @@ body {
 		 	     "mimeType": "multipart/form-data",
 		 	     "contentType": false,
 		 	     "data": form
+		 	}; 
+			
+		/*  var settings = {
+		 	     "url": "https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5",
+		 	     "method": "POST",
+		 	     "timeout": 0, 	       
+		 	     "processData": false,
+		 	     "mimeType": "multipart/form-data",
+		 	     "contentType": false,
+		 	     "data": form
 		 	};
- 	 
+	 */
 		 	   $.ajax(settings).done(function (response) {
 		 	              console.log(response);
 		 	             var jx = JSON.parse(response);
 		 	            console.log(jx.data.url);
-		 	           file_real = jx.data.url;         
+		 	           file_real = jx.data.url;       
+		 	            
+		 	           $('#serverImage').val(file_real);
+		 	           
 		 	           $.ajax(	
 			        		{
 			        			url : "https://dapi.kakao.com/v2/vision/multitag/generate",

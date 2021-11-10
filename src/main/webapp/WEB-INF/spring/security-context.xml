@@ -34,6 +34,10 @@
 		<!-- 접근 권한 구현 클래스 참조 -->
 		<security:access-denied-handler ref="customAccessDenied"/>
 		
+		    <security:headers>
+           <security:frame-options disabled="true"></security:frame-options>
+      </security:headers>
+		
 	</security:http>
 	
 	<security:authentication-manager>

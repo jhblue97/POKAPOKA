@@ -348,7 +348,8 @@ body {
 						</div>
 	
 						</div>				 
-						<input type = "hidden" id = "image" name = "image"  value = "${niji.image}">										
+						<input type = "hidden" id = "image" name = "image"  value = "${niji.image}">	
+						<input type = "hidden" id = "serverImage" name = "serverImage"  value = "${niji.serverImage}">										
 					</div>
 				</div>
 				
@@ -598,7 +599,10 @@ function uploadFiles(event) {
 		 	              console.log(response);
 		 	             var jx = JSON.parse(response);
 		 	            console.log(jx.data.url);
-		 	           file_real = jx.data.url;         
+		 	           file_real = jx.data.url; 
+		 	           
+		 	          $('#serverImage').val(file_real);
+		 	          
 		 	           $.ajax(	
 			        		{
 			        			url : "https://dapi.kakao.com/v2/vision/multitag/generate",

@@ -101,7 +101,7 @@ public class NijiServiceImpl implements NijiService{
 		
 		nijiMapper.insert(nijivo);
 		Map<String,String> map;
-		if(nijivo.getFullTag()!=null) {
+		if(nijivo.getFullTag()!=null && !(nijivo.getFullTag().equals("")) ) {
 			String[] tag = nijivo.getFullTag().split(",");
 			
 			for(int i=0; i<tag.length; i++) {
@@ -146,9 +146,7 @@ public class NijiServiceImpl implements NijiService{
 		niji.setFullTag(aa);
 		
 		niji.setTag(nijitag);
-		
-		
-		
+
 		return niji;
 	}
 

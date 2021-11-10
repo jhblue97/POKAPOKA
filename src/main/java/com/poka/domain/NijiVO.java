@@ -14,6 +14,7 @@ public class NijiVO {
 	private String content;
 	private String category;
 	private String image; //판매이미지
+	private String serverImage; //판매이미지서버 보관용 
 	private int price;
 	private String writer;
 	private List<NijiTagVO> tag;

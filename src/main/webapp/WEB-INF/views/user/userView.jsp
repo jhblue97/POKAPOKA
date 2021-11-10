@@ -10,10 +10,10 @@
 			    <a class="nav-link active" href="#" style="background-color:#113351">회원정보</a>
 			  </li>
 			    <li class="nav-item">
-				    <a class="nav-link" href="#" style="background-color:#DF314F">결제정보</a>
+				    <a class="nav-link" href="/niji/pay/list?user_id=${user.user_id}" id = "paylist" style="background-color:#DF314F">결제정보</a>
 				  </li>
 			  </ul>
-<div class="container p-5 mb-5" style="border: solid 1px;">
+<div class="container p-5 mb-5" style="border: solid 1px;" id="content">
 				
 				<div class="ml-5" style="display:block; float:left;">
 					<div class="mr-5">
@@ -78,4 +78,15 @@
 					</div>
 				</div>
 		</div>
+		
+		
+<script type="text/javascript">
+/* $('#paylist').on('click', function(e){ 
+	
+
+
+	
+}); */
+	
+</script>
 <%@ include file="../include/footer.jsp" %>
