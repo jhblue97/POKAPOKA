@@ -33,7 +33,7 @@ public class FollowController {
 	}
 	
 	//팔로우 삭제 ajax
-	@PostMapping("/delete")
+	@PostMapping("/delete/{userid}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> delete() {
 		
@@ -48,7 +48,7 @@ public class FollowController {
 	}
 	
 	//팔로우 추가
-	@PostMapping("/add")
+	@PostMapping("/add/{userid}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> add() {
 		

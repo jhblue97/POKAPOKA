@@ -18,9 +18,9 @@ public interface PayMapper {
 	public List<PayVO> getList();
 	
 	//게시물 하나 조회
-	public PayVO read(String nno);
+	public PayVO read(String pno);
 
 	//게시물 등록
-	public void insert(PayVO niji);
+	public void insert(PayVO pay);
 	
 }

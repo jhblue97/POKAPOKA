@@ -1,4 +1,7 @@
+<!-- 로그인 O -->
+<sec:authorize access="isAuthenticated()">
 <%@ include file="../follow/followList.jsp"%>
+</sec:authorize>
 <!-- <script src="/resources/js/script.js"></script> --> 
 <link rel="stylesheet" 
 	  href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
@@ -67,7 +70,7 @@
 
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    � 2021 POKAPOKA PROJECT
+    © 2021 POKAPOKA PROJECT
   </div>
   <!-- Copyright -->
 </footer>

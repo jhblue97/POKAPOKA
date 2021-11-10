@@ -1,17 +1,25 @@
 package com.poka.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,13 +41,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.util.LinkedMultiValueMap;
 
 import com.poka.domain.Criteria;
+import com.poka.domain.NijiTagVO;
 import com.poka.domain.NijiVO;
+import com.poka.domain.PayVO;
+import com.poka.domain.UserVO;
 import com.poka.proc.KaKaoVisionTag;
 import com.poka.service.NijiService;
+import com.poka.service.PayService;
+import com.poka.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import javax.servlet.http.HttpSession;
 
 
 @Controller //스프링이 빈으로 관리하도록 어노테이션 추가
@@ -49,6 +61,8 @@ import javax.servlet.http.HttpSession;
 public class NijiController {
 
 	private NijiService nijiService;
+	private PayService payService;
+	private UserService userService;
 	private static final String HOST = "https://kapi.kakao.com";
 	     //게시물 목록 조회
 		@GetMapping("/list")
@@ -82,6 +96,30 @@ public class NijiController {
 			  return "niji/nijiList";
 		}		
 		
+		
+		 //결제 목록 조회
+			@GetMapping("/pay/list")
+			public String payList(@RequestParam("user_id") String user_id,Criteria cri, Model model) {		
+					
+				if(cri.getKeyword()==null) {
+					cri.setKeyword("");
+				}
+				System.out.println(cri.getAmount());
+				System.out.println(cri.getKeyword());
+				System.out.println(cri.getPageNum());
+
+					cri.setKeyword(user_id);
+				
+		   List<PayVO> list = payService.getList(cri); 
+		   model.addAttribute("list", list);
+		   
+		   list.forEach(niji -> {
+				  System.out.println("niji : -> " + niji); });
+		   
+ 
+			log.info(".....list().....");	
+			return "pay/payList";
+		}	
 		 //게시물 검색 조회
 		@GetMapping("/search")
 		public String list(@RequestParam("name") String name,Criteria cri, Model model) {			
@@ -218,63 +256,54 @@ public class NijiController {
 		}
 		
 		
-		
-		 //결제 목록 조회
-				@GetMapping("/pay/list")
-			public String payList(Criteria cri, Model model) {			
-			log.info(".....list().....");	
-			return null;
-		}			
 		//결제 내역 상세 조회
 		@GetMapping("/pay/get")
-		public String payGet(@RequestParam("nno") String nno, Model model) {
-			
-
-	
+		public ResponseEntity<PayVO> payGet(@RequestParam("pno") String pno, Model model) {			
 			log.info(".....get() or modify() .....");	
-	
-	
-			model.addAttribute("niji", nijiService.get(nno));
-	
-	
-			return "niji/nijiView";
+			return new ResponseEntity<>(payService.get(pno), HttpStatus.OK);
 		}	
 		//카카오 결제				
 		@GetMapping({ "/kakao/pay"})
-		public String pay(@RequestParam("price")String price,@RequestParam("nno")String nno,@RequestParam("user_id")String user_id,HttpSession session) throws RestClientException, URISyntaxException {
+		public String pay(@RequestParam("price")String price,@RequestParam("user_id")String user_id,@RequestParam("nno")String nno,HttpSession session) throws Exception {
 	
 			
-			System.out.println("get startstream2");
+			    System.out.println("get startstream2");
 
-		      RestTemplate restTemplate = new RestTemplate();
+		        RestTemplate restTemplate = new RestTemplate();
 		      
 			    // 서버로 요청할 Body
 			    MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 			    params.add("cid","TC0ONETIME");
-			 //   params.add("partner_order_id",userNo);
-			 //   params.add("partner_user_id",userNo);
-			    params.add("item_name","스트리밍후원");
+			    params.add("partner_order_id",user_id);
+			    params.add("partner_user_id",user_id);
+			    params.add("item_name","携帯");
 			    params.add("quantity","1");
 			    params.add("total_amount",price);
 			    params.add("tax_free_amount","0");
-			    params.add("approval_url","http://192.168.0.43:8080/stream/json/kakaoOkStream");
-			    params.add("cancel_url","http://192.168.0.43:8080");
-			    params.add("fail_url","http://192.168.0.43:8080");
+			    params.add("approval_url","http://192.168.0.63:8091/niji/pay/pay_after");
+			    params.add("cancel_url","http://192.168.0.63:8091");
+			    params.add("fail_url","http://192.168.0.63:8091");
 
 			    // 서버로 요청할 Header 
 			    HttpHeaders headers = new HttpHeaders();
-			    headers.add("Authorization","KakaoAK "+"afd426e1a2275871414bee8f57f4f304");
+			    headers.add("Authorization","KakaoAK "+"ba4cb63601508f24d7800dc383e44fa4");
 			    headers.add("Content-Type",MediaType.APPLICATION_FORM_URLENCODED_VALUE +";charset=UTF-8");
 
 			    HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 			    Map response = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), request, Map.class);
 			    System.out.println(response.get("next_redirect_pc_url"));
 			    session.setAttribute("tid", response.get("tid"));
-			   // session.setAttribute("spon",spon);
-			   // session.setAttribute("user",user);
-			   // session.setAttribute("streamer",streamer);
-			    session.setAttribute("price",price);
-				System.out.println("session저장확인"+session.getAttribute("tid")+session.getAttribute("spon"));
+			    
+		
+			    
+			    NijiVO niji = new NijiVO(); 
+			    niji = nijiService.get(nno);
+			    session.setAttribute("niji",niji);
+			    session.setAttribute("user_id",user_id);
+			    session.setAttribute("price",price);			    
+			    
+
+				System.out.println("session저장확인"+session.getAttribute("tid")+session.getAttribute("user_id")+session.getAttribute("price"));
 					 
 				return "redirect:"+response.get("next_redirect_pc_url");
 			
@@ -294,15 +323,65 @@ public class NijiController {
 				return null;	
 		}
 		
-		
-		@GetMapping({ "/niji/pay_after"})
-		public String pay_after(@RequestParam("sno")String sno,Model model) {
+		@GetMapping({ "/pay/pay_after"})
+		public String pay_after(@RequestParam("pg_token") String pg_token,Model model,HttpSession session) throws Exception  {
 	
-				log.info(".....get() or modify() .....");			
-				return null;	
+
+				String tid = String.valueOf(session.getAttribute("tid"));
+				String user_id = String.valueOf(session.getAttribute("user_id"));
+				System.out.println("tid ------> "+tid+"user_id ------->"+user_id+"pg_token----->"+pg_token);
+		
+				RestTemplate restTemplate = new RestTemplate();
+	
+			    // 서버로 요청할 Body
+			    MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+			    params.add("cid","TC0ONETIME");
+			    params.add("tid",tid);
+			    params.add("partner_order_id",user_id);
+			    params.add("partner_user_id",user_id);
+			    params.add("pg_token",pg_token);
+			
+	
+			    HttpHeaders headers = new HttpHeaders();
+			    headers.add("Authorization","KakaoAK "+"ba4cb63601508f24d7800dc383e44fa4");
+			    headers.add("Content-Type",MediaType.APPLICATION_FORM_URLENCODED +";charset=UTF-8");
+			    HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+			    
+			    System.out.println("ㅅㅂ");
+			    
+			    
+			    Map response = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), request, Map.class);
+		 
+			    NijiVO niji = new NijiVO(); 
+			    niji = (NijiVO) session.getAttribute("niji");
+			    
+			    UserVO user = new UserVO();
+			    user = userService.get(user_id);
+			    
+			    PayVO pay = new PayVO();
+			    pay.setNno(niji.getNno());
+			    pay.setTitle(niji.getTitle());
+			    pay.setContent(niji.getContent());
+			    pay.setImg(niji.getServerImage());
+			    pay.setSeller(niji.getWriter());
+			    pay.setBuyer(user_id);
+			    pay.setBuyer_email(user.getEmail());
+			    pay.setPay_status(2);
+			    pay.setPrice(niji.getPrice());
+		    
+			    payService.add(pay);
+			    
+			    System.out.println("끝");
+		    
+			
+				return "redirect:/niji/pay/complete";
 		}
 		
+		@GetMapping({ "/pay/complete"})
+		public String complete(Model model) throws Exception  {
 		
+			return "niji/pay_after";
+		}
 		
 		
 }

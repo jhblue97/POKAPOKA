@@ -58,7 +58,7 @@
     
     <update id="update">
 
-	UPDATE DEV.P_NIJI SET TITLE = #{title} ,CONTENT = #{content}, img  = #{image} , price = #{price}, updateDate = sysdate
+	UPDATE DEV.P_NIJI SET TITLE = #{title} ,CONTENT = #{content}, img  = #{image} , price = #{price}, updateDate = sysdate , serverImage = #{serverImage}
 	WHERE nno = #{nno}
 
     </update>
@@ -75,13 +75,13 @@
     
     <select id="read" resultType="com.poka.domain.NijiVO">
     
-    SELECT NNO,TITLE,CONTENT,CATEGORY,IMG as image,PRICE,WRITER,REGDATE,UPDATEDATE
+    SELECT NNO,TITLE,CONTENT,CATEGORY,IMG as image,PRICE,WRITER,REGDATE,UPDATEDATE,serverImage
     FROM DEV.P_NIJI
     WHERE NNO = #{nno}
     </select>
 
 	<insert id="insert">
-	Insert into DEV.P_NIJI (NNO,TITLE,CONTENT,CATEGORY,IMG,PRICE,WRITER,REGDATE,UPDATEDATE) values ('N'||SEQ_NIJI.NEXTVAL,#{title},#{content},#{category},#{image},#{price},#{writer},sysdate,null)
+	Insert into DEV.P_NIJI (NNO,TITLE,CONTENT,CATEGORY,IMG,PRICE,WRITER,REGDATE,UPDATEDATE,SERVERIMAGE) values ('N'||SEQ_NIJI.NEXTVAL,#{title},#{content},#{category},#{image},#{price},#{writer},sysdate,null,#{serverImage})
 	 
     </insert>
     

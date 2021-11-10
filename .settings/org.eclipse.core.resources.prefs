@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/views/follow/followList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/include/footer.jsp=UTF-8
 encoding//src/main/webapp/resources/sql/JH_GRADE_MEMBER_INSERT.sql=ms949
 encoding/PokaERD.sql=UTF-8

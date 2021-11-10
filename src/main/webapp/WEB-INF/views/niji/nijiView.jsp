@@ -383,7 +383,7 @@ body {
 					<button class="btn btn-poka-light" data-oper="modify">수정</button>
 				</c:if>
 				<c:if test="${p.username ne niji.writer }">
-					<button class="btn btn-poka-light" data-oper="pay"  id="kakaopay" onclick = "location.href='/niji/pay_before?nno=${niji.nno}'">KAKAO PAY</button>
+					<button class="btn btn-poka-light" data-oper="pay"  id="kakaopay" onclick = "location.href='http://192.168.0.63:8091/niji/pay_before?nno=${niji.nno}'">KAKAO PAY</button>
 				</c:if>
 		    </sec:authorize>
 			<!----------------------------- 판매글 영역 끝  ------------------ -->

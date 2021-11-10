@@ -304,7 +304,7 @@ body {
 	<div class="container">
 		<h1 class="display-5" id = "jumbo">
 			PAY_BEFORE</h1></div></div>
-	 
+	 <sec:authentication property="principal.username"/>
 	 
 	<div class="container">
 			<form role="form" method="get" action="/niji/modify" id ="seller">
@@ -368,10 +368,10 @@ body {
 		 var price = $('#price').val();
 		 var nno = $('#nno').val();
 		 var nno = $('#nno').val();
-		 var nno = $('#user_id').val();
-		 
-		 
-		 window.open("http://localhost:8091/niji/kakao/pay?price="+price+"&user_id="+user_id+"&nno="+nno, "_blank", "width=400, height=500, scrollbars=no, status=no,toolbar=no");
+		 var user_id = $('#user_id').val();
+		
+		  
+		 window.open("http://192.168.0.63:8091/niji/kakao/pay?price="+price+"&user_id="+user_id+"&nno="+nno, "_blank", "width=400, height=500, scrollbars=no, status=no,toolbar=no");
 		 
 	});//END 수정 버튼
 	

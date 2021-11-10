@@ -10,15 +10,52 @@
 
     </select>
     
+	
+	
+	    <!-- 쿼리 보관 -->
+	<sql id="criteria">		
+
+    				n.buyer = #{keyword}
+	</sql>
+	
     <select id="getListWithPaging" resultType = "com.poka.domain.PayVO" >
+
+<![CDATA[
+	  SELECT * 
+        FROM   (
+         SELECT  rownum rn,b.*
+         from ( select 
+	    n.pno,N.NNO,N.TITLE,N.CONTENT,n.img,n.seller,n.buyer,n.pay_status,n.price,n.regdate as payDate,n.updatedate
+		FROM P_pay N 
+	WHERE
+ 	 ]]>  
+ 			<include refid="criteria"></include>
+     <![CDATA[
+        AND   rownum <= #{pageNum} * #{amount} ) b 
+      ]]>          
+     <![CDATA[
+        )  WHERE  rn > (#{pageNum} - 1) * #{amount}
+ 	 ]]>
+
+
 
     </select>
    
     
     <select id="read" resultType="com.poka.domain.PayVO">
+    
+    SELECT PNO,NNO,TITLE,CONTENT,IMG,SELLER,BUYER,BUYER_EMAIL,PAY_STATUS,PRICE,REGDATE as paydate,UPDATEDATE FROM P_PAY
+    WHERE PNO = #{pno}
+    
+    
+    
     </select>
 
 	<insert id="insert">
+	
+	Insert into P_PAY VALUES ('P'||SEQ_PAY.NEXTVAL,#{nno},#{title},#{content},#{img},#{seller},#{buyer},#{buyer_email},#{pay_status},#{price},sysdate,null)
+	
+	
     </insert>
 
     

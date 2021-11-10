@@ -17,7 +17,6 @@ public class PayVO {
 	private String buyer_email; //구매자 이메일
 	private int pay_status;
 	private int price;
-	private List<GametagVO> tagVO;
 	private Date   payDate;
 	private Date   updateDate;
 	

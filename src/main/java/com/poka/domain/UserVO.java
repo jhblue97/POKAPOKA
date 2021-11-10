@@ -22,6 +22,7 @@ public class UserVO {
 	private boolean enabled;
 	private int grade_exp;
 	private List<AuthVO> authList;
+	private List<FollowVO> followList;
 	private UserVO user;
 	private GradeVO grade;
 }
