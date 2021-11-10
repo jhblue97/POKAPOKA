@@ -246,8 +246,41 @@ iframe {
 } /* hover previous stars in list */
 .review-rating>input:checked+label:hover,
 	/* hover current star when changing review-rating */ .review-rating>input:checked 
-	~ label:hover, .review-rating>label:hover ~ input:checked ~ label,
+	 ~ label:hover, .review-rating>label:hover ~ input:checked ~ label,
 	/* lighten current selection */ .review-rating>input:checked ~ label:hover 
-	~ label {
+	 ~ label {
 	color: #FFED85;
+}
+
+.reviewBox {
+	list-style: none;
+	padding-left: 6rem;
+}
+
+.reviewBox li {
+	margin: 0.5rem 0; border : 2px solid #DFA01E;
+	border-radius: 10px;
+	padding: 0.5rem;
+	border: 2px solid #DFA01E;
+}
+
+.reviewBox li:hover {
+	background-color: #fff;
+}
+
+.modal-reveiw {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	width: 100%;
+	pointer-events: auto;
+	background-color: #fff;
+	background-clip: padding-box;
+	border-radius: 0.3 rem;
+	outline: 0;
 }

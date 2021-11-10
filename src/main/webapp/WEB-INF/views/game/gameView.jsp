@@ -74,41 +74,43 @@
 		</div>
 		<div class="game-review">
 			<div class="game-review-subtitle">レビュー</div>
-			<div class="game-review-content"></div>
-		</div>
-		<!-- 리뷰 목록 -->
-		<div class='row'>
-			<div class="col-lg-11 reviewPage" style="margin: 1rem">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<ul class="reviewBox">
-							<!-- REPLY TEST DATA -------------------------->
-							<li class="left clearfix" data-rno='12'>
-								<div>
-									<div class="header">
-										<strong class="primary-font">user00</strong> <small
-											class="pull-right text-muted"> 2021-10-12 17:41 </small>
+			<div class="game-review-content row">
+				<div class="col-lg-11 reviewPage" style="margin: 1rem">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<ul class="reviewBox">
+								<!-- REPLY TEST DATA -------------------------->
+								<li class="left clearfix">
+									<div>
+										<div class="header">
+											<strong class="primary-font">user00</strong> <small
+												class="pull-right text-muted"> 2021-10-12 17:41 </small>
+										</div>
+										<p>Test Code</p>
 									</div>
-									<p>Good job!</p>
-								</div>
-							</li>
-							<!-- REPLY END ---------------------------->
-						</ul>
+								</li>
+								<!-- REPLY END ---------------------------->
+							</ul>
+						</div>
+						<!-- 리뷰 목록 페이징 -->
+						<div class="panel-footer"></div>
+						<!-- END 리뷰 목록 페이징 -->
 					</div>
-					<!-- 리뷰 목록 페이징 -->
-					<div class="panel-footer"></div>
-					<!-- END 리뷰 목록 페이징 -->
 				</div>
 			</div>
 		</div>
+		<!-- 리뷰 목록 -->
+		<div></div>
 		<!-- END 리뷰 목록 -->
 
 		<!-- 리뷰 작성 Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content modal-review"
+					style="border: 3px solid #DFA01E !important;">
+					<div class="modal-header"
+						style="background-color: #113351; color: #fff; border-bottom: 3px solid #DFA01E;">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
 						<h4 class="modal-title" id="myModalLabel">レビュー登録</h4>
@@ -154,7 +156,8 @@
 						</div>
 					</div>
 
-					<div class="modal-footer">
+					<div class="modal-footer"
+						style="background-color: #113351; color: #fff; border-top: 3px solid #DFA01E;">
 						<button id="regReview" type="button" class="btn btn-poka-green">登録</button>
 						<button id="modReview" type="button" class="btn btn-poka-warning">修正</button>
 						<button id="removeReview" type="button"
@@ -170,6 +173,9 @@
 	<script src="/resources/js/review.js"></script>
 	<script>
 		$(function() {
+			//모달 초기값 메소드
+			//reviewService.modalInit();
+			
 			//변수들 -----------------------------------------------------------
 			var gnoVal = '${game.gno}'; 
 			var reviewBox = $('.reviewBox');
@@ -178,10 +184,12 @@
 			var content = modal.find("textarea[name='content']");
 			var writer = modal.find("input[name='writer']");
 			var regDate = modal.find("input[name='regDate']");
-
+			var starScore = modal.find("input[name='review-star']");
+			
 			var regReview = $('#regReview');
 			var modReview = $('#modReview');
 			var removeReview = $('#removeReview');
+			
 			
 			//----------------------------------------------------------------
 			
@@ -244,10 +252,12 @@
 			
 			//리뷰 클릭 이벤트 처리
 			reviewBox.on('click', 'li', function(e){
-				console.log('리뷰 클릭');　//END get()
+				//console.log('리뷰 클릭');　//END get()
+				
 				reviewService.get($(this).data('rno'),function(result){
-							console.log(result);
-							content.val(result.reply);		//리뷰 표시
+							//console.log(result);
+							starScore.find([value = $('result.score')]).attr('checked');
+							content.val(result.content).attr('readonly', 'readonly');		//리뷰 표시
 							writer.val(result.writer);	//작성자 표시 	
 							regDate.val(reviewService.reviewDate(result.regDate))
 											 .attr('readonly', 'readonly');	//작성일자 표시 - 읽기 전용		
@@ -280,7 +290,9 @@
 			//신규 리뷰 버튼 클릭 이벤트 처리
 			$('#addreview').on('click', function(e) {
 				//console.log('신규 클릭');
-				modal.find("input").val(''); //리뷰 모달의 입력값들 지우기
+				//reviewInit();
+								
+				modal.find("input[name !='review-star']").val(''); //리뷰 모달의 입력값들 지우기
 				writer.closest('div').hide();// writer 숨기기
 				regDate.closest('div').hide(); //regDate 숨기기
 				modal.find("button[id != 'closeBtn']").hide(); //close 버튼이 아닌 요소들 숨기기
@@ -291,18 +303,18 @@
 			
 			// 리뷰 등록 이벤트 처리
 			regReview.on('click', function(e) {
+				console.log("값 체크 : " + modal.find("input[name='review-star']").val());
 				// 별점 가져오기
-				var star = modal.find("input[name='review-star']:checked").val() != null ? modal.find("input[name='review-star']:checked").val() : 0 
+				var star = modal.find("input[name='review-star']:checked").val() != null
+				? modal.find("input[name='review-star']:checked").val() : 0;
 			
-				console.log("값 체크 : "+modal.find("input[name='review-star']:checked"));
-						
 				// 값 체크
 				console.log('gno:' + '${game.gno}');
 				console.log('content: ' + content.val());
 				console.log('writer: ' + writerVal);
 				console.log('별점 : ' + star);
 				
-				/* reviewService.add({
+				reviewService.add({
 					gno : '${game.gno}',
 					content : content.val(),
 					writer : writerVal,
@@ -312,7 +324,7 @@
 					modal.modal('hide'); //모달창 숨기기
 					alert('レビューが登録されました。');
 					//showList(-1);		//목록을 새로 표시
-				});//END add() */
+				});//END add()
 			});
 
 			//리뷰 수정 버튼 클릭 이벤트 처리
@@ -325,7 +337,7 @@
 					  content : content.val(),
 					  writer :  writer.val() },
 					function(result){
-						alert('리뷰이 수정되었습니다.');
+						alert('리뷰가 수정되었습니다.');
 						modal.modal('hide');			//모달창 숨기기
 						showList(pageNum);				//목록을 새로 표시
 					}
@@ -338,7 +350,7 @@
 				reviewService.remove(
 					modal.data('rno'), writer.val(),
 					function(result){
-						alert('리뷰이 삭제되었습니다');
+						alert('리뷰가 삭제되었습니다');
 						modal.modal('hide');			//모달창 숨기기
 						showList(pageNum);				//목록을 새로 표시
 					},
@@ -346,7 +358,7 @@
 						alert('remove fail');
 					}
 				);//END remove();
-			});//END 리뷰 삭제 버튼 클릭 이벤트 처리 */
+			});//END 리뷰 삭제 버튼 클릭 이벤트 처리
 
 			//END 리뷰 모달 창 ------------------------------------------------------
 		});
