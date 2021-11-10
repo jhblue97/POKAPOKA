@@ -20,9 +20,12 @@
 			<span class="dropdown">
 				<a id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img src="/resources/images/001_g_bronze.png" style="width:20px; height:20px;"> ${board.writer }
+					  <!-- 로그인 O -->
+					  <sec:authorize access="isAuthenticated()">
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 						    <button class="dropdown-item" type="button">팔로우추가</button>
-					  </div></a></span></div><div>
+					  </div></sec:authorize>
+					  </a></span></div><div>
 
 			<label class="mr-3">등록일</label>
 			 <fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd hh:mm:ss"/>

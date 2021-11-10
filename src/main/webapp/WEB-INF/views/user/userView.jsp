@@ -5,7 +5,16 @@
 	<div class="container">
 		<h1 class="display-5">
 			회원정보</h1></div></div>
+			<ul class="container nav nav-tabs">
+			 <li class="nav-item">
+			    <a class="nav-link active" href="#" style="background-color:#113351">회원정보</a>
+			  </li>
+			    <li class="nav-item">
+				    <a class="nav-link" href="#" style="background-color:#DF314F">결제정보</a>
+				  </li>
+			  </ul>
 <div class="container p-5 mb-5" style="border: solid 1px;">
+				
 				<div class="ml-5" style="display:block; float:left;">
 					<div class="mr-5">
 						<p style="text-align:center;">프로필 이미지</p>
