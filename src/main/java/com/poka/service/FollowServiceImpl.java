@@ -29,13 +29,21 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public List<FollowVO> followList() {
-		return followMapper.getfollowList();
+	public List<FollowVO> followList(String userid) {
+//		System.out.println("test"+userid);
+		
+		List<FollowVO>  test = followMapper.getfollowList(userid);
+//		System.out.println("size :: "+test.size());
+//		for (FollowVO followVO : test) {
+//			System.out.println("followVO"+followVO.getFollow());
+//		}
+//		
+		return followMapper.getfollowList(userid);
 	}
 
 	@Override
-	public List<FollowVO> followerList() {
-		return followMapper.getfollowerList();
+	public List<FollowVO> followerList(String userid) {
+		return followMapper.getfollowerList(userid);
 	}
 
 	@Override

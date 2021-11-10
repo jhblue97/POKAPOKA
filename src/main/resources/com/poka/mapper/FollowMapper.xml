@@ -4,55 +4,47 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.poka.mapper.FollowMapper">
-	 <resultMap type="com.poka.domain.UserVO" id="userMap">
-		<id property="userid" column="userid"/>
+<!-- 	 <resultMap type="com.poka.domain.FollowVO" id="userMap">
 		<result property="user_id" column="user_id"/>
 		<result property="nickname" column="nickname"/>
 		<result property="img" column="img"/>
 		<result property="lastlogin" column="lastlogin"/>
-		<collection property="followList" resultMap="followMap"/>	
-	</resultMap>
+	</resultMap> -->
 	
-	<resultMap type="com.poka.domain.FollowVO" id="followMap">
-		<result property="fno" column="fno"/>
-		<result property="follow_userid" column="follow_userid"/>
-		<result property="follower_userid" column="follower_userid"/>
-		<result property="regDate" column="regDate"/>
- 	</resultMap>
+<!-- 	<resultMap type="com.poka.domain.FollowVO" id="followMap"> -->
+<!-- 		<result property="follow_userid" column="follow_userid"/> -->
+<!-- 		<result property="follower_userid" column="follower_userid"/> -->
+<!--  	</resultMap> -->
 	
 	<insert id="insert">
-		<!-- 팔로우 한사람 -->
-		insert into p_follow(fno, follow_userid, regDate)
-			values('F'||seq_follow.NEXTVAL, #{follow_userid}, SYSDATE)
-		<!-- 팔로우 당한사람 -->
-		insert into p_follow(fno, follower_userid, regDate)
-			values('F'||seq_follow.NEXTVAL, #{follower_userid}, SYSDATE)
+		insert into p_follow(fno, follow_userid, follower_userid regDate)
+			values('F'||seq_follow.NEXTVAL, #{follow_userid}, #{follower_userid}, SYSDATE)
     </insert>
     
     <delete id="delete">
     	delete p_follow where fno = #{fno}
     </delete>
     
+    <!-- DB와 이름이 다를 경우 as(별칭) 을 사용해서 VO와 이름을 맞춰줘야함  -->
     <select id="getfollowList" 
 	        resultType="com.poka.domain.FollowVO">
-	        select * from p_member 
-	        where user_id in(
-	        	select follower_userid from p_follow where follow_userid = #{follow_userid}
-	        )
-	        
+	        SELECT  b.fno, a.img, a.user_id as follow, a.lastlogin, b.follower_userid as follower
+			FROM p_member a LEFT OUTER JOIN p_follow b 
+			ON a.user_id = b.follow_userid 
+			WHERE b.follower_userid = #{follower_userid}
 	</select>
 	
 	<select id="getfollowerList" 
 	        resultType="com.poka.domain.FollowVO">
-	        select * from p_member
-	        where user_id in(
-	        	select follow_userid from p_follow where follower_userid = #{follower_userid}
-	        )
-	        
+	        SELECT  b.fno, a.img, a.user_id as follow, a.lastlogin, b.follower_userid as follower
+			FROM p_member a left outer join p_follow b 
+			ON a.user_id = b.follower_userid
+			WHERE b.follow_userid = #{follow_userid}
 	</select>
 	
 	<select id="followchk" 
-	        resultType="com.poka.domain.FollowVO">
+	        resultType="boolean">
+	        SELECT COUNT(follow_userid) FROM p_follow WHERE follow_userid = #{follow_userid}
 	</select>
     
 </mapper>

@@ -1,9 +1,13 @@
 package com.poka.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.poka.domain.FollowVO;
+import com.poka.service.FollowService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -22,18 +27,19 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class FollowController {
 	
-
+	FollowService followService;
 	//팔로우 조회 화면
-	@GetMapping("/list1/{userid}")					
+	@GetMapping(value="list1/{userid}")					
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<FollowVO> list1(@PathVariable("userid") String userid) {
-		
-		return new ResponseEntity<>(null, HttpStatus.OK);
+	public ResponseEntity<List<FollowVO>> list1(@PathVariable("userid") String userid) {
+//		System.out.println("test controller");
+		return new ResponseEntity<>(followService.followList(userid), HttpStatus.OK);
 	
 	}
 	
-	//팔로우 삭제 ajax
-	@PostMapping("/delete/{userid}")
+	//팔로우 삭제 
+	@DeleteMapping(value="/{userid}",
+			 produces= { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> delete() {
 		
@@ -41,22 +47,23 @@ public class FollowController {
 	}
 	
 	//팔로워 조회 화면
-	@GetMapping("/list2/{userid}")
+	@GetMapping(value="list2/{userid}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<FollowVO> list2(@PathVariable("userid") String userid) {
-		return new ResponseEntity<>(null, HttpStatus.OK);
+	public ResponseEntity<List<FollowVO>> list2(@PathVariable("userid") String userid) {
+		return new ResponseEntity<>(followService.followerList(userid), HttpStatus.OK);
 	}
 	
 	//팔로우 추가
-	@PostMapping("/add/{userid}")
+	@PostMapping(value="/new",
+			 produces= { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> add() {
+	public ResponseEntity<String> add(@PathVariable("userid") String userid) {
 		
 		
 		return null;
 	}
 	
-	//팔로우 체크 ajax
+	//팔로우 체크
 	@RequestMapping(method = RequestMethod.GET, value = "/chk")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> chk(@RequestBody FollowVO vo) {
