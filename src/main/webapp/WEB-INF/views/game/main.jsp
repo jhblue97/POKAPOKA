@@ -57,12 +57,20 @@
 	<!-- 내부 동작 스크립트 -->
 	<script>
 		$(function() {
+			$.ajax({
+				dataType:"json",
+				url: "https://api.steampowered.com/ISteamApps/GetAppList/v2/?",
+				success: function(result)
+			});
+			
 			/* game-item 클릭 시 동작 */
 			$('.game-item').on('click', function() {
 				//$('form').append("<input type='hidden' name='gno' value='"+ $(this).attr('id') +"'>");
 				$('form').attr('action', "/game/get/" + $(this).attr('id'));
 				$('form').submit();
 			});
+			
+			
 		});//END Script
 	</script>
 </body>
