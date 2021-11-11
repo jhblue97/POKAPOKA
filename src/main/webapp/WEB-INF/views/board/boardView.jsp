@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
+<script type="text/javascript" src="/resources/js/report.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="/resources/css/board.css">
 <div class="jumbotron">
 	<div class="container">
@@ -32,7 +35,7 @@
 		</div>
 		<div class="ml-3">
 			<img src="/resources/images/siren.png" style="width:20px; height:20px;">
-			<label class="mr-3">신고</label>		
+			<label class="mr-3"><button id = "view" class='btn btn-outline-warning' data-toggle="modal" data-target="#myModal2" data-num ="${pay.pno}">신고</button> </label>		
 		</div>
 		
 	</div>
@@ -58,7 +61,7 @@
 		    </sec:authorize>
 		    
 		     <!-- 폼 태그 추가 -->	
-             <form action="/board/modify">
+             <form action="/board/modify" id = "form1">
              	<input type="hidden" name="bno" value="${board.bno }" id="bno">
              	<!-- 넘어온 페이지 번호와 페이지당 표시 게시물 수 파라미터 추가 -->
              	<input type="hidden" name="pageNum" value="${cri.pageNum }">
@@ -81,10 +84,87 @@
      	  </div><!-- END 첨부파일 업로드 결과 표시 -->
       </div><!-- END 첨부파일 목록 -->				
 </div>
+
+
+
+<!-- view modal  -->		 
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <h4 class="modal-title" id="myModalLabel">申告</h4> <br>
+      </div>
+      <form action="/report/add" method="post" enctype="multipart/form-data" class="form-horizontal"  id = "form2"> 	
+      
+
+       
+       	<input name="writer"  id = "writer" type = "hidden" class="form-control"  value='${board.writer}'> 
+          
+          
+	<input name="reporter"  id = "reporter" type = "hidden" class="form-control"  value='<sec:authentication property="principal.username"/>'> 
+            		
+      <div class="modal-body">  
+       		 <select class="form-control" id="select">
+		      <option value = "1">わいせつ物</option>
+		      <option value = "2">広告</option>
+		      <option value = "3" >悪口</option>
+		    </select>	 
+      </div> 
+      
+      
+      <div class="modal-footer">
+      
+        <button type="button" id = "report_add" class="btn btn-poka-main" >登録</button>			                              		
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div> 
+      </form>
+    </div>
+  </div></div>	
+	<!-- view modal  END-->	
+
+
 <script>
 $(function(){
 	var bnoValue = '${board.bno}'; 
-	var frm = $('form');
+	var frm = $('#form1');
+	
+	var frm2 = $('#form2');
+	
+	
+	
+	var csrfHeaderName = '${_csrf.headerName}';	//CSRF 토큰 관련 변수
+	var csrfTokenValue = '${_csrf.token}';	
+	
+	
+	$("#report_add").on('click', function(e){
+	
+		//alert('gg');
+		var bno = $('#bno').val();
+		var select = $('#select').val();
+		var reporter = $('#reporter').val();
+		var writer = $('#writer').val();
+		var category = 'B';
+		
+		
+		 
+		$.get('/report/add/'+bno+"/"+reporter+"/"+select+"/"+writer+"/"+category,
+				  function(result){
+			console.log(result);
+			
+			if(result=="success"){
+				alert('申告されました。');
+			}
+			
+			}
+		).fail(function(xhr, status, er){
+					if(error){
+						error(er);
+					}
+		});		
+	});
+	
+	
 	
 	//수정 버튼
 	$("button[data-oper='modify']").on('click', function(e){

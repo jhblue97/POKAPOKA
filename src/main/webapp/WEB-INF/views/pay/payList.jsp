@@ -140,12 +140,7 @@
  				   <input type="text" class="form-control" id="view_email" value=""  name="view_email" readonly> <br/>	
  				
  				  <label for="txt-user-text" class="col-form-label">buyer_price</label> <br/> 
- 				   <input type="text" class="form-control" id="view_price" value=""name="view_price" readonly> <br/>	
- 				
- 				
- 				
- 			
- 				 
+ 				   <input type="text" class="form-control" id="view_price" value=""name="view_price" readonly> <br/>				 
       </div> 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

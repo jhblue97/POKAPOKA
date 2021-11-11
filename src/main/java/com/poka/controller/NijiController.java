@@ -1,19 +1,11 @@
 package com.poka.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
@@ -25,27 +17,22 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.util.LinkedMultiValueMap;
-
 import com.poka.domain.Criteria;
-import com.poka.domain.NijiTagVO;
 import com.poka.domain.NijiVO;
 import com.poka.domain.PayVO;
 import com.poka.domain.UserVO;
-import com.poka.proc.KaKaoVisionTag;
 import com.poka.service.NijiService;
 import com.poka.service.PayService;
 import com.poka.service.UserService;
@@ -66,7 +53,7 @@ public class NijiController {
 	private static final String HOST = "https://kapi.kakao.com";
 	     //게시물 목록 조회
 		@GetMapping("/list")
-		public String list(Criteria cri, Model model) {			
+		public String list(Criteria cri, Model model) throws RestClientException, URISyntaxException, IOException {			
 			
 			/*
 			 * cri.setAmount(5); cri.setKeyword(""); cri.setPageNum(1);
@@ -85,17 +72,23 @@ public class NijiController {
 			
 			  List<NijiVO> list = nijiService.getList(cri);
 			  
-			  list.forEach(niji -> {
-			  
-			  niji.setTag(nijiService.getTag(niji.getNno()));
-			  
-			  System.out.println("niji : -> " + niji); });
-			 
+			  System.out.println("niji : -> " + list);
+				 
 			  model.addAttribute("list", list);
 			  model.addAttribute("keyword",cri.getKeyword());
+
+			  ////////////////////////
+			  
 			  return "niji/nijiList";
 		}		
 		
+		@GetMapping("/chat/{userid}")
+		public String chat(@PathVariable("userid") String userid,Model model) throws RestClientException, URISyntaxException, IOException {			
+			
+			model.addAttribute("userid",userid);
+			  System.out.println("userid--->"+userid);
+			  return "niji/chat";
+		}		
 		
 		 //결제 목록 조회
 			@GetMapping("/pay/list")
@@ -135,26 +128,14 @@ public class NijiController {
 			System.out.println("zzzz");
 			
 			log.info(".....get() or modify() .....");	
-			
-			
-			model.addAttribute("niji", nijiService.get(nno));
-			
+		
+			model.addAttribute("niji", nijiService.get(nno));	
 			
 			return "niji/nijiView";
 		}	
 
 		
-		
-		//카카오비전 API
-		@GetMapping("/json/addBoardVisionTag")
-		public ResponseEntity<String> addBoardVisionTag(@RequestParam("link") String link,HttpSession session) throws Exception {
-			log.info(".....get() or modify() .....");	
-			
-			KaKaoVisionTag kakao = new KaKaoVisionTag();
-			
-			String resultTag = kakao.addBoardVisionTag(link);
-		return new ResponseEntity<>(resultTag, HttpStatus.OK);
-		}	
+	
 				
 		//게시물 삭제 
 		@PostMapping("/delete")
@@ -376,7 +357,7 @@ public class NijiController {
 			
 				return "redirect:/niji/pay/complete";
 		}
-		
+		 
 		@GetMapping({ "/pay/complete"})
 		public String complete(Model model) throws Exception  {
 		

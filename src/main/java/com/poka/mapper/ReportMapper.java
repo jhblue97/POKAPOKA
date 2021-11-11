@@ -1,10 +1,9 @@
 package com.poka.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.poka.domain.Criteria;
-import com.poka.domain.NijiVO;
-import com.poka.domain.PayVO;
 import com.poka.domain.ReportVO;
 
 public interface ReportMapper {
@@ -22,6 +21,6 @@ public interface ReportMapper {
 	public int update(String rno);
 	
 	//신고 등록
-	public int insert(ReportVO reportvo);
+	public void insert(Map<String,String> map);
 	
 }

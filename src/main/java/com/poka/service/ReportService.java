@@ -13,8 +13,8 @@ public interface ReportService {
 		
 	public List<ReportVO> getList(Criteria cri);			//전체 게시물 목록 반환 - 페이징
 	
-    public int process(String rno); //신고 처리 
+    public int process(String rno,String status); //신고 처리 
 	
-	public int addReport(ReportVO vo); //자유게시판 - 신고하기  userid (신고자)
+	public void addReport(String rno,String reporter,String status,String writer,String category); //자유게시판 - 신고하기  userid (신고자)
 	
 }

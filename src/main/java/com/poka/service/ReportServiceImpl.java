@@ -1,6 +1,8 @@
 package com.poka.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -34,15 +36,27 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int process(String rno) {
+	public int process(String rno,String status) {
 		// TODO Auto-generated method stub
+		
+		
 		return reportMapper.update(rno);
 	}
 
-	@Override
-	public int addReport(ReportVO vo) {
+	@Override 
+	public void addReport(String bno,String reporter,String status,String writer,String category) {
 		// TODO Auto-generated method stub
-		return reportMapper.insert(vo);
+		Map<String,String> map;
+		map = new HashMap<String,String>();
+		map.put("bno",bno);
+		map.put("reporter",reporter);
+		map.put("status",status);
+		map.put("writer",writer);
+		map.put("category",category);
+		
+		reportMapper.insert(map);
 	}
+    
+
 
 }

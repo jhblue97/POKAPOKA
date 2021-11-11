@@ -400,10 +400,9 @@ body {
 			<!----------------------------- 구매글 영역 시작 ------------------ -->
 			<form role="form" method="post" action="/niji/add" id = "buyer" style = "display:none">
 				
-								<div class="col-sm-5">
+					<div class="col-sm-5">
 						<label><input type="radio" name="category" value="S" checked> 販売</label>
-						<label><input type="radio" name="category" value="B"> 購買</label>
-						
+						<label><input type="radio" name="category" value="B"> 購買</label>					
 					</div>
 				
 				
@@ -512,11 +511,7 @@ body {
 			        		           xhr.setRequestHeader("Authorization","KakaoAK f2d4b274f442d865b7cb423d1cc1d182");
 			        		       }, 
 			        		    	success : function (data,status){
-			        		    		console.log('data  :::: '+data);
-			        		    		console.log('data.label_kr  :::: '+data.result);
-			        		    		console.log('json data.label_kr  :::: '+JSON.stringify(data.result));
-			        		    		console.log('json data.label_kr _label  :::: '+JSON.stringify(data.result.label_kr)); //이거다 ㅅㅂ
-			        		    	
+			        		    		
 			        		    		var tag_list = JSON.stringify(data.result.label_kr);
 			        		    		var tag_list_parse = JSON.parse(tag_list);
 			        					var tag_input_val = '';
