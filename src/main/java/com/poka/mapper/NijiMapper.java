@@ -40,7 +40,7 @@ public interface NijiMapper {
 	//마지막 시퀀스 찾기
 	public int getLastSeq();
 	
-	//게시물 등록
+	//게시물 등록 
 	public void insertTag(Map<String,String> map);
 	
 }

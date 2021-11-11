@@ -314,7 +314,7 @@ body {
 	<div class="container">
 			<form role="form" method="get" action="/niji/modify" id ="seller">
 					   	<input type="hidden" name="nno" value="${niji.nno }" id="nno">      				
-						<input name="writer" class="form-control" 
+						<input name="writer" class="form-control" type = "hidden"
 	                    		       value='${niji.writer}' readonly> 	                    		       
 			</form>
 	<c:choose> 
@@ -346,7 +346,7 @@ body {
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">tag</label>
 					<div class="col-sm-4">
-					 <input type="text"  class="form-control"  name="fullTag" id="fullTag" value ="${niji.fullTag}" >
+					 <input type="text"  class="form-control"  name="fullTag" id="fullTag" value ="${niji.fullTag}" readonly >
 					</div>
 				</div>	
 				<div class="form-group row mt-4">

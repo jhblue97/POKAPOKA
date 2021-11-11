@@ -4,13 +4,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.poka.mapper.NijiMapper">
-
+	<resultMap type="com.poka.domain.NijiVO" id="nijiMap">
+		<result property="nno" 		column="nno"/>
+		<result property="user.grade.grade_img" 		column="grade_img"/>
+		<result property="title" 		column="title"/>
+		<result property="content" 	column="content"/>
+		<result property="category" 		column="category"/>
+		<result property="image" 	column="image"/>
+		<result property="price" 		column="price"/>
+		<result property="writer" 		column="writer"/>
+		<result property="tag.tagname" 		column="tag_id"/>
+		<result property="regDate" 		column="regdate"/>
+		<result property="updateDate" 		column="updatedate"/>
+		<result property="fullTag" 		column="fulltag"/>
+	</resultMap>
     
     <select id="getTotalCount" resultType = "int" >
 
     </select>
-    
-    
     <!-- 쿼리 보관 -->
 	<sql id="criteria">		
 
@@ -33,16 +44,19 @@
 	</sql>
 	
 	   
-    <select id="getListWithPaging" resultType = "com.poka.domain.NijiVO" >
+    <select id="getListWithPaging" resultMap = "nijiMap" >
  <![CDATA[
 	  SELECT * 
         FROM   (
          SELECT  rownum rn,b.*
          from ( select distinct
-	    N.NNO,N.TITLE,N.CONTENT,n.category,n.img as image,n.price,n.writer,n.regdate,n.updatedate
+	    g.grade_img,N.NNO,N.TITLE,N.CONTENT,n.category,n.img as image,n.price,n.writer,n.regdate,n.updatedate
 		FROM P_NIJI N
 		LEFT OUTER JOIN P_NIJI_TAG T
-		ON N.NNO = T.NNO
+		ON N.NNO = T.NNO left outer join P_MEMBER P 
+        on n.writer = p.user_id
+        left outer join p_grade G
+        ON p.gradecode = g.grade_code
 		WHERE 
  	 ]]>  
         <!-- 보관해 둔 쿼리 사용 -->

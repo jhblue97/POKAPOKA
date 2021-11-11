@@ -97,52 +97,103 @@ z-index: 999;
 			    <ul class="list-group list-group-flush">
 				    <li class="list-group-item d-flex justify-content-between align-items-center">
 				  	follow
-				  	<span class="badge badge-primary badge-pill">2</span>
+				  	<span id="followcnt" class="badge badge-primary badge-pill"></span>
 				  	</li>
 				  	<!-- 클릭 드롭박스 -->
-				  	<div class="dropdown">
-					   <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  		<div class="d-flex w-100 justify-content-between">
-						      <img src="#" class="img-thumbnail">
-						      <p class="mb-1">Mem00</p>
-						      <small class="text-muted col-6"><i class="fas fa-circle" style="color:lightgreen;"></i> 접속중</small>
-						    </div>
-					  </li>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-					    <button class="dropdown-item" type="button">채팅신청</button>
-					    <button class="dropdown-item" type="button">팔로우삭제</button>
-					  </div>
-					</div>
-				  	 
-					    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-					  		<div class="d-flex w-100 justify-content-between">
-						      <img src="#" class="img-thumbnail">
-						      <p class="mb-1">Mem01</p>
-						      <small class="text-muted col-6">Over 30 days</small>
-						    </div>
-					  </li>
+				  	<div id="followList" class="dropdown"></div>
+				
 				</ul>
 				<ul class="list-group list-group-flush ">
 					  <li class="list-group-item d-flex justify-content-between align-items-center">
 					 follower
-					   <span class="badge badge-primary badge-pill">2</span>
+<!-- 					   <span class="badge badge-primary badge-pill">2</span> -->
 					  </li>
-					  <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-					  		<div class="d-flex w-100 justify-content-between">
-						      <img src="#" class="img-thumbnail">
-						      <p class="mb-1">User00</p>
-						      <small class="text-muted col-6"><i class="fas fa-circle" style="color:lightgreen;"></i> 접속중</small>
-						    </div>
-					  </li>
-					    <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
-					  		<div class="d-flex w-100 justify-content-between">
-						      <img src="#" class="img-thumbnail">
-						      <p class="mb-1">User01</p>
-						      <small class="text-muted col-6">3 days ago</small>
-						    </div>
-					  </li>
+					  <!-- 팔로워 리스트 -->
+					  <div id="followerList" class="dropdown"></div>
+
 				</ul>
 			</div>
 		</div>
 	</div>
 </div>
+<script src="/resources/js/follow.js"></script> 
+<script>
+$(function(){
+	var userid = '<sec:authentication property="principal.user.user_id"/>';
+	var followList = $('#followList');
+	var followerList = $('#followerList');
+	showFollow();
+	showFollower();
+	
+	//팔로우 리스트
+	function showFollow(){
+		followService.list1(
+		{ userid:userid},
+			function(list){
+				//팔로우 목록이 없으면 li의 내용을 비우고 중단
+				if(list == null || list.length == 0){
+					followList.html('');
+					return;
+				}
+			
+				//팔로우 목록이 있으면 li에 div 추가
+				var str ="";
+				for(var i=0; i<list.length; i++){
+					str += "<li class='list-group-item d-flex justify-content-between align-items-center list-group-item-action' id='dropdownMenu2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" + 
+						"<div class='d-flex w-100 justify-content-between align-items-center'>" +
+				      "<img src='"+ list[i].img +"' class='img-thumbnail' style='width:50px; height:50px;'>" +
+				      "<p class='mb-1'>"+ list[i].follow +"</p>" +
+				      "<small class='text-muted col-6'><i class='fas fa-circle' style='color:lightgreen;'></i> 접속중</small></div>" + 
+				      "<div class='dropdown-menu' aria-labelledby='dropdownMenu2'>" +
+					    "<button class='dropdown-item'>채팅신청</button>" +
+					    "<button class='dropdown-item' onclick='followDel(" + list[i].fno +")'>팔로우삭제</button></div>";
+				}
+				followList.html(str);
+			}
+				
+		);//END list1
+	}//END showFollow
+	
+	//팔로워 리스트
+	function showFollower(){
+		followService.list2(
+				{ userid:userid},
+					function(list){
+						//팔로우 목록이 없으면 li의 내용을 비우고 중단
+						if(list == null || list.length == 0){
+							followerList.html('');
+							return;
+						}
+					
+						//팔로우 목록이 있으면 li에 div 추가
+						var str ="";
+						for(var i=0; i<list.length; i++){
+							str += "<li class='list-group-item d-flex justify-content-between align-items-center list-group-item-action' id='dropdownMenu2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+								"<div class='d-flex w-100 justify-content-between align-items-center'>" +
+						      "<img src='"+ list[i].img +"' class='img-thumbnail' style='width:50px; height:50px;'>" +
+						      "<p class='mb-1'>"+ list[i].follower +"</p>" +
+						      "<small class='text-muted col-6'><i class='fas fa-circle' style='color:lightgreen;'></i> 접속중</small></div>" +
+						      "<div class='dropdown-menu' aria-labelledby='dropdownMenu2'>" +
+							    "<button class='dropdown-item' type='button'>채팅신청</button>";
+						}
+						followerList.html(str);
+					}
+						
+				);//END list1
+	}
+	
+	//팔로우 삭제
+	function followDel(fno){
+		followService.remove(
+				{fno:fno},
+				function(result){
+					console.log(fno);
+			},
+			function(error){
+				alert('삭제실패');
+			}
+		)
+	}//END 팔로우 삭제
+	
+})
+</script>

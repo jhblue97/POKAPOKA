@@ -23,6 +23,12 @@
 		
     </update>
 
+	<insert id="insert">
+		
+		INSERT INTO P_REPORT VALUES('R'||SEQ_REPORT.NEXTVAL,#{reporter},#{writer},#{bno},#{category},sysdate,#{status})
+    </insert>
+ 
+ 
     
 </mapper>
 

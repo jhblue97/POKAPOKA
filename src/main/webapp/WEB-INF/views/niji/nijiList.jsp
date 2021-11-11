@@ -213,7 +213,7 @@
 		<div style="margin: 10px;">		
 			<div class="profileusername">
 			&emsp;<strong>${obj.nno}</strong>
-			${obj.writer}
+			<img class="ml-3 mr-2" src="../../../../resources/images/${obj.user.grade.grade_img}" style="width:30px; height:30px;"> ${obj.writer}
 			</div>
 			<br/> 
 			<div style="border-top-width: 0.1em; border-top-style: dashed; border-top-color: #7b7b7b;"></div><br/>		
@@ -241,9 +241,46 @@
 
 </div>
 
+
+
+<!-- 20211110 채팅 테스트 -->
+
+<script type="text/javascript">
+// 웹소켓
+let websocket;
+connect()
+//입장 버튼을 눌렀을 때 호출되는 함수
+function connect() {
+	alert('gg');
+    // 웹소켓 주소
+    var wsUri = "ws://localhost:8091/websocket/echo.do";
+    // 소켓 객체 생성
+    websocket = new WebSocket(wsUri);
+    //웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
+    websocket.onopen = onOpen;
+    websocket.onmessage = onMessage;
+}
+
+//웹 소켓에 연결되었을 때 호출될 함수
+function onOpen() {
+}
+
+// * 1 메시지 전송
+function sendMessage(message){
+}
+
+// * 2 메세지 수신
+function onMessage(evt) {
+}
+</script> 
+
+<!-- 20211110 채팅 테스트 -->
+
+
 <script>
-	
-	
+ 
+
+
 		$(function() {
 			$('[data-toggle="popover"]').popover()
 		})

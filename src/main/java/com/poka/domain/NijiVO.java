@@ -10,6 +10,7 @@ import lombok.Data;
 public class NijiVO {
 
 	private String   nno; //거래글 넘버
+	private UserVO   user; //유저정보 
 	private String title; 
 	private String content;
 	private String category;
@@ -22,6 +23,6 @@ public class NijiVO {
 	private Date   updateDate;
 	private String fullTag;
 	
-	
+	 
 	
 }
