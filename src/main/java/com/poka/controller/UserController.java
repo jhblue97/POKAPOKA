@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -117,22 +119,21 @@ public class UserController {
 	}
 	
 	//아이디 체크
-	@GetMapping("/chk/id")
-	public String chkId(@RequestBody UserVO vo) throws Exception{
-		
-		int result = userService.idchk(vo);
-		if(result != 0) {
-			return "fail";
-		} else {
-			return "success";
-		}
+	@GetMapping("/chkId/{user_id}")
+	public ResponseEntity<String> chkId(@PathVariable("user_id") String user_id) throws Exception{
+		return userService.idchk(user_id) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
 	}
 	
 	//닉네임 체크
-	@GetMapping("/chk/nick")
-	public ResponseEntity<String> chkNick(@RequestBody UserVO vo) {
+	@GetMapping("/chkNick/{nickname}")
+	public ResponseEntity<String> chkNick(@PathVariable("nickname") String nickname) throws Exception{
 		
-		return null;
+		return userService.nickchk(nickname) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//이메일 체크

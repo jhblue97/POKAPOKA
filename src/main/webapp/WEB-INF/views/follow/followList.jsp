@@ -146,7 +146,7 @@ $(function(){
 				      "<small class='text-muted col-6'><i class='fas fa-circle' style='color:lightgreen;'></i> 접속중</small></div>" + 
 				      "<div class='dropdown-menu' aria-labelledby='dropdownMenu2'>" +
 					    "<button class='dropdown-item'>채팅신청</button>" +
-					    "<button class='dropdown-item' onclick='followDel(" + list[i].fno +")'>팔로우삭제</button></div>";
+					    "<button class='dropdown-item' onclick='followDel(\""+ list[i].fno +"\")'>팔로우삭제</button></div>";
 				}
 				followList.html(str);
 			}
@@ -182,18 +182,26 @@ $(function(){
 				);//END list1
 	}
 	
-	//팔로우 삭제
-	function followDel(fno){
-		followService.remove(
-				{fno:fno},
-				function(result){
-					console.log(fno);
-			},
-			function(error){
-				alert('삭제실패');
-			}
-		)
-	}//END 팔로우 삭제
+	
 	
 })
+//팔로우 삭제
+function followDel(fno){
+	
+$.get('/follow/' + fno,
+	function(result){
+		if(result=="success"){
+			callback(result);
+			alert('팔로우가 취소되었습니다.');
+			showFollow();
+		}
+	}
+	).fail(function(xhr, status, error){
+		if(error){
+			error(error);
+			alert('삭제실패');
+		}
+	});
+	
+}//END 팔로우 삭제
 </script>

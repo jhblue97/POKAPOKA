@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int idchk(UserVO user) {
-		return userMapper.idchk(user);
+	public int idchk(String userid) {
+		return userMapper.idchk(userid);
 	}
 
 	@Override
-	public int nickchk(UserVO user) {
-		return userMapper.nickchk(user);
+	public int nickchk(String nickname) {
+		return userMapper.nickchk(nickname);
 	}
 
 	@Override

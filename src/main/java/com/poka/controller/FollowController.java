@@ -32,18 +32,17 @@ public class FollowController {
 	@GetMapping(value="list1/{userid}")					
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<List<FollowVO>> list1(@PathVariable("userid") String userid) {
-//		System.out.println("test controller");
 		return new ResponseEntity<>(followService.followList(userid), HttpStatus.OK);
 	
 	}
 	
 	//팔로우 삭제 
-	@DeleteMapping(value="/{fno}",
+	@GetMapping(value="/{fno}",
 			 produces= { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> delete(@PathVariable("fno") String fno) {
 		
-		return followService.delete(fno) == true
+		return followService.delete(fno) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -56,7 +55,7 @@ public class FollowController {
 	}
 	
 	//팔로우 추가
-	@PostMapping(value="/new",
+	@GetMapping(value="/new",
 			 produces= { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> add(@PathVariable("userid") String userid) {

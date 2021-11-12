@@ -75,8 +75,70 @@ function setThumbnail(event) {
 }
 
 //아이디 중복검사
-$('.id_input').on("propertychange change keyup paste input", function(){
+function chkId(userid, callback, error){
+	
+	//사용가능한 아이디
+	$('.id_ok').css("display", "inline-block");
+	$('.id_already').css("display", "none");
+	if($("#user_id").val() == ""){
+		$('.id_ok').css("display", "none");
+		$('.id_already').css("display", "none");
+	}
+	$.get("/user/chkId/" + userid,
+		function(result){
+			if(result == "success") {	//사용불가, 중복값있음
+				$('.id_already').css("display", "inline-block");
+				$('.id_ok').css("display", "none");
+			}
+		}
+			).fail(function(xhr, status, er){
+				if(error){
+					error(er);
+					alert('에러발생');
+				}
+			});
+}
 
-	console.log("keyup 테스트");	
+//닉네임 중복검사
+function chkNik(nickname, callback, error){
+	
+	//사용가능한 아이디
+	$('.nik_ok').css("display", "inline-block");
+	$('.nik_already').css("display", "none");
+	
+	if($("#nickname").val() == ""){
+		$('.nik_ok').css("display", "none");
+		$('.nik_already').css("display", "none");
+	}
+	$.get("/user/chkNick/" + nickname,
+		function(result){
+			if(result == "success") {	//사용불가, 중복값있음
+				$('.nik_already').css("display", "inline-block");
+				$('.nik_ok').css("display", "none");
+			}
+		}
+			).fail(function(xhr, status, er){
+				if(error){
+					error(er);
+					alert('에러발생');
+				}
+			});
+}
 
-});
+//비밀번호 체크
+function chkPw(){
+	var pw = document.getElementById('user_pw');
+	var pw_re = document.getElementById('user_pw_re');
+	
+	
+	if(pw.value != pw_re.value){	//일치
+		$('.pw_no').css("display", "inline-block");
+		$('.pw_ok').css("display", "none");
+	}else{ //불일치
+		$('.pw_ok').css("display", "inline-block");
+		$('.pw_no').css("display", "none");
+	}
+}
+
+
+

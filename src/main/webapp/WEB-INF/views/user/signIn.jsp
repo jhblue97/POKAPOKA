@@ -22,11 +22,11 @@
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
 						<input type="text" name="user_id" id="user_id" class="form-control"
-							required>
+							required oninput="chkId(this.value)" />
 					</div>
 					<div class="col-sm-3">
-						<span class="id_input_re_1" style="color: gray;">사용 가능한 아이디입니다.</span>
-						<span class="id_input_re_2" style="color: gray;">아이디가 이미 존재합니다.</span>
+						<span class="id_ok">사용 가능</span>
+						<span class="id_already">사용 불가</span>
 					</div>
 				</div>
 				
@@ -34,11 +34,13 @@
 					<label class="col-sm-2">닉네임</label>
 					<div class="col-sm-4">
 						<input type="text" name="nickname" id="nickname"
-							class="form-control" required>
+							class="form-control" required oninput="chkNik(this.value)">
 					</div>
 					<div class="col-sm-3">
-						<span style="color: gray;">중복불가</span>
+						<span class="nik_ok">사용 가능</span>
+						<span class="nik_already">사용 불가</span>
 					</div>
+					
 				</div>
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">비밀번호</label>
@@ -51,10 +53,11 @@
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">비밀번호확인</label>
 					<div class="col-sm-4">
-						<input type="password" class="form-control" required>
+						<input type="password" class="form-control" id="user_pw_re" required oninput="chkPw()">
 					</div>
 					<div class="col-sm-3">
-						<span style="color: gray;">비밀번호가 일치하지 않습니다.</span>
+						<span class="pw_ok">일치</span>
+						<span class="pw_no">불일치</span>
 					</div>
 				</div>
 	
