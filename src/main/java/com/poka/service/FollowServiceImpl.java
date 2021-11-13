@@ -18,8 +18,8 @@ public class FollowServiceImpl implements FollowService {
 	private FollowMapper followMapper;
 	
 	@Override
-	public int add(FollowVO follow) {
-		return followMapper.insert(follow);
+	public int add(FollowVO vo) {
+		return followMapper.insert(vo);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public int followchk(FollowVO follow) {
+	public int followchk(String follow) {
 		
 		return followMapper.followchk(follow);
 	}
