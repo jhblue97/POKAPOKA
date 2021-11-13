@@ -105,7 +105,63 @@
 					</div>
 				</div>
 			</form>
+			
+			<!-- modal test 버튼 -->
+			<span id="emailAuth" class="btn btn-poka-main"> 이메일 인증</span>
+		<!-- 이메일 인증 Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content modal-review"
+					style="border: 3px solid #DFA01E !important;">
+					<div class="modal-header"
+						style="background-color: #113351; color: #fff; border-bottom: 3px solid #DFA01E;">
+						<h4 class="modal-title" id="myModalLabel">이메일 본인인증</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="review-form d-flex flex-row">
+							<span class="align-middle" style="margin-right: 1rem;">등록된 이메일로 인증코드를 전송했습니다.</span>
+						</div>
+
+						<div class="form-group mt-3">
+							<input type="text" class="form-control" placeholder="인증코드 6자리 입력">
+						</div>
+					</div>
+
+					<div class="modal-footer"
+						style="background-color: #113351; color: #fff; border-top: 3px solid #DFA01E;">
+						<button type="button" class="btn btn-poka-warning">이메일 재전송</button>
+						<button type="button" class="btn btn-poka-green">확인</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+			
 		</div>
 <script type="text/javascript" src="/resources/js/signIn.js"></script>
+<script>
+var modal = $('.modal');
+//이메일 인증 버튼 클릭 이벤트 처리
+$('#emailAuth').on('click', function(e) {
+
+	var email = $('#mail1').val() + '@' + $('#mail2').val();
+	console.log("email : " + email);
+	
+	$.ajax({
+		type:"GET",
+		url:"/user/emailChk/" + email,
+		success:function(data){
+			 console.log("data : " + data);
+        }
+		
+	});
+	modal.modal('show');
+	
+	
+});//END 이메일 인증 버튼 클릭 이벤트 처리
+</script>
 
 <%@ include file="../include/footer.jsp" %>

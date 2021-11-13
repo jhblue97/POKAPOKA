@@ -4,12 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.poka.domain.UserVO;
@@ -37,6 +44,9 @@ import lombok.extern.log4j.Log4j;
 public class UserController {
 
 	private UserService userService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	BCryptPasswordEncoder pwdEncoder;
 	
@@ -83,9 +93,10 @@ public class UserController {
 		String pwd = pwdEncoder.encode(user.getUser_pw());
 		user.setUser_pw(pwd);
 		
+		//회원가입
 		userService.signIn(user);
 		rttr.addAttribute("result", user.getUser_id());
-
+		
 		return "redirect:/user/login";
 	}
 
@@ -136,11 +147,38 @@ public class UserController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	//이메일 체크
-	@PostMapping("/chk/email")
-	public ResponseEntity<String> chkEmail(@RequestBody UserVO vo ) {
-		
-		return null;
+	//이메일 인증
+	@GetMapping("/emailChk/{email}")
+	public String emailChk(@PathVariable("email") String email) throws Exception{
+		 Random random = new Random();
+		 //6자리 인증코드 
+		  int checkNum = random.nextInt(888888) + 111111;
+		  
+		  //이메일보내기
+		  String setFrom = "dybo13635@gmail.com";
+		  String toMail = email;
+		  String title = "회원가입 인증 메일입니다.";
+		  String content = "POKAPOKA 홈페이지 이메일 인증절차입니다.<br><br>" + 
+		  "인증번호는 " + checkNum + "입니다.<br>" + 
+				  "이메일 인증란에 인증번호를 입력해주세요.";
+		  
+//		  try {
+//	            
+//	            MimeMessage message = mailSender.createMimeMessage();
+//	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+//	            helper.setFrom(setFrom);
+//	            helper.setTo(toMail);
+//	            helper.setSubject(title);
+//	            helper.setText(content,true);
+//	            mailSender.send(message);
+//	            
+//	        }catch(Exception e) {
+//	            e.printStackTrace();
+//	        }
+		  
+		  String num = Integer.toString(checkNum);
+		  
+		  return num;
 	}
 	
 	//userUpdate.jsp
