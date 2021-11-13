@@ -19,6 +19,7 @@ public class GameVO {
 	private String game_company;
 	private String game_age;
 	private String game_url;
+	// https://store.steampowered.com/app/ + {gameId}
 	private Date regDate;
 	private Date updateDate;
 	private List<GametagVO> tagVoList;
