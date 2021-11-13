@@ -10,15 +10,6 @@
 </div>
 <div class="cantainer mx-5">
 	<div class="row justify-content-end mb-2">
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button"
-				id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false">글 정렬 갯수</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="#">20개 씩</a> <a class="dropdown-item"
-					href="#">30개 씩</a> <a class="dropdown-item" href="#">50개 씩</a>
-			</div>
-		</div>
 		<span class="col-2 text-right"><button class="btn btn-poka-main" onclick="location.href='/board/add'">글쓰기</button></span>
 	</div>
 	<div class="row mb-3">
@@ -30,19 +21,17 @@
 					<th scope="col">등급</th>
 					<th scope="col">작성자</th>
 					<th scope="col">작성일</th>
-					<th scope="col">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
 			 <c:forEach items="${list }" var="board">
 			 <c:if test="${board.reportStatus ne 3}">
 				<tr class="move">
-					<td scope="row">${board.bno } ${board.reportStatus}</td>
+					<td scope="row">${board.bno }</td>
 					<td>${board.title }</td>
 					<td>등급</td>
 					<td>${board.writer }</td>
 					<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd"/></td>
-					<td>0</td>
 				</tr>
 				</c:if>
 			</c:forEach>
