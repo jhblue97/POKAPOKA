@@ -91,7 +91,7 @@ public class BoardController {
 	
 	//게시글 삭제
 	@PostMapping("/delete")
-	//@PreAuthorize("principal.username == #writer")	//작성자 확인
+	@PreAuthorize("principal.username == #writer")	//작성자 확인
 	public String delete(String writer,
 						 @RequestParam("bno") String bno,
 						 @ModelAttribute("cri") Criteria cri,
@@ -143,6 +143,7 @@ public class BoardController {
 	//boardView.jsp
 	//게시물 하나 조회, 
 	@GetMapping("/get")
+	@PreAuthorize("isAuthenticated()")
 	public String get(@RequestParam("bno") String bno, 
 					@ModelAttribute("cri") Criteria cri,
 					Model model) {

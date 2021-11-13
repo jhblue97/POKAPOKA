@@ -1,3 +1,29 @@
+
+var modal = $('.modal');
+var email_ck = $('#email_ck').val();
+
+
+//이메일 인증 버튼 클릭 이벤트 처리
+$('#emailAuth').on('click', function(e) {
+
+	var email = $('#mail1').val() + '@' + $('#mail2').val();
+	
+	$.ajax({
+		type:"GET",
+		url:"/user/emailChk/"+email,
+		success:function(data){
+			if(email_ck == data){
+				alert("인증되었습니다.");
+				
+			}
+        }
+		
+	});
+	modal.modal('show');
+	
+	
+});//END 이메일 인증 버튼 클릭 이벤트 처리
+
 $(function() {
 	$(document).ready(function() {
 		//이메일 선택시 데이터 전송
