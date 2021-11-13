@@ -105,7 +105,8 @@ public class UserController {
 	public String delete(@RequestParam("userid") String userid, RedirectAttributes rttr) {
 		log.info(".....delete().....");
 		userService.withdraw(userid);
-		return "redirect:/";
+		
+		return "redirect:/user/logout";
 	}
 	
 	//첨부파일 삭제
@@ -149,16 +150,16 @@ public class UserController {
 	
 	//이메일 인증
 	@GetMapping("/emailChk/{email}")
-	public String emailChk(@PathVariable("email") String email) throws Exception{
+	public ResponseEntity<String> emailChk(@PathVariable("email") String email) throws Exception{
 		 Random random = new Random();
 		 //6자리 인증코드 
 		  int checkNum = random.nextInt(888888) + 111111;
 		  
 		  //이메일보내기
-		  String setFrom = "dybo13635@gmail.com";
-		  String toMail = email;
-		  String title = "회원가입 인증 메일입니다.";
-		  String content = "POKAPOKA 홈페이지 이메일 인증절차입니다.<br><br>" + 
+		  String setFrom = "POKAPOKA";
+		  String toMail = email + ".com";
+		  String title = "[POKAPOKA] 회원가입 인증 메일입니다.";
+		  String content = "[POKAPOKA] 홈페이지 이메일 인증절차입니다.<br><br>" + 
 		  "인증번호는 " + checkNum + "입니다.<br>" + 
 				  "이메일 인증란에 인증번호를 입력해주세요.";
 		  
@@ -178,7 +179,7 @@ public class UserController {
 		  
 		  String num = Integer.toString(checkNum);
 		  
-		  return num;
+		  return new ResponseEntity<>(num, HttpStatus.OK);
 	}
 	
 	//userUpdate.jsp

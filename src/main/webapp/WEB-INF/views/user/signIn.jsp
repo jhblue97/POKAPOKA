@@ -63,31 +63,33 @@
 	
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">이메일</label>
-					<div class="col-sm-10">
-						<input type="text" name="mail1" id="mail1"> @ <input
-							type="text" name="mail2" id="mail2">&nbsp;
+					<div class="col-sm-8">
+						<input type="text" name="mail1" id="mail1" required> @ <input
+							type="text" name="mail2" id="mail2" required>&nbsp;
 							 <select id="emailSelection" name="emailSelection">
 							<option value="direct">직접입력</option>
 							<option value="naver.com">naver.com</option>
-							<option value="google.com">google.com</option>
+							<option value="gmail.com">gmail.com</option>
 							<option value="yahoo.com">yahoo.com</option>
 						</select> 
 						<input type="hidden" name="email" id="email">
+						<!-- 이메일 인증 버튼 -->
+						<span id="emailAuth" class="btn btn-poka-main mt-2">이메일 인증</span>
 					</div>
 				</div>
-	
+				
 				<div class="form-group row mt-4">
 					<label class="col-sm-1 mr-5">생년월일</label>
 					<div class="col-sm-3 ">
-						<input type="date" name="birth" id="birth" class="form-control">
+						<input type="date" name="birth" id="birth" class="form-control" required>
 					</div>
 				</div>
 				
 				<div class="form-group row mt-4 ml-3">
 					<label class="col-sm-1 mr-3">성별</label>
 					<div class="col-sm-5">
-						<label><input type="radio" name="gender" value="M"> 남성</label>
-						<label><input type="radio" name="gender" value="F"> 여성</label>
+						<label><input type="radio" name="gender" value="M" required> 남성</label>
+						<label><input type="radio" name="gender" value="F" required> 여성</label>
 						
 					</div>
 				</div>
@@ -106,8 +108,6 @@
 				</div>
 			</form>
 			
-			<!-- modal test 버튼 -->
-			<span id="emailAuth" class="btn btn-poka-main"> 이메일 인증</span>
 		<!-- 이메일 인증 Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -126,7 +126,7 @@
 						</div>
 
 						<div class="form-group mt-3">
-							<input type="text" class="form-control" placeholder="인증코드 6자리 입력">
+							<input type="text" class="form-control" required id="email_ck" placeholder="인증코드 6자리 입력">
 						</div>
 					</div>
 
@@ -142,26 +142,4 @@
 			
 		</div>
 <script type="text/javascript" src="/resources/js/signIn.js"></script>
-<script>
-var modal = $('.modal');
-//이메일 인증 버튼 클릭 이벤트 처리
-$('#emailAuth').on('click', function(e) {
-
-	var email = $('#mail1').val() + '@' + $('#mail2').val();
-	console.log("email : " + email);
-	
-	$.ajax({
-		type:"GET",
-		url:"/user/emailChk/" + email,
-		success:function(data){
-			 console.log("data : " + data);
-        }
-		
-	});
-	modal.modal('show');
-	
-	
-});//END 이메일 인증 버튼 클릭 이벤트 처리
-</script>
-
 <%@ include file="../include/footer.jsp" %>
