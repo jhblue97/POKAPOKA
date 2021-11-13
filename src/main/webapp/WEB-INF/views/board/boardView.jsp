@@ -26,7 +26,15 @@
 					  <!-- 로그인 O -->
 					  <sec:authorize access="isAuthenticated()">
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						    <button class="dropdown-item" type="button">팔로우추가</button>
+					  <c:choose>
+					  	<c:when test="chkFollow(${board.writer})">
+					  		<button class="dropdown-item" type="button" id="followAdd">팔로우추가</button>
+					  	</c:when>
+					  	<c:otherwise>
+					  		<button class="dropdown-item" type="button">팔로우삭제</button>
+					  	</c:otherwise>
+					  </c:choose>
+						    
 					  </div></sec:authorize>
 					  </a></span></div><div>
 
@@ -131,7 +139,8 @@ $(function(){
 	
 	var frm2 = $('#form2');
 	
-	
+	var followValue = '${board.writer}';
+	var followerValue = '<sec:authentication property="principal.user.user_id"/>';
 	
 	var csrfHeaderName = '${_csrf.headerName}';	//CSRF 토큰 관련 변수
 	var csrfTokenValue = '${_csrf.token}';	
@@ -145,7 +154,6 @@ $(function(){
 		var reporter = $('#reporter').val();
 		var writer = $('#writer').val();
 		var category = 'B';
-		
 		
 		 
 		$.get('/report/add/'+bno+"/"+reporter+"/"+select+"/"+writer+"/"+category,
@@ -163,8 +171,6 @@ $(function(){
 					}
 		});		
 	});
-	
-	
 	
 	//수정 버튼
 	$("button[data-oper='modify']").on('click', function(e){
@@ -246,6 +252,58 @@ function showImage(fileCallPath){
 $('.bigPicWrapper').on('click', function(e){
 	$(this).hide();
 });//END 썸네일 이미지 원본 클릭 이벤트 처리
+
+//팔로우 체크
+function chkFollow(follow, callback, error){
+	$.get("/follow/chkFollow/" + follow,
+			function(result){
+		console.log("result : " + result);
+		if(result == "success"){
+			return true;
+		} else return false;
+	}
+		).fail(function(xhr, status, er){
+			if(error){
+				error(er);
+		});
+	}
+}
+
+//팔로우 추가
+var followService = (function() {
+
+function add(follow, callback, error){
+	$.ajax({
+		type : 'post',
+		url : '/follow/new',
+		data : JSON.stringify(follow),
+		contentType : 'application/json; charset=UTF-8',
+		success : function(result, status, xhr){
+			if(callback){
+				callback(result);
+			}
+		},
+		error : function(xhr, status, er){
+			if(error){
+				error(er);
+			}
+		}
+	});
+}
+return {add : add};
+
+})();
+
+$('#followAdd').on('click', function(e){
+	followService.add(
+		{ follow : followValue,
+			  follower : followerValue },
+			function(result){
+				  alert("팔로우가 추가되었습니다.");
+		});
+});
+
+
 
 </script>        
 <%@ include file="../include/footer.jsp"%>
