@@ -18,7 +18,7 @@ public interface ReportMapper {
 	public List<ReportVO> getList();
 	
 	//신고 처리
-	public int update(String rno);
+	public void process(String bno);
 	
 	//신고 등록
 	public void insert(Map<String,String> map);

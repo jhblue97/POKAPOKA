@@ -5,25 +5,37 @@
 
 <mapper namespace="com.poka.mapper.BoardMapper">
 
+	<resultMap type="com.poka.domain.BoardVO" id="boardMap">
+		<result property="bno" 		column="bno"/>
+		<result property="title" 		column="title"/>
+		<result property="content" 	column="content"/>
+		<result property="writer" 		column="writer"/>
+		<result property="regDate" 		column="regdate"/>
+		<result property="updateDate" 		column="updatedate"/>
+		<result property="reportStatus" 		column="reportstatus"/>
+	</resultMap>
+
+
+
 	<select id="getTotalCount" resultType="int">
         SELECT 	COUNT(*) FROM p_board
         WHERE  	bno IS NOT NULL
     </select>
 
 	<select id="getListWithPaging" 
-	        resultType="com.poka.domain.BoardVO">
-	<![CDATA[
-        SELECT * 
+	        resultMap="boardMap"> 
+	<![CDATA[  
+        SELECT *  
         FROM   ( SELECT /*+INDEX_DESC(p_board pk_board) */
-        				rownum rn, bno, title, content, writer,
-        				regDate, updateDate
-        		 FROM   p_board
+        				rownum rn, bno, title, content, writer,  
+        				regDate, updateDate, nvl((select distinct status from p_report where bno  = a.bno),0) as reportstatus
+        		 FROM   p_board a
         		 WHERE	rownum <= (#{pageNum} * #{amount}))
         WHERE  rn > (#{pageNum} - 1) * #{amount}
         ORDER BY bno DESC
-    ]]>
+    ]]>    
     </select>
-    
+     
 	<select id="getList" 
 	        resultType="com.poka.domain.BoardVO">
 	<![CDATA[

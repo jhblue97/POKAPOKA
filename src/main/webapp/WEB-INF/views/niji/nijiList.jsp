@@ -178,13 +178,9 @@
         </svg>
 	</div>	
 		</form>
-		
-			
-		<span class="col-2 text-right"><button type="button" id = "regBtn"
-				class="btn btn-poka-main">登録</button>			
+		<span class="col-2 text-right"><button type="button" id = "regBtn" class="btn btn-poka-main">登録</button>			
 		</span>
 	</div>
-
 <c:if test="${!empty keyword}">
 <div class = "row mb-3" style = "background-color : #D8E9E7;">
 “${keyword}” の　検索結果
@@ -251,7 +247,7 @@ let websocket;
 connect()
 //입장 버튼을 눌렀을 때 호출되는 함수
 function connect() {
-	alert('gg');
+
     // 웹소켓 주소
     var wsUri = "ws://localhost:8091/websocket/echo.do";
     // 소켓 객체 생성

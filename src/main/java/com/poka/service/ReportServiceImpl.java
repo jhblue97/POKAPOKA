@@ -36,11 +36,9 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int process(String rno,String status) {
+	public void process(String bno) {
 		// TODO Auto-generated method stub
-		
-		
-		return reportMapper.update(rno);
+		reportMapper.process(bno);
 	}
 
 	@Override 

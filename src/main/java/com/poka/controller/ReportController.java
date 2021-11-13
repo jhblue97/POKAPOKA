@@ -3,6 +3,7 @@ package com.poka.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,18 +30,20 @@ public class ReportController {
 	
 		//신고 목록 조회
 		@GetMapping("/list")
-		public void list(Criteria cri, Model model) {
-		
+		@PreAuthorize("hasRole('ROLE_ADMIN')")		//관리자 확인	
+		public String list(Criteria cri, Model model) {
 			
+			model.addAttribute("list",reportService.getList(cri));
+			return "/report/reportList";
 		}
 			 
 		//신고 처리
-		@GetMapping( value="/process/{rno}/{status}")
-		public ResponseEntity<String> get(@PathVariable("rno") String rno,@PathVariable("status") String status) {
+		@GetMapping( value="/process/{bno}")
+		public String process(@PathVariable("bno") String bno) {
 			log.info("process....()");
 			
-			int aa = reportService.process(rno,status);
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+			 reportService.process(bno);
+			return "redirect:/report/list";
 		}
 		
 	

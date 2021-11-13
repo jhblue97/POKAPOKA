@@ -1,8 +1,9 @@
 package com.poka.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public class NijiController {
 	private static final String HOST = "https://kapi.kakao.com";
 	     //게시물 목록 조회
 		@GetMapping("/list")
-		public String list(Criteria cri, Model model) throws RestClientException, URISyntaxException, IOException {			
+		public String list(Criteria cri, Model model) throws IOException {			
 			
 			/*
 			 * cri.setAmount(5); cri.setKeyword(""); cri.setPageNum(1);
@@ -78,12 +79,11 @@ public class NijiController {
 			  model.addAttribute("keyword",cri.getKeyword());
 
 			  ////////////////////////
-			  
 			  return "niji/nijiList";
 		}		
 		
 		@GetMapping("/chat/{userid}")
-		public String chat(@PathVariable("userid") String userid,Model model) throws RestClientException, URISyntaxException, IOException {			
+		public String chat(@PathVariable("userid") String userid,Model model) throws RestClientException, IOException {			
 			
 			model.addAttribute("userid",userid);
 			  System.out.println("userid--->"+userid);

@@ -12,17 +12,39 @@
     
     <select id="getListWithPaging" resultType = "com.poka.domain.ReportVO" >
 		
+		<![CDATA[
+		 SELECT * 
+        FROM   ( SELECT /*+INDEX_DESC(p_board pk_board) */
+        				rownum rn, report_no,active_userid,passive_userid,bno,category,regdate,status
+        		 FROM   p_report
+        		 WHERE	rownum <= (#{pageNum} * #{amount}))
+        WHERE  rn > (#{pageNum} - 1) * #{amount}
+        ORDER BY bno DESC
+		 ]]>
+		
     </select>
    
     
     <select id="read" resultType="com.poka.domain.ReportVO">
     	
+    	
     </select>
 
 	<update id="update">
 		
+		EXEC repoter('물리학과',500);
+		
     </update>
 
+    <update id="process" statementType="CALLABLE">
+       {
+          call REPORT(#{bno})
+		}
+    </update>
+    
+    
+    
+    
 	<insert id="insert">
 		
 		INSERT INTO P_REPORT VALUES('R'||SEQ_REPORT.NEXTVAL,#{reporter},#{writer},#{bno},#{category},sysdate,#{status})

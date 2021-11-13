@@ -35,14 +35,16 @@
 			</thead>
 			<tbody>
 			 <c:forEach items="${list }" var="board">
+			 <c:if test="${board.reportStatus ne 3}">
 				<tr class="move">
-					<td scope="row">${board.bno }</td>
+					<td scope="row">${board.bno } ${board.reportStatus}</td>
 					<td>${board.title }</td>
 					<td>등급</td>
 					<td>${board.writer }</td>
 					<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd"/></td>
 					<td>0</td>
 				</tr>
+				</c:if>
 			</c:forEach>
 			</tbody>
 		</table>
