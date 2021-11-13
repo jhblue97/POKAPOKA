@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /* 중복아이디 존재하지 않는경우 */
-.id_input_re_1{
+.id_ok, .nik_ok, .pw_ok{
 	color : green;
 	display : none;
 }
 /* 중복아이디 존재하는 경우 */
-.id_input_re_2{
+.id_already, .nik_already, .pw_no{
 	color : red;
 	display : none;
 }

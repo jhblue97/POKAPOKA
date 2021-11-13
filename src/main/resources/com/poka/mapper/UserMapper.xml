@@ -45,15 +45,13 @@
     	delete p_member where user_id = #{user_id}
     </delete>
     
-<!--     <select id="get" resultType="com.poka.domain.UserVO"> -->
-<!--     	select * from p_member where user_id = #{user_id} -->
-<!--     </select> -->
+    <select id="idchk" resultType="int">
+    	select count(user_id) from p_member where user_id = #{user_id}
+    </select>
     
-<!--     <select id="idchk" resultType="int"> -->
-<!--     	select count(*) from p_member where userid = #{userid} -->
-<!--     </select> -->
-    
-    <select id="nickchk" resultType="boolean"></select>
+    <select id="nickchk" resultType="int">
+    	select count(nickname) from p_member where nickname = #{nickname}
+    </select>
     
     <select id="emailchk" resultType="boolean"></select>
     

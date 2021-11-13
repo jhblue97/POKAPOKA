@@ -20,7 +20,6 @@
 					</div>
 					</div>
 				</div>
-				<form role="form" method="post" action="/user/signIn?${_csrf.parameterName}=${_csrf.token}" enctype="multipart/form-data">
 				<div class="form-group row">
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
@@ -35,13 +34,91 @@
 						<input type="text" name="nickname" id="nickname"
 							class="form-control" value="${user.nickname }" readonly>
 					</div>
-					<button class="col-sm-2 btn btn-poka-light">닉네임 변경</button>
+					<input type="button" class="form-control col-sm-2 btn btn-poka-light" id="nikChg" value="닉네임 변경">
+					
+					<!-- 닉네임 변경 Modal -->
+					<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content modal-review"
+								style="border: 3px solid #DFA01E !important;">
+								<div class="modal-header"
+									style="background-color: #113351; color: #fff; border-bottom: 3px solid #DFA01E;">
+									<h4 class="modal-title" id="myModalLabel">닉네임 변경</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="d-flex flex-row">
+										<span class="align-middle" style="margin-right: 1rem;">변경할 닉네임</span>
+									</div>
+			
+									<div class="form-group mt-3 row">
+										<input type="text" class="form-control col-5 mx-3">
+										<input type="button" class="col-2 btn btn-poka-light" value="중복확인">
+									</div>
+								</div>
+			
+								<div class="modal-footer"
+									style="background-color: #113351; color: #fff; border-top: 3px solid #DFA01E;">
+									<button type="button" class="btn btn-poka-warning">취소</button>
+									<button type="button" class="btn btn-poka-green">확인</button>
+									
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">비밀번호</label>
 					<div class="col-sm-4">
-						<input type="button" class="form-control btn-poka-light" value="비밀번호변경">
+						<input type="button" class="form-control btn-poka-light" id="pwChg" value="비밀번호변경">
+					<!-- 비밀번호 변경 Modal -->
+					<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content modal-review"
+								style="border: 3px solid #DFA01E !important;">
+								<div class="modal-header"
+									style="background-color: #113351; color: #fff; border-bottom: 3px solid #DFA01E;">
+									<h4 class="modal-title" id="myModalLabel">비밀번호 변경</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="review-form d-flex flex-row">
+										<span class="align-middle" style="margin-right: 1rem;">기존비밀번호</span>
+									</div>
+			
+									<div class="form-group mt-3">
+										<input type="text" class="form-control" placeholder="기존비밀번호">
+									</div>
+									<div class="review-form d-flex flex-row">
+										<span class="align-middle" style="margin-right: 1rem;">변경할 비밀번호</span>
+									</div>
+			
+									<div class="form-group mt-3">
+										<input type="text" class="form-control" placeholder="변경할 비밀번호">
+									</div>
+									<div class="review-form d-flex flex-row">
+										<span class="align-middle" style="margin-right: 1rem;">비밀번호 확인</span>
+									</div>
+			
+									<div class="form-group mt-3">
+										<input type="text" class="form-control" placeholder="비밀번호 확인">
+									</div>
+								</div>
+			
+								<div class="modal-footer"
+									style="background-color: #113351; color: #fff; border-top: 3px solid #DFA01E;">
+									<button id="modReview" type="button" class="btn btn-poka-warning">취소</button>
+									<button id="regReview" type="button" class="btn btn-poka-green">확인</button>
+									
+								</div>
+							</div>
+						</div>
+					</div>
 					</div>
 				</div>
 				
@@ -79,6 +156,43 @@
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">     
 					</div>
 				</div>
-			</form>
 		</div>
+<script>
+var modal1 = $('#myModal1');
+var modal2 = $('#myModal2');
+//닉네임 변경 버튼 클릭 이벤트 처리
+$('#nikChg').on('click', function(e) {
+
+	
+// 	$.ajax({
+// 		type:"GET",
+// 		url:"/user/emailChk/" + email,
+// 		success:function(data){
+// 			 console.log("data : " + data);
+//         }
+		
+// 	});
+	modal1.modal('show');
+	
+	
+});//END 닉네임 변경 버튼 클릭 이벤트 처리
+
+//비밀번호 변경 버튼 클릭 이벤트 처리
+$('#pwChg').on('click', function(e) {
+
+	
+// 	$.ajax({
+// 		type:"GET",
+// 		url:"/user/emailChk/" + email,
+// 		success:function(data){
+// 			 console.log("data : " + data);
+//         }
+		
+// 	});
+	modal2.modal('show');
+	
+	
+});//END 비밀번호 변경 버튼 클릭 이벤트 처리
+</script>		
+		
 <%@ include file="../include/footer.jsp" %>

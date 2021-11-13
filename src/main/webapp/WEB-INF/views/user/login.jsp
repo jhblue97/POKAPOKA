@@ -18,11 +18,10 @@
 						<input class="form-control" placeholder="비밀번호"
 							name="password" type="password">
 					</div>
-					<div class="checkbox">
-						<label> <input name="remember-me" type="checkbox"
-							value="Remember Me"> 자동로그인
-						</label>
-					</div>
+					
+					<!-- 접속여부 확인 -->
+					 <input name="remember-me" type="hidden" value="Remember Me">
+					
 					<input type="submit" class="btn btn-lg btn-success btn-block" value="login">
 				</fieldset>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

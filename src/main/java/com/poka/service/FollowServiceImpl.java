@@ -18,26 +18,18 @@ public class FollowServiceImpl implements FollowService {
 	private FollowMapper followMapper;
 	
 	@Override
-	public void add(FollowVO follow) {
-		followMapper.insert(follow);
-		
+	public int add(FollowVO follow) {
+		return followMapper.insert(follow);
 	}
 
 	@Override
-	public boolean delete(String fno) {
-		return followMapper.delete(fno) == 1 ? true : false;
+	public int delete(String fno) {
+		return followMapper.delete(fno);
 	}
 
 	@Override
 	public List<FollowVO> followList(String userid) {
-//		System.out.println("test"+userid);
 		
-		List<FollowVO>  test = followMapper.getfollowList(userid);
-//		System.out.println("size :: "+test.size());
-//		for (FollowVO followVO : test) {
-//			System.out.println("followVO"+followVO.getFollow());
-//		}
-//		
 		return followMapper.getfollowList(userid);
 	}
 
@@ -47,9 +39,9 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public boolean followchk(FollowVO follow) {
+	public int followchk(FollowVO follow) {
 		
-		return followMapper.followchk(follow) == 1 ? true : false;
+		return followMapper.followchk(follow);
 	}
 
 }

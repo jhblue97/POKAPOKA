@@ -22,11 +22,11 @@
 					<label class="col-sm-2">아이디</label>
 					<div class="col-sm-4">
 						<input type="text" name="user_id" id="user_id" class="form-control"
-							required>
+							required oninput="chkId(this.value)" />
 					</div>
 					<div class="col-sm-3">
-						<span class="id_input_re_1" style="color: gray;">사용 가능한 아이디입니다.</span>
-						<span class="id_input_re_2" style="color: gray;">아이디가 이미 존재합니다.</span>
+						<span class="id_ok">사용 가능</span>
+						<span class="id_already">사용 불가</span>
 					</div>
 				</div>
 				
@@ -34,11 +34,13 @@
 					<label class="col-sm-2">닉네임</label>
 					<div class="col-sm-4">
 						<input type="text" name="nickname" id="nickname"
-							class="form-control" required>
+							class="form-control" required oninput="chkNik(this.value)">
 					</div>
 					<div class="col-sm-3">
-						<span style="color: gray;">중복불가</span>
+						<span class="nik_ok">사용 가능</span>
+						<span class="nik_already">사용 불가</span>
 					</div>
+					
 				</div>
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">비밀번호</label>
@@ -51,10 +53,11 @@
 				<div class="form-group row mt-4">
 					<label class="col-sm-2">비밀번호확인</label>
 					<div class="col-sm-4">
-						<input type="password" class="form-control" required>
+						<input type="password" class="form-control" id="user_pw_re" required oninput="chkPw()">
 					</div>
 					<div class="col-sm-3">
-						<span style="color: gray;">비밀번호가 일치하지 않습니다.</span>
+						<span class="pw_ok">일치</span>
+						<span class="pw_no">불일치</span>
 					</div>
 				</div>
 	
@@ -102,7 +105,63 @@
 					</div>
 				</div>
 			</form>
+			
+			<!-- modal test 버튼 -->
+			<span id="emailAuth" class="btn btn-poka-main"> 이메일 인증</span>
+		<!-- 이메일 인증 Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content modal-review"
+					style="border: 3px solid #DFA01E !important;">
+					<div class="modal-header"
+						style="background-color: #113351; color: #fff; border-bottom: 3px solid #DFA01E;">
+						<h4 class="modal-title" id="myModalLabel">이메일 본인인증</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="review-form d-flex flex-row">
+							<span class="align-middle" style="margin-right: 1rem;">등록된 이메일로 인증코드를 전송했습니다.</span>
+						</div>
+
+						<div class="form-group mt-3">
+							<input type="text" class="form-control" placeholder="인증코드 6자리 입력">
+						</div>
+					</div>
+
+					<div class="modal-footer"
+						style="background-color: #113351; color: #fff; border-top: 3px solid #DFA01E;">
+						<button type="button" class="btn btn-poka-warning">이메일 재전송</button>
+						<button type="button" class="btn btn-poka-green">확인</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+			
 		</div>
 <script type="text/javascript" src="/resources/js/signIn.js"></script>
+<script>
+var modal = $('.modal');
+//이메일 인증 버튼 클릭 이벤트 처리
+$('#emailAuth').on('click', function(e) {
+
+	var email = $('#mail1').val() + '@' + $('#mail2').val();
+	console.log("email : " + email);
+	
+	$.ajax({
+		type:"GET",
+		url:"/user/emailChk/" + email,
+		success:function(data){
+			 console.log("data : " + data);
+        }
+		
+	});
+	modal.modal('show');
+	
+	
+});//END 이메일 인증 버튼 클릭 이벤트 처리
+</script>
 
 <%@ include file="../include/footer.jsp" %>
