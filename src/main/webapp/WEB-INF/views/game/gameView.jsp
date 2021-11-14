@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>${game.gameNm }-ぽかぽかゲーム</title>
 </head>
-<body>
+<body style="width: 940px; background-color: #D8E9E7; margin: 0 auto;">
 	<div
 		class="game-trailer d-flex justify-content-center embed-responsive-16by9">
 		<c:choose>
@@ -19,7 +19,7 @@
 					allowfullscreen></iframe>
 			</c:when>
 			<c:otherwise>
-				<iframe id="no-vid" src="#" frameborder="0" allow="autoplay"></iframe>
+				<img id="no-vid" src="${game.game_img }" style="width: 620px">
 			</c:otherwise>
 		</c:choose>
 	</div>
@@ -27,8 +27,9 @@
 		<div class="game-info">
 			<div class="game-title">${game.gameNm }</div>
 			<div class="game-regdate">
-				リリース :
-				<fmt:formatDate value="${game.regDate }" pattern="yyyy/MM/dd" />
+				リリース : ${game.regDate }
+				<!-- Date 타입일 경우에는 아래로 받아올 것 -->
+				<%-- <fmt:formatDate value="${game.regDate }" pattern="yyyy/MM/dd" /> --%>
 			</div>
 			<div class="game-company">開発社 : ${game.game_company }</div>
 			<!-- 태그 연동할 때 가져올 것 -->
@@ -39,14 +40,16 @@
 					<div class="score-box d-flex flex-row">
 						<p class="score-text">${game.avg_score }&nbsp;</p>
 						<div class="rating">
-							<c:forEach var="i" begin="0" end="${game.avg_score - 1 }">
-								<label class="full"><input type="radio" value="${i }"
-									checked style="display: none;" /> </label>
-							</c:forEach>
-							<c:if test="${(game.avg_score mod 1) < 1 }">
-								<label class="half"> <input type="radio" id="star4half"
-									checked style="display: none;" />
-								</label>
+							<c:if test="${game.avg_score > 0 }">
+								<c:forEach var="i" begin="0" end="${game.avg_score - 1 }">
+									<label class="full"><input type="radio" value="${i }"
+										checked style="display: none;" /> </label>
+								</c:forEach>
+								<c:if test="${(game.avg_score mod 1) < 1 }">
+									<label class="half"> <input type="radio" id="star4half"
+										checked style="display: none;" />
+									</label>
+								</c:if>
 							</c:if>
 						</div>
 					</div>

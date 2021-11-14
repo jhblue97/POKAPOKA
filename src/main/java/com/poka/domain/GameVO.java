@@ -3,6 +3,8 @@ package com.poka.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -20,7 +22,8 @@ public class GameVO {
 	private String game_age;
 	private String game_url;
 	// https://store.steampowered.com/app/ + {gameId}
-	private Date regDate;
+	//@JsonFormat(pattern = "yyyy-MM-dd")
+	private String regDate;
 	private Date updateDate;
 	private List<GametagVO> tagVoList;
 }

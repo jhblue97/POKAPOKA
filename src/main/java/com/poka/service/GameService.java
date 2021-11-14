@@ -13,4 +13,5 @@ public interface GameService {
 	public GameVO get(String gno);
 
 	// 게임 목록 업데이트는 Task에서 주기적으로 실행 해 줄 것.
+	public void registerList(GameVO vo);
 }
