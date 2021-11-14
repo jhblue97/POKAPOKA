@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -73,22 +74,35 @@ public class GameController {
 		// URL url2; // 앱 디테일 URL
 
 		try {
+			// 스팀 API에서 가져올 경우
 			url = new URL("https://api.steampowered.com/ISteamApps/GetAppList/v2/");
+			// 스팀 스파이 통해서 랭킹만 가져올 경우
+			URL url_ = new URL("https://steamspy.com/api.php?request=top100in2weeks");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			HttpURLConnection conn_ = (HttpURLConnection) url_.openConnection();
 
 			conn.setRequestProperty("Content-Type", "application/json");
 			conn.setRequestMethod("GET");
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			BufferedReader in_ = new BufferedReader(new InputStreamReader(conn_.getInputStream()));
 
 			// URL 내용 읽어오기
 			String jsonText = readAll(in);
 			// String to JSON
 			JSONObject json = new JSONObject(jsonText);
+			//System.out.println(json);
+
+			// 스팀 API 에서 가져올 경우
 			// appList 안의 apps를 가져옴
 			JSONObject json2 = (JSONObject) json.get("applist");
 			// apps 안의 데이터들을 배열로 끊어줌
 			JSONArray jsonArr = (JSONArray) json2.get("apps");
+
+			// 스팀 스파이 통해서 가져올 경우
+//			JSONParser parser = new JSONParser(in_);
+//			JSONObject jsonObj = (JSONObject) parser.parse(in_);
+//			System.out.println(jsonObj);
 
 			System.out.println("jsonArr.size :: " + jsonArr.length());
 
@@ -230,7 +244,7 @@ public class GameController {
 					} else {
 						System.out.println("---");
 						try {
-							Thread.sleep(1000); // 1초 대기
+							Thread.sleep(300); // 1초 대기
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -248,7 +262,7 @@ public class GameController {
 		// System.out.println(list);
 
 		System.out.println("Load Ended");
-		return "/game/main";
+		return "redirect:/game/main";
 		// return "/game/main2";
 
 	}
