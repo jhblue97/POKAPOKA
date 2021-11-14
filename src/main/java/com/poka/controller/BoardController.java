@@ -162,11 +162,4 @@ public class BoardController {
 		return "/board/boardList";
 	}
 	
-	//신고하기
-	@GetMapping("/report")
-	public ResponseEntity<String> reportAdd(@RequestBody BoardVO vo, @RequestParam("userid") String userid) {
-		
-		return null;
-	}
-	
 }

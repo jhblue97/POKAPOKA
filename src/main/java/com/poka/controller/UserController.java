@@ -163,19 +163,19 @@ public class UserController {
 		  "인증번호는 " + checkNum + "입니다.<br>" + 
 				  "이메일 인증란에 인증번호를 입력해주세요.";
 		  
-//		  try {
-//	            
-//	            MimeMessage message = mailSender.createMimeMessage();
-//	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-//	            helper.setFrom(setFrom);
-//	            helper.setTo(toMail);
-//	            helper.setSubject(title);
-//	            helper.setText(content,true);
-//	            mailSender.send(message);
-//	            
-//	        }catch(Exception e) {
-//	            e.printStackTrace();
-//	        }
+		  try {
+	            
+	            MimeMessage message = mailSender.createMimeMessage();
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	            helper.setFrom(setFrom);
+	            helper.setTo(toMail);
+	            helper.setSubject(title);
+	            helper.setText(content,true);
+	            mailSender.send(message);
+	            
+	        }catch(Exception e) {
+	            e.printStackTrace();
+	        }
 		  
 		  String num = Integer.toString(checkNum);
 		  
@@ -191,25 +191,23 @@ public class UserController {
 		return "/user/userUpdate";
 	}
 	
-	//회원정보 수정
-	@PostMapping("/modify")
-	public String modify(UserVO user) {
-		
-		return "redirect:/user/get";
-	}
 	
 	//비밀번호 변경
-	@PostMapping("/chg/pw")
-	public ResponseEntity<String> chgPw(@RequestBody UserVO vo) {
-		
-		return null;
+	@GetMapping("/chgPw/{userid}")
+	public ResponseEntity<String> chgPw(@PathVariable("userid") String userid, @RequestBody UserVO user) {
+		user.setUser_id(userid);
+		return userService.pwchg(user) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//닉네임 변경
-	@PostMapping("/chg/nick")
-	public ResponseEntity<String> chgNink(@RequestBody UserVO vo) {
-		
-		return null;
+	@GetMapping("/chgNick/{userid}")
+	public ResponseEntity<String> chgNick(@PathVariable("userid") String userid, @RequestBody UserVO user) {
+		user.setUser_id(userid);
+		return userService.nickchg(user) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

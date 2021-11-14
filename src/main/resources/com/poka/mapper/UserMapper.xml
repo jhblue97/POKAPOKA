@@ -53,8 +53,6 @@
     	select count(nickname) from p_member where nickname = #{nickname}
     </select>
     
-    <select id="emailchk" resultType="boolean"></select>
-    
     <update id="pwchg">
     	update p_member
     	set user_pw = #{user_pw}

@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class BoardVO {
 	private List<BoardAttachVO>	attachList;	//첨부파일 목록
+	private UserVO   user; //유저정보 
 	private String   bno;
 	private String title;
 	private String content;

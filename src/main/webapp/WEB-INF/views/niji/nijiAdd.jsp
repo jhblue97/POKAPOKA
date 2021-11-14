@@ -330,7 +330,7 @@ body {
 					</div>
 					
 					
-						<input name="writer" class="form-control" 
+						<input type = "hidden" name="writer" class="form-control" 
 	                    		       value='<sec:authentication property="principal.username"/>'
 	                    		       readonly> 
 	                    		       
@@ -405,10 +405,7 @@ body {
 						<label><input type="radio" name="category" value="B"> 購買</label>					
 					</div>
 				
-				
-						<input name="writer" class="form-control" 
-	                    		       value='<sec:authentication property="principal.username"/>'
-	                    		       readonly> 
+						<input type = "hidden" name="writer" class="form-control"  value='<sec:authentication property="principal.username"/>' readonly> 
 				<div class="form-group row ">
 					<label class="col-sm-2">タイトル</label>
 					<div class="col-sm-4">

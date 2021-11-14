@@ -50,18 +50,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int emailchk(UserVO user) {
-		return userMapper.emailchk(user);
+	public int pwchg(UserVO user) {
+		return  userMapper.pwchg(user);
 	}
 
 	@Override
-	public void pwchg(UserVO user) {
-		userMapper.pwchg(user);
-	}
-
-	@Override
-	public void nickchg(UserVO user) {
-		userMapper.nickchg(user);
+	public int nickchg(UserVO user) {
+		 return userMapper.nickchg(user);
 	}
 
 }
