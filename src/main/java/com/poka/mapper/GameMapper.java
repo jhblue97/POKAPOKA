@@ -10,4 +10,6 @@ public interface GameMapper {
 
 	public GameVO read(String gno);
 
+	public void insertGame(GameVO vo);
+
 }

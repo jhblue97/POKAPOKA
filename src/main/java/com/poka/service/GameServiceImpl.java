@@ -19,14 +19,21 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public List<GameVO> getList(Criteria cri) {
-		log.info("");
+		log.info("getList");
 		return gMapper.getList();
 	}
 
 	@Override
 	public GameVO get(String gno) {
-		log.info("");
+		log.info("get" + gno);
 		return gMapper.read(gno);
+	}
+
+	@Override
+	public void registerList(GameVO vo) {
+		log.info("Regster Game");
+		gMapper.insertGame(vo);
+
 	}
 
 }

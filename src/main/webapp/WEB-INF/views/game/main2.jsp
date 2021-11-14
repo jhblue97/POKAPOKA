@@ -39,21 +39,16 @@
 				</span>
 			</c:if>
 		</div>
-		<div class="d-flex game-list justify-content-between"
-			style="width: 100%">
-			<div class="row" style="margin: 0 auto;">
-				<c:forEach items="${list }" var="game">
-					<div class="card game-item col-sm-2" style="width: 8rem; margin: 0.5rem"
-						id="${game.gno }">
-						<img class="card-img-top" src="${game.game_img }">
-						<div class="card-body">
-							<p id="gameNm" class="card-text"
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${game.gameNm }</p>
-							<p id="game_price" class="card-text">${game.game_price }</p>
-						</div>
+		<div class="d-flex game-list justify-content-between">
+			<c:forEach items="${list }" var="game">
+				<div class="card game-item" style="width: 8rem;" id="${game.gno }">
+					<img class="card-img-top" src="${game.game_img }">
+					<div class="card-body">
+						<p id="gameNm" class="card-text">${game.gameNm }</p>
+						<%-- <p id="game_price" class="card-text">${game.game_price }</p> --%>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<!-- 페이지 전송 시 사용할 전송 폼 -->

@@ -6,11 +6,21 @@
 <mapper namespace="com.poka.mapper.GameMapper">
 	<!-- 게임 목록 가져오기 -->
 	<select id="getList" resultType="com.poka.domain.GameVO">
-		SELECT * FROM P_GAME
+		SELECT * FROM P_GAME ORDER BY gameNm ASC
 	</select>
 
 	<!-- 단일 게임 가져오기 -->
 	<select id="read" resultType="com.poka.domain.GameVO">
-		SELECT * FROM P_GAME WHERE gno = #{gno}
+		SELECT * FROM P_GAME WHERE gno =
+		#{gno}
 	</select>
+
+	<!-- 게임 등록 -->
+	<insert id="insertGame">
+		INSERT INTO p_game(gno, gameid, game_img, gameNm,
+		game_price, game_des, game_company, game_age, game_url, regDate )
+		VALUES('G'||seq_game.NEXTVAL, #{gameId}, #{game_img}, #{gameNm},
+		#{game_price}, #{game_des}, #{game_company}, #{game_age}, #{game_url},
+		#{regDate} )
+	</insert>
 </mapper>
