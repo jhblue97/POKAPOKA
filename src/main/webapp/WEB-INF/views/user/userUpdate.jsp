@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>    
+<style>
+ .nik_ok {
+	color : green;
+	display : none; 
+}
+ .nik_already{
+	color : red;
+	display : none;
+}
+</style>
 <div class="jumbotron">
 	<div class="container">
 		<h1 class="display-5">
@@ -34,7 +44,7 @@
 						<input type="text" name="nickname" id="nickname"
 							class="form-control" value="${user.nickname }" readonly>
 					</div>
-					<input type="button" class="form-control col-sm-2 btn btn-poka-light" id="nikChg" value="닉네임 변경">
+					<input type="button" class="form-control col-sm-2 btn btn-poka-light" value="닉네임 변경" id="chgNickBtn">
 					
 					<!-- 닉네임 변경 Modal -->
 					<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
@@ -45,7 +55,7 @@
 								<div class="modal-header"
 									style="background-color: #113351; color: #fff; border-bottom: 3px solid #DFA01E;">
 									<h4 class="modal-title" id="myModalLabel">닉네임 변경</h4>
-									<button type="button" class="close" data-dismiss="modal"
+									<button type="button" class="close" data-dismiss="modal" 
 										aria-hidden="true">&times;</button>
 								</div>
 								<div class="modal-body">
@@ -54,15 +64,18 @@
 									</div>
 			
 									<div class="form-group mt-3 row">
-										<input type="text" class="form-control col-5 mx-3">
-										<input type="button" class="col-2 btn btn-poka-light" value="중복확인">
+										<input type="text" class="form-control col-5 mx-3" oninput="chkNik(this.value)">
+										<div class="col-sm-3">
+											<span class="nik_ok">사용 가능</span>
+											<span class="nik_already">사용 불가</span>
+										</div>
 									</div>
 								</div>
 			
 								<div class="modal-footer"
 									style="background-color: #113351; color: #fff; border-top: 3px solid #DFA01E;">
 									<button type="button" class="btn btn-poka-warning">취소</button>
-									<button type="button" class="btn btn-poka-green">확인</button>
+									<button type="button" class="btn btn-poka-green" onclick="chgNewNick()">확인</button>
 									
 								</div>
 							</div>
@@ -160,22 +173,65 @@
 <script>
 var modal1 = $('#myModal1');
 var modal2 = $('#myModal2');
-//닉네임 변경 버튼 클릭 이벤트 처리
-$('#nikChg').on('click', function(e) {
 
+//닉네임 중복검사
+function chkNik(nickname, callback, error){
 	
-// 	$.ajax({
-// 		type:"GET",
-// 		url:"/user/emailChk/" + email,
-// 		success:function(data){
-// 			 console.log("data : " + data);
-//         }
-		
-// 	});
+	//사용가능한 아이디
+	$('.nik_ok').css("display", "inline-block");
+	$('.nik_already').css("display", "none");
+	
+	if($("#nickname").val() == ""){
+		$('.nik_ok').css("display", "none");
+		$('.nik_already').css("display", "none");
+	}
+	$.get("/user/chkNick/" + nickname,
+		function(result){
+			if(result == "success") {	//사용불가, 중복값있음
+				$('.nik_already').css("display", "inline-block");
+				$('.nik_ok').css("display", "none");
+			}
+		}
+			).fail(function(xhr, status, er){
+				if(error){
+					error(er);
+					alert('에러발생');
+				}
+			});
+}
+
+var user = '<sec:authentication property="principal.user"/>';
+
+//닉네임 변경 버튼 클릭 이벤트 처리
+$('#chgNickBtn').on('click', function(e) {
 	modal1.modal('show');
-	
+	chgNewNick(
+			{ userid : ${user.user_id},
+			  nickname : ${user.nickname}},
+			  function(result){
+				 alert("변경완료"); 
+			  });
 	
 });//END 닉네임 변경 버튼 클릭 이벤트 처리
+
+function chgNewNick(userid, nickname, callback, error ){
+	$.ajax({
+		type : 'GET',
+		url : '/user/chgNick/' + userid,
+		data : JSON.stringfy(user),
+		contentType : 'application/json; charset=UTF-8',
+		success : function(result, status, xhr){
+			if(callback){
+				callback(result);
+			}
+		},
+		error : function(xhr, status, er){
+			if(error){
+				error(er);
+			}
+		}
+	});
+}
 
 //비밀번호 변경 버튼 클릭 이벤트 처리
 $('#pwChg').on('click', function(e) {
