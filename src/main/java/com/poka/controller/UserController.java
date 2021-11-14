@@ -194,18 +194,18 @@ public class UserController {
 	
 	//비밀번호 변경
 	@GetMapping("/chgPw/{userid}")
-	public ResponseEntity<String> chgPw(@PathVariable("userid") String userid, @RequestBody UserVO vo) {
-		vo.setUser_id(userid);
-		return userService.pwchg(vo) == 1
+	public ResponseEntity<String> chgPw(@PathVariable("userid") String userid, @RequestBody UserVO user) {
+		user.setUser_id(userid);
+		return userService.pwchg(user) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//닉네임 변경
 	@GetMapping("/chgNick/{userid}")
-	public ResponseEntity<String> chgNick(@PathVariable("userid") String userid, @RequestBody UserVO vo) {
-		vo.setUser_id(userid);
-		return userService.nickchg(vo) == 1
+	public ResponseEntity<String> chgNick(@PathVariable("userid") String userid, @RequestBody UserVO user) {
+		user.setUser_id(userid);
+		return userService.nickchg(user) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

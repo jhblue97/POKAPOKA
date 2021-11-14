@@ -214,10 +214,10 @@ $('#chgNickBtn').on('click', function(e) {
 	
 });//END 닉네임 변경 버튼 클릭 이벤트 처리
 
-function chgNewNick(userid, nickname, callback, error ){
+function chgNewNick(user, callback, error ){
 	$.ajax({
 		type : 'GET',
-		url : '/user/chgNick/' + userid,
+		url : '/user/chgNick/' + user.user_id,
 		data : JSON.stringfy(user),
 		contentType : 'application/json; charset=UTF-8',
 		success : function(result, status, xhr){
