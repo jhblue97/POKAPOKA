@@ -59,20 +59,19 @@ public class FollowController {
 			 produces= { MediaType.TEXT_PLAIN_VALUE })
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> add(@RequestBody FollowVO vo) {
-		
 		return followService.add(vo) == 1 
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//팔로우 체크
-	@RequestMapping(method = RequestMethod.GET, value = "/chkFollow/{follow}")
+	@GetMapping("/chkFollow/{follow}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> chkFollow(@PathVariable("follow") String follow) {
+	public ResponseEntity<String> chkFollow(@PathVariable("follow") String follow) throws Exception{
 
 		return followService.followchk(follow) == 1
-				? new ResponseEntity<>("success", HttpStatus.OK)
-						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				? new ResponseEntity<>("already", HttpStatus.OK)
+				: new ResponseEntity<>("no", HttpStatus.OK);
 	}
 	
 }

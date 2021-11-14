@@ -9,6 +9,6 @@ public interface UserMapper {
 	public int idchk(String user_id);	//아이디 체크
 	public int nickchk(String nickname);	//닉네임 체크
 	public int emailchk(UserVO vo);	//이메일 체크
-	public void pwchg(UserVO vo);	//비밀번호 변경
-	public void nickchg(UserVO vo);	//닉네임 변경
+	public int pwchg(UserVO vo);	//비밀번호 변경
+	public int nickchg(UserVO vo);	//닉네임 변경
 }

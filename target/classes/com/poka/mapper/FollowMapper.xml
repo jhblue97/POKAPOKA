@@ -4,17 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.poka.mapper.FollowMapper">
-<!-- 	 <resultMap type="com.poka.domain.FollowVO" id="userMap">
-		<result property="user_id" column="user_id"/>
-		<result property="nickname" column="nickname"/>
-		<result property="img" column="img"/>
-		<result property="lastlogin" column="lastlogin"/>
-	</resultMap> -->
-	
-<!-- 	<resultMap type="com.poka.domain.FollowVO" id="followMap"> -->
-<!-- 		<result property="follow_userid" column="follow_userid"/> -->
-<!-- 		<result property="follower_userid" column="follower_userid"/> -->
-<!--  	</resultMap> -->
 	
 	<insert id="insert">
 		insert into p_follow(fno, follow_userid, follower_userid, regDate)

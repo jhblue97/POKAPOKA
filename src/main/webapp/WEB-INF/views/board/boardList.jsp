@@ -29,7 +29,7 @@
 				<tr class="move">
 					<td scope="row">${board.bno }</td>
 					<td>${board.title }</td>
-					<td>등급</td>
+					<td><img src = "/resources/images/${board.user.grade.grade_img}" style="width:20px; height:20px;"></td>
 					<td>${board.writer }</td>
 					<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd"/></td>
 				</tr>

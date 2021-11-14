@@ -7,6 +7,7 @@
 
 	<resultMap type="com.poka.domain.BoardVO" id="boardMap">
 		<result property="bno" 		column="bno"/>
+		<result property="user.grade.grade_img" column="grade_img"/>
 		<result property="title" 		column="title"/>
 		<result property="content" 	column="content"/>
 		<result property="writer" 		column="writer"/>
@@ -26,10 +27,14 @@
 	        resultMap="boardMap"> 
 	<![CDATA[  
         SELECT *  
-        FROM   ( SELECT /*+INDEX_DESC(p_board pk_board) */
-        				rownum rn, bno, title, content, writer,  
-        				regDate, updateDate, nvl((select distinct status from p_report where bno  = a.bno),0) as reportstatus
-        		 FROM   p_board a
+        FROM   ( SELECT 
+        				rownum rn, g.grade_img, b.bno, b.title, b.content, b.writer,  
+        				b.regDate, b.updateDate, nvl((select distinct status from p_report where bno  = b.bno),0) as reportstatus
+        		 FROM   p_board b
+        		 LEFT OUTER JOIN p_member m
+        		 ON b.writer = m.user_id
+        		 LEFT OUTER JOIN p_grade g
+        		 ON m.gradecode = g.grade_code
         		 WHERE	rownum <= (#{pageNum} * #{amount}))
         WHERE  rn > (#{pageNum} - 1) * #{amount}
         ORDER BY bno DESC
