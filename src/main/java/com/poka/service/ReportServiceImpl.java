@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.poka.domain.BoardVO;
 import com.poka.domain.Criteria;
+import com.poka.domain.GradeVO;
 import com.poka.domain.NijiVO;
 import com.poka.domain.ReportVO;
 import com.poka.mapper.PayMapper;
@@ -35,6 +36,13 @@ public class ReportServiceImpl implements ReportService {
 		return reportMapper.getListWithPaging(cri);
 	}
 
+	@Override
+	public List<ReportVO> getList2(String bno) {
+		// TODO Auto-generated method stub
+		
+		return reportMapper.getListWithPaging2(bno);
+	} 
+	
 	@Override
 	public void process(String bno) {
 		// TODO Auto-generated method stub

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.poka.domain.Criteria;
+import com.poka.domain.GradeVO;
 import com.poka.domain.ReportVO;
 
 public interface ReportMapper {
@@ -13,6 +14,8 @@ public interface ReportMapper {
 	
 	//전체 게시물 목록 반환 - 페이징 처리
 	public List<ReportVO> getListWithPaging(Criteria cri);
+	//한 게시물 상세 신고자 목록 조회
+	public List<ReportVO> getListWithPaging2(String bno);
 	
 	//전체 게시물 목록 반환
 	public List<ReportVO> getList();

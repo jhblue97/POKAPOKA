@@ -1,5 +1,7 @@
 package com.poka.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poka.domain.Criteria;
 import com.poka.domain.PageDTO;
+import com.poka.domain.ReportVO;
 import com.poka.service.ReportService;
 
 import lombok.AllArgsConstructor;
@@ -45,6 +49,16 @@ public class ReportController {
 			 reportService.process(bno);
 			return "redirect:/report/list";
 		}
+		
+
+		//신고 처리
+		@GetMapping( value="/list/{bno}")
+		public ResponseEntity<List<ReportVO>> list2(@PathVariable("bno") String bno) {	
+			
+			log.info("process....()");			
+			return new ResponseEntity<List<ReportVO>>(reportService.getList2(bno), HttpStatus.OK);
+		}
+		
 		
 	
 		//신고 처리

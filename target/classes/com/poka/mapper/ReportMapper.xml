@@ -15,15 +15,25 @@
 		<![CDATA[
 		 SELECT * 
         FROM   ( SELECT /*+INDEX_DESC(p_board pk_board) */
-        				rownum rn, report_no,active_userid,passive_userid,bno,category,regdate,status
+                        rownum rn,b.* from ( select DISTINCT bno,category,status
         		 FROM   p_report
-        		 WHERE	rownum <= (#{pageNum} * #{amount}))
+        		 WHERE	rownum <= #{pageNum} * #{amount}) b )
         WHERE  rn > (#{pageNum} - 1) * #{amount}
         ORDER BY bno DESC
 		 ]]>
-		
+		 
     </select>
    
+      
+    <select id="getListWithPaging2" resultType = "com.poka.domain.ReportVO" >
+		
+		<![CDATA[
+				select   REPORT_NO,ACTIVE_USERID,PASSIVE_USERID,BNO,CATEGORY,REGDATE,STATUS
+        		 FROM   p_report where bno = #{bno}
+		 ]]>
+		 
+    </select>
+    
     
     <select id="read" resultType="com.poka.domain.ReportVO">
     	
